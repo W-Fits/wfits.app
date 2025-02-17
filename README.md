@@ -4,7 +4,7 @@ Your AI powered outfit planner and virtual wardrobe.
 
 ## Documentation
 
-Visit [link](https://link-to-docs.com) to view the documentation online.
+Visit this [link](https://link-to-docs.com) to view the documentation online.
 
 ## Contributing
 
