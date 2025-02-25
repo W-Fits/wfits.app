@@ -5,6 +5,7 @@ set -a
 source .env
 set +a
 
+
 # Ensure Docker and Docker Compose are installed
 if ! command -v docker &> /dev/null; then
   echo "Docker is not installed. Install it and try again."
@@ -29,9 +30,6 @@ done
 
 echo "PostgreSQL is ready."
 
-# Choose ONE migration method:
-
-# Option 1: Apply latest migration file directly
 LATEST_MIGRATION=$(ls -v migrations/*.sql | tail -n 1)
 if [ -n "$LATEST_MIGRATION" ]; then
   echo "Applying latest migration: $LATEST_MIGRATION"
@@ -42,3 +40,5 @@ else
 fi
 
 echo "Setup complete!"
+
+read -p "Press any key to exit..."
