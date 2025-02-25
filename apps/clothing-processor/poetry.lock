@@ -3938,6 +3938,19 @@ test = ["build[virtualenv] (>=1.0.3)", "filelock (>=3.4.0)", "ini2toml[lite] (>=
 type = ["importlib_metadata (>=7.0.2)", "jaraco.develop (>=7.21)", "mypy (==1.14.*)", "pytest-mypy"]
 
 [[package]]
+name = "shared-utils"
+version = "0.1.0"
+description = "Shared utility functions."
+optional = false
+python-versions = "^3.11"
+files = []
+develop = true
+
+[package.source]
+type = "directory"
+url = "../../packages/shared"
+
+[[package]]
 name = "shellingham"
 version = "1.5.4"
 description = "Tool to Detect Surrounding Shell"
@@ -5152,4 +5165,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
-content-hash = "300215cf02b67c2e962dc172478ae02db963c1e33ef43c3b701adc7785f5551c"
+content-hash = "13de7a2103bb29ee6fd7831e076eed79e1a3992b0a5c2a290530b3ceb7750f88"

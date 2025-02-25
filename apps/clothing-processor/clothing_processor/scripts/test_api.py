@@ -1,7 +1,7 @@
 import requests
 import random
 import json
-from clothing_processor.utils.env import get_env
+from shared_utils.env import get_env
 
 env = get_env()
 TOKEN_URL = f"https://{env['AUTH0_DOMAIN']}/oauth/token"

@@ -1,6 +1,6 @@
 import json
 import subprocess
-from clothing_processor.utils.env import get_env
+from shared_utils.env import get_env
 
 LAMBDA_NAME = "clothing-processor"
 

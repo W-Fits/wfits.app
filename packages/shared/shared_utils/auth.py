@@ -3,7 +3,7 @@ from fastapi.security import HTTPBearer
 import jwt
 import http.client
 import json
-from clothing_processor.utils.env import get_env 
+from shared_utils.env import get_env 
 
 # Security scheme for extracting tokens
 security = HTTPBearer()

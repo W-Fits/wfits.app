@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 from clothing_processor.utils.image import to_image_array, remove_background, preprocess_image, get_colour
 from clothing_processor.utils.files import get_image
 from clothing_processor.utils.predictions import load_model, predict_class
-from clothing_processor.utils.auth import auth0_auth_middleware
+from shared_utils.auth import auth0_auth_middleware
 from clothing_processor.utils.s3 import s3_upload
 # from mangum import Mangum
 
