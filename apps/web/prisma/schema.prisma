@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model catagory_tag {
+  catagory_id   Int    @id @default(autoincrement())
+  catagory_name String @unique @db.VarChar(35)
+  item          item[]
+}
+
+model colour_tag {
+  colour_id    Int    @id @default(autoincrement())
+  colour_name  String @unique @db.VarChar(35)
+  colour_value String @unique @db.Char(7)
+  item         item[]
+}
+
+model item {
+  item_id      Int             @id @default(autoincrement())
+  colour_id    Int
+  catagory_id  Int
+  size_id      Int
+  item_name    String          @db.VarChar(50)
+  item_url     String
+  waterproof   Boolean?
+  avalable     Boolean?
+  slot         Int
+  enviroment   enviroment_num?
+  catagory_tag catagory_tag    @relation(fields: [catagory_id], references: [catagory_id], onDelete: NoAction, onUpdate: NoAction)
+  colour_tag   colour_tag      @relation(fields: [colour_id], references: [colour_id], onDelete: NoAction, onUpdate: NoAction)
+  size_tag     size_tag        @relation(fields: [size_id], references: [size_id], onDelete: NoAction, onUpdate: NoAction)
+  outfit_item  outfit_item[]   @ignore
+}
+
+model language {
+  language_id   Int     @id @default(autoincrement())
+  language_name String? @db.VarChar(30)
+  user          user[]
+}
+
+model outfit {
+  outfit_id   Int           @id @default(autoincrement())
+  user_id     Int
+  createdat   DateTime      @db.Date
+  user        user          @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  outfit_item outfit_item[] @ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model outfit_item {
+  outfit_id Int
+  item_id   Int
+  item      item   @relation(fields: [item_id], references: [item_id], onDelete: NoAction, onUpdate: NoAction)
+  outfit    outfit @relation(fields: [outfit_id], references: [outfit_id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@ignore
+}
+
+model size_tag {
+  size_id   Int    @id @default(autoincrement())
+  size_name String @unique @db.VarChar(35)
+  item      item[]
+}
+
+model user {
+  user_id     Int        @id @default(autoincrement())
+  language_id Int
+  username    String     @db.VarChar(60)
+  password    String?
+  firstname   String?    @db.VarChar(50)
+  lastname    String?    @db.VarChar(50)
+  email       String     @db.VarChar(150)
+  set_temp    temp_num?  @default(C)
+  set_theme   theme_num? @default(L)
+  outfit      outfit[]
+  language    language   @relation(fields: [language_id], references: [language_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+enum enviroment_num {
+  Warm
+  Cold
+}
+
+enum temp_num {
+  C
+  F
+}
+
+enum theme_num {
+  L
+  D
+}
