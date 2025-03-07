@@ -7,8 +7,6 @@ import { LogIn, User as UserIcon } from "lucide-react";
 export async function Nav() {
   const session = await auth0.getSession();
 
-  console.log(session);
-
   return (
     <header className="flex backdrop-blur-md bg-opacity-10 backdrop-filter shadow-sm fixed top-0 w-full z-50">
       <nav className="flex grow px-2 py-1 justify-between items-center mx-auto md:max-w-4xl">
