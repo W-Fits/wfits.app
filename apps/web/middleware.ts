@@ -3,7 +3,21 @@ import type { NextRequest } from "next/server";
 import { auth0 } from "./lib/auth0";
 
 export async function middleware(request: NextRequest) {
-  return await auth0.middleware(request);
+  const response = await auth0.middleware(request);
+
+  if (!response.ok) {
+    return response;
+  }
+
+  if (request.nextUrl.pathname === "/auth/login") {
+    const session = await auth0.getSession(request);
+
+    if (!session?.user) {
+      return response;
+    }
+  }
+
+  return response;
 }
 
 export const config = {

@@ -74,7 +74,7 @@ model user {
   password    String?
   firstname   String?    @db.VarChar(50)
   lastname    String?    @db.VarChar(50)
-  email       String     @db.VarChar(150)
+  email       String     @unique @db.VarChar(150)
   set_temp    temp_num?  @default(C)
   set_theme   theme_num? @default(L)
   outfit      outfit[]

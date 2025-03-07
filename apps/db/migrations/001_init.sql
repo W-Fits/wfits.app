@@ -34,22 +34,17 @@ CREATE TABLE IF NOT EXISTS item (
     FOREIGN KEY (catagory_id) REFERENCES catagory_tag(catagory_id)
 );
 
-CREATE TABLE IF NOT EXISTS language (
-    language_id SERIAL PRIMARY KEY,
-    language_name VARCHAR(30)
-);
 
 CREATE TABLE IF NOT EXISTS "user" (
     user_id SERIAL PRIMARY KEY,
-    language_id INT NOT NULL,
     username VARCHAR(60) NOT NULL,
     password TEXT,
     firstname VARCHAR(50),
     lastname VARCHAR(50),
-    email VARCHAR(150) NOT NULL,
+    pfp TEXT,
+    email VARCHAR(150) NOT NULL UNIQUE,
     set_temp temp_num DEFAULT('C'),
-    set_theme theme_num DEFAULT('L'),
-    FOREIGN KEY (language_id) REFERENCES language(language_id)
+    set_theme theme_num DEFAULT('L')
 );
 
 CREATE TABLE IF NOT EXISTS outfit (
@@ -62,6 +57,7 @@ CREATE TABLE IF NOT EXISTS outfit (
 CREATE TABLE IF NOT EXISTS outfit_item (
     outfit_id INT NOT NULL,
     item_id INT NOT NULL,
+    PRIMARY KEY (outfit_id, item_id),
     FOREIGN KEY (outfit_id) REFERENCES outfit(outfit_id) ON DELETE CASCADE,
     FOREIGN KEY (item_id) REFERENCES item(item_id)
 );
