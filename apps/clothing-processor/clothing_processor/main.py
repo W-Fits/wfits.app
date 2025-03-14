@@ -5,10 +5,24 @@ from clothing_processor.utils.files import get_image
 from clothing_processor.utils.predictions import load_model, predict_class
 from shared_utils.auth import auth0_auth_middleware
 from clothing_processor.utils.s3 import s3_upload
+from fastapi.middleware.cors import CORSMiddleware
+
 # from mangum import Mangum
 
 # Initialise FastAPI app
 app = FastAPI()
+
+# Enable CORS to allow requests from frontent
+app.add_middleware(
+  CORSMiddleware,
+  allow_origins=[
+    "http://localhost:3000",
+    "https://wfits.app"
+    ],
+  allow_credentials=True,
+  allow_methods=["*"],
+  allow_headers=["*"],
+)
 
 # Load tensorflow model
 model = load_model()
