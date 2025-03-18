@@ -7,9 +7,9 @@ export default function Account() {
       <h1 className="pt-12">Account</h1>
       <Link
         className="flex items-center gap-2 text-sm w-fit text-background bg-primary rounded-md p-2"
-        href="/auth/logout"
+        href="/sign-out"
       >
-        Log out
+        Sign out
         <LogOut className="h-5 w-5" />
       </Link>
     </main>

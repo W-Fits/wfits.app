@@ -1,52 +1,44 @@
-import { auth0 } from "@/lib/auth0";
-import Image from "next/image";
+"use client";
+
+import { isNavHidden } from "@/lib/paths";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { LogIn, User } from "lucide-react";
-import { NavLink } from "./nav-link";
-import { AccountNav } from "./account-nav";
+import { usePathname } from "next/navigation";
 
-export async function Nav() {
-  const session = await auth0.getSession();
+export function Nav() {
+  const pathname = usePathname();
 
-  const nav = [
-    { href: "/upload", children: "Upload" },
-    { href: "/account", children: <AccountNav user={session?.user} /> }
+  const showNavbar = isNavHidden(pathname);
+
+  const tabs = [
+    { href: "/", label: "Home" },
+    { href: "/wardrobe", label: "Wardrobe" },
+    { href: "/account", label: "Account" }
   ];
 
-  return (
-    <header className="flex backdrop-blur-md bg-opacity-10 backdrop-filter shadow-sm fixed top-0 w-full z-50">
-      <nav className="flex grow px-2 py-1 justify-between items-center mx-auto md:max-w-4xl">
+  return showNavbar && (
+    <nav
+      className={cn(
+        "fixed bottom-5 mx-auto left-1/2 transform -translate-x-1/2 bg-background",
+        "flex gap-3 items-center border px-2 py-2 rounded-full shadow-sm",
+      )}
+    >
+      {tabs.map((tab, index) => (
         <Link
-          className="h-10 w-10"
-          href="/"
-        >
-          <Image
-            src="/icon"
-            className="w-full"
-            alt="Home Icon"
-            width={100}
-            height={100}
-            priority
-          />
-        </Link>
-        <div className="flex justify-between items-center space-x-4">
-          {session ? nav.map(({ href, children }) => (
-            <NavLink
-              key={href}
-              href={href}
-            >
-              {children}
-            </NavLink>
-          )) : (
-            <a
-              className="flex h-10 w-10 items-center justify-center bg-muted rounded-full"
-              href="/auth/login"
-            >
-              <LogIn className="h-6 w-6 text-muted-foreground" />
-            </a>
+          key={tab.href}
+          href={tab.href}
+          className={cn(
+            "flex flex-col items-center px-2 py-1 min-w-16 rounded-3xl transition duration-100",
+            (
+              (pathname.startsWith("/" + tab.href.split("/")[1]) && tab.href !== "/") ||
+              pathname === tab.href
+            ) && "text-background bg-primary",
           )}
-        </div>
-      </nav>
-    </header>
-  );
+          prefetch
+        >
+          <span className="text-sm">{tab.label}</span>
+        </Link>
+      ))}
+    </nav>
+  )
 }

@@ -1,33 +1,38 @@
-import type { NextRequest } from "next/server";
+import { withAuth } from "next-auth/middleware";
+import { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
+import { isHiddenAuthenticatedPath, isUnprotectedPath } from "./lib/paths";
 
-import { auth0 } from "./lib/auth0";
-
-export async function middleware(request: NextRequest) {
-  const response = await auth0.middleware(request);
-
-  if (!response.ok) {
-    return response;
-  }
-
-  if (request.nextUrl.pathname === "/auth/login") {
-    const session = await auth0.getSession(request);
-
-    if (!session?.user) {
-      return response;
-    }
-  }
-
-  return response;
-}
+export default withAuth({
+  pages: {
+    signIn: "/sign-in",
+  },
+});
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
-     */
-    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
-  ],
+  matcher: ["/((?!api/cron|api/auth|api/key|api/users/email|_next/static|_next/image|.*\\.png$).*)"],
 };
+
+export async function middleware(request: NextRequest) {
+  const token = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
+
+  if (request.nextUrl.pathname === "/") return NextResponse.next();
+
+  if (!token && request.nextUrl.pathname.startsWith('/api')) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+  }
+
+  if (!!token && isHiddenAuthenticatedPath(request.nextUrl.pathname)) {
+    return NextResponse.redirect(new URL("/", request.nextUrl));
+  }
+
+  if (!token && !isUnprotectedPath(request.nextUrl.pathname)) {
+    return NextResponse.redirect(new URL("/sign-in", request.nextUrl));
+  }
+
+  return NextResponse.next();
+}
