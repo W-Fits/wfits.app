@@ -56,6 +56,7 @@ model Item {
   colour_id   Int
   category_id Int
   size_id     Int
+  user_id     Int?
   item_name   String           @db.VarChar(50)
   item_url    String
   waterproof  Boolean?
@@ -66,6 +67,7 @@ model Item {
   category_tag CategoryTag @relation(fields: [category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction)
   colour_tag   ColourTag   @relation(fields: [colour_id], references: [colour_id], onDelete: NoAction, onUpdate: NoAction)
   size_tag     SizeTag     @relation(fields: [size_id], references: [size_id], onDelete: NoAction, onUpdate: NoAction)
+  user         User?       @relation(fields: [user_id], references: [user_id])
 
   outfit_items OutfitItem[]
 }
@@ -106,6 +108,7 @@ model User {
   outfits Outfit[]
   Account Account[]
   Session Session[]
+  Item    Item[]
 }
 
 enum EnvironmentEnum {
