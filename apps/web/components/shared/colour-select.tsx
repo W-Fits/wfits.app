@@ -30,7 +30,6 @@ export const colours = [
   { name: "Olive", value: "#808000" },
   { name: "Maroon", value: "#800000" },
   { name: "Coral", value: "#FF7F50" },
-  { name: "Fuchsia", value: "#FF00FF" },
   { name: "Turquoise", value: "#40E0D0" },
   { name: "Magenta", value: "#FF00FF" },
 ] as const
