@@ -21,6 +21,13 @@ export const clothingClass = [
   "Ankle boot",
 ] as const
 
+export const slots = [
+  ["Bag"],
+  ["Sandal", "Sneaker", "Ankle boot"],
+  ["Trouser"],
+  ["T-shirt/top", "Pullover", "Dress", "Coat", "Shirt"],
+]
+
 export type ClothingClass = (typeof clothingClass)[number]
 
 interface ClothingClassSelectProps {

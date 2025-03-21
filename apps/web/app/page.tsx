@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 export default function Home() {
   return (
-    <main className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-background">
+    <section className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-background">
       <div className="text-balance -mt-24 text-center z-10">
         <WordFadeIn
           className="z-10 whitespace-pre-wrap text-center text-6xl font-medium  text-black tracking-tighter"
@@ -32,6 +32,6 @@ export default function Home() {
           "inset-x-0 inset-y-[-50%] h-[200%] skew-y-12",
         )}
       />
-    </main>
+    </section>
   );
 }

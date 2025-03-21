@@ -7,14 +7,14 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { EnvironmentEnum } from "@prisma/client"
 
-export type Environment = "Warm" | "Cold"
 
-const environments: Environment[] = ["Warm", "Cold"]
+const environments: EnvironmentEnum[] = ["Warm", "Cold"]
 
 interface EnvironmentSelectProps {
-  value: Environment | null
-  onChange: (value: Environment) => void
+  value: EnvironmentEnum | null
+  onChange: (value: EnvironmentEnum) => void
 }
 
 export function EnvironmentSelect({ value, onChange }: EnvironmentSelectProps) {
