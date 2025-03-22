@@ -3,6 +3,7 @@ import { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { isHiddenAuthenticatedPath, isUnprotectedPath } from "./lib/paths";
+import { env } from "@/lib/env";
 
 export default withAuth({
   pages: {
@@ -17,7 +18,7 @@ export const config = {
 export async function middleware(request: NextRequest) {
   const token = await getToken({
     req: request,
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: env.AUTH_SECRET,
   });
 
   if (request.nextUrl.pathname === "/") return NextResponse.next();

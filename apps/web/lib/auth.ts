@@ -4,14 +4,15 @@ import { prisma } from "@/lib/prisma";
 import Credentials from "next-auth/providers/credentials";
 import Auth0 from "next-auth/providers/auth0";
 import { compare } from "bcrypt-ts";
+import { env } from "@/lib/env";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     Auth0({
-      clientId: process.env.AUTH0_CLIENT_ID as string,
-      clientSecret: process.env.AUTH0_CLIENT_SECRET as string,
-      issuer: process.env.AUTH0_DOMAIN as string,
+      clientId: env.AUTH0_CLIENT_ID as string,
+      clientSecret: env.AUTH0_CLIENT_SECRET as string,
+      issuer: env.AUTH0_DOMAIN as string,
     }),
     Credentials({
       name: "Credentials",
