@@ -9,6 +9,9 @@ packages = [{ include = "shared_utils" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+dotenv = "^0.9.9"
+fastapi = "^0.115.12"
+pyjwt = "^2.10.1"
 
 
 [build-system]
