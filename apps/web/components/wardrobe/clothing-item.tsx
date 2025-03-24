@@ -16,6 +16,7 @@ export interface ClothingItemProps {
   isWaterproof?: boolean
   environment?: EnvironmentEnum
   className?: string
+  outline?: boolean
 
   // Show/hide props
   showName?: boolean
@@ -42,9 +43,14 @@ export function ClothingItem({
   showColour = true,
   showWaterproof = true,
   showEnvironment = true,
+  outline = true
 }: ClothingItemProps) {
   return (
-    <div className={cn("relative group overflow-hidden rounded-lg", className)}>
+    <div className={cn(
+      "relative group overflow-hidden",
+      outline && "border border-muted shadow-sm rounded-lg",
+      className
+    )}>
       <div className="relative aspect-square overflow-hidden rounded-lg">
         <Image
           src={src}
@@ -55,39 +61,41 @@ export function ClothingItem({
           priority
         />
       </div>
+      <div className="bg-muted px-4 py-2 mt-4">
 
-      {showName && name && <h3 className="mt-3 text-lg font-medium">{name}</h3>}
+        {showName && name && <h3 className="text-lg font-medium">{name}</h3>}
 
-      <div className="flex flex-wrap gap-2 mt-2">
-        {showCategory && category && (
-          <Badge variant="outline" className="bg-primary/10">
-            {category}
-          </Badge>
-        )}
+        <div className="flex flex-wrap gap-2 mt-2">
+          {showCategory && category && (
+            <Badge variant="outline" className="bg-primary/10">
+              {category}
+            </Badge>
+          )}
 
-        {showSize && size && (
-          <Badge variant="outline" className="bg-secondary/10">
-            Size: {size}
-          </Badge>
-        )}
+          {showSize && size && (
+            <Badge variant="outline" className="bg-secondary/10">
+              Size: {size}
+            </Badge>
+          )}
 
-        {showColour && colour && (
-          <Badge variant="outline" className="bg-accent/10">
-            {colour.name}
-          </Badge>
-        )}
+          {showColour && colour && (
+            <Badge variant="outline" className="bg-accent/10">
+              {colour.name}
+            </Badge>
+          )}
 
-        {showWaterproof && isWaterproof !== undefined && (
-          <Badge variant={isWaterproof ? "default" : "outline"} className={isWaterproof ? "bg-blue-500" : ""}>
-            {isWaterproof ? "Waterproof" : "Not Waterproof"}
-          </Badge>
-        )}
+          {showWaterproof && isWaterproof !== undefined && (
+            <Badge variant={isWaterproof ? "default" : "outline"} className={isWaterproof ? "bg-blue-500" : ""}>
+              {isWaterproof ? "Waterproof" : "Not Waterproof"}
+            </Badge>
+          )}
 
-        {showEnvironment && environment && (
-          <Badge variant="outline" className={environment === "Warm" ? "bg-orange-500/20" : "bg-blue-500/20"}>
-            {environment}
-          </Badge>
-        )}
+          {showEnvironment && environment && (
+            <Badge variant="outline" className={environment === "Warm" ? "bg-orange-500/20" : "bg-blue-500/20"}>
+              {environment}
+            </Badge>
+          )}
+        </div>
       </div>
     </div>
   )

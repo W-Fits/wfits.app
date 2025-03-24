@@ -32,7 +32,7 @@ export const colours = [
   { name: "Coral", value: "#FF7F50" },
   { name: "Turquoise", value: "#40E0D0" },
   { name: "Magenta", value: "#FF00FF" },
-] as const
+]
 
 export type Colour = (typeof colours)[number]
 

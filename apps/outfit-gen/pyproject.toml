@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "outfit-gen"
+version = "0.1.0"
+description = ""
+authors = ["leomosley <leo.mosley2@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+shared-utils = {path = "../../packages/shared", develop = true}
+python = "^3.11"
+fastapi = "^0.115.12"
+uvicorn = "^0.34.0"
+pyjwt = "^2.10.1"
+dotenv = "^0.9.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,8 @@
+{
+  "name": "outfit-gen-api",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": ".\\.venv\\Scripts\\python run.py",
+    "generate:requirements": "poetry export --without-hashes --format=requirements-prod.txt > requirements-prod.txt"
+  }
+}
