@@ -48,6 +48,7 @@ export function ItemUpload({ session }: { session: Session }) {
   const [uploading, setUploading] = useState<boolean>(false);
   const router = useRouter();
 
+  // TODO: fix include/connection to foreign keys with prisma ORM
   const handleComplete = async (data: UploadData) => {
     const createPromise = fetch('/api/item', {
       method: 'POST',

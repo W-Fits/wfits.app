@@ -1,0 +1,122 @@
+generator client {
+  provider = "prisma-client-py"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  user_id           Int
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([user_id])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  user_id      Int
+  expires      DateTime
+
+  user User @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+}
+
+model CategoryTag {
+  category_id   Int    @id @default(autoincrement())
+  category_name String @unique @db.VarChar(35)
+  items         Item[]
+}
+
+model ColourTag {
+  colour_id    Int    @id @default(autoincrement())
+  colour_name  String @unique @db.VarChar(35)
+  colour_value String @unique @db.Char(7)
+  items        Item[]
+}
+
+model Item {
+  item_id     Int              @id @default(autoincrement())
+  colour_id   Int
+  category_id Int
+  size_id     Int
+  user_id     Int?
+  item_name   String           @db.VarChar(50)
+  item_url    String
+  waterproof  Boolean?
+  available   Boolean?
+  slot        Int
+  environment EnvironmentEnum?
+
+  category_tag CategoryTag @relation(fields: [category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction)
+  colour_tag   ColourTag   @relation(fields: [colour_id], references: [colour_id], onDelete: NoAction, onUpdate: NoAction)
+  size_tag     SizeTag     @relation(fields: [size_id], references: [size_id], onDelete: NoAction, onUpdate: NoAction)
+  user         User?       @relation(fields: [user_id], references: [user_id])
+
+  outfit_items OutfitItem[]
+}
+
+model Outfit {
+  outfit_id    Int          @id @default(autoincrement())
+  user_id      Int
+  created_at   DateTime     @db.Date
+  user         User         @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  outfit_items OutfitItem[]
+}
+
+model OutfitItem {
+  outfit_id Int
+  item_id   Int
+
+  item   Item   @relation(fields: [item_id], references: [item_id], onDelete: NoAction, onUpdate: NoAction)
+  outfit Outfit @relation(fields: [outfit_id], references: [outfit_id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([outfit_id, item_id])
+}
+
+model SizeTag {
+  size_id   Int    @id @default(autoincrement())
+  size_name String @unique @db.VarChar(35)
+  items     Item[]
+}
+
+model User {
+  user_id   Int       @id @default(autoincrement())
+  username  String    @db.VarChar(60)
+  password  String?
+  firstname String?   @db.VarChar(50)
+  lastname  String?   @db.VarChar(50)
+  email     String    @unique @db.VarChar(150)
+  set_temp  TempEnum? @default(C)
+
+  outfits Outfit[]
+  Account Account[]
+  Session Session[]
+  Item    Item[]
+}
+
+enum EnvironmentEnum {
+  Warm
+  Cold
+}
+
+enum TempEnum {
+  C
+  F
+}
