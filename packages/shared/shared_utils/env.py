@@ -19,5 +19,6 @@ def get_env():
       "AWS_SECRET_ACCESS_KEY": os.getenv("AWS_SECRET_ACCESS_KEY"),
       "AWS_DEFAULT_REGION": os.getenv("AWS_DEFAULT_REGION"),
       "AWS_URL": os.getenv("AWS_DEFAULT_REGION"),
+      "DATABASE_URL": os.getenv("DATABASE_URL")
     }
   return _env
