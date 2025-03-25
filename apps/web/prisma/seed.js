@@ -47,19 +47,19 @@ async function main() {
     console.log("Starting seed process...");
     if (await prisma.sizeTag.count() === 0) {
       await prisma.sizeTag.createMany({
-        data: sizes.map((size) => ({ size_name: size }))
+        data: sizes.map((size, index) => ({ size_id: index, size_name: size }))
       });
     }
 
     if (await prisma.colourTag.count() === 0) {
       await prisma.colourTag.createMany({
-        data: colours.map(({ name, value }) => ({ colour_name: name, colour_value: value }))
+        data: colours.map(({ name, value }, index) => ({ colour_id: index, colour_name: name, colour_value: value }))
       });
     }
 
     if (await prisma.categoryTag.count() === 0) {
       await prisma.categoryTag.createMany({
-        data: clothingClass.map((c) => ({ category_name: c }))
+        data: clothingClass.map((category, index) => ({ category_id: index, category_name: category }))
       });
     }
 
