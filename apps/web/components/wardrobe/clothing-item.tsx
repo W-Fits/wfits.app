@@ -56,7 +56,7 @@ export function ClothingItem({
           src={src}
           alt={alt}
           fill
-          className="object-cover transition-transform group-hover:scale-105"
+          className="object-cover w-auto h-auto transition-transform"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           priority
         />

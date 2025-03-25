@@ -63,7 +63,9 @@ const config: Config = {
   		},
   		animation: {
   			rainbow: 'rainbow var(--speed, 2s) infinite linear',
-  			'shiny-text': 'shiny-text 8s infinite'
+  			'shiny-text': 'shiny-text 8s infinite',
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
   		},
   		keyframes: {
   			rainbow: {
@@ -80,6 +82,22 @@ const config: Config = {
   				},
   				'30%, 60%': {
   					'background-position': 'calc(100% + var(--shiny-width)) 0'
+  				}
+  			},
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
   				}
   			}
   		}

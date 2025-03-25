@@ -20,6 +20,13 @@ export async function POST(request: Request) {
     const body = await request.json();
     const item = await prisma.item.create({
       data: body,
+      include: {
+        user: true,
+        category_tag: true,
+        colour_tag: true,
+        size_tag: true,
+        outfit_items: true,
+      }
     });
     return NextResponse.json(item, { status: 201 });
   } catch (error: any) {
