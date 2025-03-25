@@ -63,6 +63,8 @@ model Item {
   available   Boolean?
   slot        Int
   environment EnvironmentEnum?
+  created_at  DateTime         @default(now())
+  updated_at  DateTime         @updatedAt
 
   category_tag CategoryTag @relation(fields: [category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction)
   colour_tag   ColourTag   @relation(fields: [colour_id], references: [colour_id], onDelete: NoAction, onUpdate: NoAction)
@@ -75,7 +77,8 @@ model Item {
 model Outfit {
   outfit_id    Int          @id @default(autoincrement())
   user_id      Int
-  created_at   DateTime     @db.Date
+  created_at   DateTime     @default(now()) @db.Date
+  updated_at   DateTime     @updatedAt
   user         User         @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
   outfit_items OutfitItem[]
 }
