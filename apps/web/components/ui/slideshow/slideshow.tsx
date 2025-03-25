@@ -31,7 +31,7 @@ type SlideshowContextType<T> = {
 type SlideshowProps<T> = {
   children: ReactNode;
   initialStep?: number;
-  onComplete?: (data: T) => void | Promise<void>;
+  onComplete?: (data: T) => boolean | Promise<boolean>;
   showDefaultNavigation?: boolean;
   className?: string;
   slideData: T;
@@ -91,38 +91,32 @@ export function Slideshow<T>({
   };
 
 
-  const goToNextStep = useCallback(
-    async () => {
-      if (!canProceed || isLoading) return;
+  const goToNextStep = useCallback(async () => {
+    if (!canProceed || isLoading) return;
 
 
-      if (!isLastStep) {
-        setCurrentStep((prev) => prev + 1); // Use functional update
-      } else if (onComplete) {
-        setIsLoading(true);
-        try {
-          const promise = await Promise.resolve(onComplete(slideData));
-          setCurrentStep(initialStep);
-        } finally {
-          setIsLoading(false);
-        }
+    if (!isLastStep) {
+      setCurrentStep((prev) => prev + 1);
+    } else if (onComplete) {
+      setIsLoading(true);
+      try {
+        const success = await onComplete(slideData);
+        if (success) setCurrentStep(initialStep);
+      } finally {
+        setIsLoading(false);
       }
-    },
-    [canProceed, isLoading, isLastStep, onComplete, slideData, initialStep]
-  );
+    }
+  }, [canProceed, isLoading, isLastStep, onComplete, slideData, initialStep]);
 
 
-  const goToPreviousStep = useCallback(
-    async () => {
-      if (isLoading) return;
+  const goToPreviousStep = useCallback(async () => {
+    if (isLoading) return;
 
 
-      if (!isFirstStep) {
-        setCurrentStep((prev) => prev - 1); // Use functional update
-      }
-    },
-    [isLoading, isFirstStep]
-  );
+    if (!isFirstStep) {
+      setCurrentStep((prev) => prev - 1); // Use functional update
+    }
+  }, [isLoading, isFirstStep]);
 
 
   const updateSlideData = (step: number, data: any) => {

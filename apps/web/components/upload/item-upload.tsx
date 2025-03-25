@@ -49,7 +49,7 @@ export function ItemUpload({ session }: { session: Session }) {
   const router = useRouter();
 
   // TODO: fix include/connection to foreign keys with prisma ORM
-  const handleComplete = async (data: UploadData) => {
+  const handleComplete = async (data: UploadData): Promise<boolean> => {
     const createPromise = fetch('/api/item', {
       method: 'POST',
       headers: {
@@ -71,7 +71,7 @@ export function ItemUpload({ session }: { session: Session }) {
     toast.promise(createPromise, {
       loading: "Creating item...",
       success: "Item created!",
-      error: "Created item"
+      error: "Error creating item"
     });
 
     const response = await createPromise;
@@ -80,9 +80,10 @@ export function ItemUpload({ session }: { session: Session }) {
       const data = await response.json() as Item;
       router.push(`/wardrobe/clothes/item/${data.item_id}`);
       handleReset();
+      return true;
     }
 
-
+    return false;
   }
 
   const handleUpload = async (): Promise<boolean> => {
