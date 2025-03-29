@@ -1,10 +1,10 @@
 import { LogOut } from "lucide-react";
 import Link from "next/link";
 
-export default function Account() {
+export default function Profile() {
   return (
     <section className="p-2">
-      <h1 className="pt-12">Account</h1>
+      <h1 className="pt-12">Profile</h1>
       <Link
         className="flex items-center gap-2 text-sm w-fit text-background bg-primary rounded-md p-2"
         href="/sign-out"
