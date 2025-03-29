@@ -6,7 +6,7 @@ import { Slideshow, Slide } from "@/components/ui/slideshow";
 import { usePersistentState } from "@/lib/hooks/use-persistent-state";
 import { Info } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { ClothingClass, ClothingClassSelect } from "@/components/shared/clothing-class-select";
+import { Category, CategorySelect } from "@/components/shared/category-select";
 import { Colour, ColourSelect } from "@/components/shared/colour-select";
 import { Size, SizeSelect } from "@/components/shared/size-select";
 import { EnvironmentSelect } from "@/components/shared/environment-select";
@@ -23,7 +23,7 @@ import { EnvironmentEnum, Item } from "@prisma/client";
 interface UploadData {
   file: File | null;
   imageURL: string | null;
-  clothingClass: ClothingClass | null;
+  category: Category | null;
   colour: Colour | null;
   fileBase64: string | null;
   name: string | null;
@@ -36,7 +36,7 @@ export function ItemUpload({ session }: { session: Session }) {
   const [formData, setFormData, clearFormData] = usePersistentState<UploadData>("item-upload", {
     file: null,
     imageURL: null,
-    clothingClass: null,
+    category: null,
     colour: null,
     fileBase64: null,
     name: null,
@@ -58,12 +58,12 @@ export function ItemUpload({ session }: { session: Session }) {
       body: JSON.stringify({
         user_id: session.user.id,
         colour_id: getColourId(formData.colour!),
-        category_id: getCategoryId(formData.clothingClass!),
+        category_id: getCategoryId(formData.category!),
         size_id: getSizeId(formData.size!),
         item_name: formData.name,
         item_url: formData.imageURL,
         waterproof: !!formData.waterproof,
-        slot: getSlot(formData.clothingClass!),
+        slot: getSlot(formData.category!),
         environment: formData.environment
       })
     });
@@ -160,8 +160,8 @@ export function ItemUpload({ session }: { session: Session }) {
     setFormData((prev) => ({ ...prev, size }));
   }
 
-  const handleClassChange = (clothingClass: ClothingClass | null) => {
-    setFormData((prev) => ({ ...prev, clothingClass }));
+  const handleCategoryChange = (category: Category | null) => {
+    setFormData((prev) => ({ ...prev, category }));
   }
 
   const handleEnvironmentChange = (environment: EnvironmentEnum | null) => {
@@ -235,9 +235,9 @@ export function ItemUpload({ session }: { session: Session }) {
                 <h1 className="text-3xl font-bold">Category</h1>
               </div>
               <div className="flex flex-col gap-2 mt-2">
-                <ClothingClassSelect
-                  value={formData.clothingClass}
-                  onChange={(value) => handleClassChange(value)}
+                <CategorySelect
+                  value={formData.category}
+                  onChange={(value) => handleCategoryChange(value)}
                 />
               </div>
             </Slide>

@@ -4,7 +4,7 @@ import type { Item } from "@prisma/client"
 import { useState, useMemo } from "react"
 import { ClothingItem } from "@/components/wardrobe/clothing-item"
 import type { Size } from "@/components/shared/size-select"
-import type { ClothingClass } from "@/components/shared/clothing-class-select"
+import type { Category } from "@/components/shared/category-select"
 import type { Colour } from "@/components/shared/colour-select"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -14,6 +14,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Search, Filter } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
 
 interface ExtendedItem extends Item {
   category_tag: {
@@ -114,7 +115,7 @@ export function ClothingItemGrid({
   }
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container mx-auto px-4 pt-6 pb-24">
       <div className="flex flex-col gap-6">
         {/* Search and filter controls */}
         <div className="flex flex-col gap-4">
@@ -265,17 +266,18 @@ export function ClothingItemGrid({
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredItems.length > 0 ? (
             filteredItems.map((item) => (
-              <ClothingItem
-                key={item.item_id}
-                src={item.item_url}
-                alt={item.item_name}
-                name={item.item_name}
-                category={item.category_tag.category_name as ClothingClass}
-                size={item.size_tag.size_name as Size}
-                colour={{ name: item.colour_tag.colour_name, value: item.colour_tag.colour_value } as Colour}
-                isWaterproof={item.waterproof ?? undefined}
-                environment={item.environment ?? undefined}
-              />
+              <Link href={`/wardrobe/clothes/item/${item.item_id}`} key={item.item_id}>
+                <ClothingItem
+                  src={item.item_url}
+                  alt={item.item_name}
+                  name={item.item_name}
+                  category={item.category_tag.category_name as Category}
+                  size={item.size_tag.size_name as Size}
+                  colour={{ name: item.colour_tag.colour_name, value: item.colour_tag.colour_value } as Colour}
+                  isWaterproof={item.waterproof ?? undefined}
+                  environment={item.environment ?? undefined}
+                />
+              </Link>
             ))
           ) : (
             <div className="col-span-full text-center py-12 text-muted-foreground">

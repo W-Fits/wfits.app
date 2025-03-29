@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
-import { ClothingClass } from "@/components/shared/clothing-class-select"
+import { Category } from "@/components/shared/category-select"
 import { Colour } from "@/components/shared/colour-select"
 import { Size } from "@/components/shared/size-select"
 import { EnvironmentEnum } from "@prisma/client"
@@ -10,7 +10,7 @@ export interface ClothingItemProps {
   src: string
   alt: string
   name?: string
-  category?: ClothingClass
+  category?: Category
   size?: Size
   colour?: Colour
   isWaterproof?: boolean

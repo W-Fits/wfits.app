@@ -1,8 +1,8 @@
-import { ClothingClass } from "@/components/shared/clothing-class-select";
+import { Category } from "@/components/shared/category-select";
 import { Colour } from "@/components/shared/colour-select";
 
 export type ImageResponse = {
-  class: ClothingClass;
+  class: Category;
   colour: Colour;
   imageURL: string;
 }
