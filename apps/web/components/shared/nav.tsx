@@ -13,7 +13,7 @@ export function Nav() {
   const tabs = [
     { href: "/", label: "Home" },
     { href: "/wardrobe", label: "Wardrobe" },
-    { href: "/profile", label: "profile" }
+    { href: "/profile", label: "Profile" }
   ];
 
   return showNavbar && (
