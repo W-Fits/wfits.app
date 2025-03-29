@@ -9,6 +9,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
   const { username } = await params;
 
   const profile = await prisma.user.findFirst({ where: { username } });
+
   if (!profile) return notFound();
 
   return (
