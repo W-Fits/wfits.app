@@ -3,7 +3,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { Heart, Rss, Shirt } from "lucide-react";
+import { Cog, Heart, LogOut, Rss, Shirt } from "lucide-react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default async function ProfilePage({ params }: { params: Promise<{ username: string }> }) {
   const { username } = await params;
@@ -12,13 +16,42 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
 
   if (!profile) return notFound();
 
+  const session = await getServerSession(authOptions);
+  const isCurrentUser = session?.user?.id === profile.user_id;
+
   return (
     <main className="container max-w-4xl mx-auto px-4 py-6">
       <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8">
-        <Avatar className="w-24 h-24 border-2 border-border">
-          <AvatarImage src={""} alt={profile.username} />
-          <AvatarFallback>{profile.username.slice(0, 2).toUpperCase()}</AvatarFallback>
-        </Avatar>
+        <div className="flex w-full justify-between">
+          <Avatar className="w-24 h-24 border-2 border-border">
+            <AvatarImage src={""} alt={profile.username} />
+            <AvatarFallback>{profile.username.slice(0, 2).toUpperCase()}</AvatarFallback>
+          </Avatar>
+          {isCurrentUser && (
+            <div className="space-x-1">
+              <Link
+                href="/profile/settings"
+              >
+                <Button
+                  size="icon"
+                  variant="secondary"
+                >
+                  <Cog className="h-6 w-6 text-muted-foreground" />
+                </Button>
+              </Link>
+              <Link
+                href="/sign-out"
+              >
+                <Button
+                  size="icon"
+                  variant="secondary"
+                >
+                  <LogOut className="h-6 w-6 text-muted-foreground" />
+                </Button>
+              </Link>
+            </div>
+          )}
+        </div>
 
         <div className="flex-1">
           <h1 className="text-2xl font-bold">{profile.firstname}</h1>
