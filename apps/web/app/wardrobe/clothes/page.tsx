@@ -1,4 +1,4 @@
-import { ClothingClass } from "@/components/shared/category-select";
+import { Category } from "@/components/shared/category-select";
 import { Colour } from "@/components/shared/colour-select";
 import { Size } from "@/components/shared/size-select";
 import { Button } from "@/components/ui/button";

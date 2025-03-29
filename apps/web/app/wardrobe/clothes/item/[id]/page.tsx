@@ -14,16 +14,7 @@ export default async function ItemPage({ params }: { params: Promise<{ id: strin
 
   if (!item) return notFound();
 
-  console.log(item.size_id);
-
-  const category = getCategoryById(item.category_id) ?? undefined;
-  const size = getSizeById(item.size_id) ?? undefined;
-  const colour = getColourById(item.colour_id) ?? undefined;
-  const isWaterproof = !!item.waterproof;
-
   return (
-    <ClothingItemEditor
-      item={item}
-    />
+    <ClothingItemEditor item={item} />
   );
 }

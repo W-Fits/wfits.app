@@ -1,16 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import { Check, ChevronDown, Thermometer, Snowflake } from "lucide-react"
-
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Button } from "@/components/ui/button"
+import { Check, ChevronDown, Snowflake, Thermometer } from "lucide-react"
+import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command"
+import { cn } from "@/lib/utils"
 import { EnvironmentEnum } from "@prisma/client"
 
-
-const environments: EnvironmentEnum[] = ["Warm", "Cold"]
+export const environments = ["Warm", "Cold"] as const;
 
 interface EnvironmentSelectProps {
   value: EnvironmentEnum | null

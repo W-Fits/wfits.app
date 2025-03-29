@@ -6,9 +6,9 @@ import { Slideshow, Slide } from "@/components/ui/slideshow";
 import { usePersistentState } from "@/lib/hooks/use-persistent-state";
 import { Info } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Category, CategorySelect } from "@/components/shared/category-select";
-import { Colour, ColourSelect } from "@/components/shared/colour-select";
-import { Size, SizeSelect } from "@/components/shared/size-select";
+import { CategorySelect } from "@/components/shared/category-select";
+import { ColourSelect } from "@/components/shared/colour-select";
+import { SizeSelect } from "@/components/shared/size-select";
 import { EnvironmentSelect } from "@/components/shared/environment-select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
@@ -16,18 +16,18 @@ import { useState } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "sonner";
 import { Session } from "next-auth";
-import { getCategoryId, getColourId, getSizeId, getSlot } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { EnvironmentEnum, Item } from "@prisma/client";
+import { ClothingImage } from "../shared/clothing-image";
 
 interface UploadData {
   file: File | null;
   imageURL: string | null;
-  category: Category | null;
-  colour: Colour | null;
+  category: number | null;
+  colour: number | null;
   fileBase64: string | null;
   name: string | null;
-  size: Size | null,
+  size: number | null,
   environment: EnvironmentEnum | null,
   waterproof: boolean | null
 }
@@ -57,13 +57,13 @@ export function ItemUpload({ session }: { session: Session }) {
       },
       body: JSON.stringify({
         user_id: session.user.id,
-        colour_id: getColourId(formData.colour!),
-        category_id: getCategoryId(formData.category!),
-        size_id: getSizeId(formData.size!),
+        colour_id: formData.colour,
+        category_id: formData.category,
+        size_id: formData.size,
         item_name: formData.name,
         item_url: formData.imageURL,
         waterproof: !!formData.waterproof,
-        slot: getSlot(formData.category!),
+        slot: formData.category,
         environment: formData.environment
       })
     });
@@ -152,15 +152,15 @@ export function ItemUpload({ session }: { session: Session }) {
   }
 
 
-  const handleColourChange = (colour: Colour | null) => {
+  const handleColourChange = (colour: number | null) => {
     setFormData((prev) => ({ ...prev, colour }));
   }
 
-  const handleSizeChange = (size: Size | null) => {
+  const handleSizeChange = (size: number | null) => {
     setFormData((prev) => ({ ...prev, size }));
   }
 
-  const handleCategoryChange = (category: Category | null) => {
+  const handleCategoryChange = (category: number | null) => {
     setFormData((prev) => ({ ...prev, category }));
   }
 
@@ -283,13 +283,8 @@ export function ItemUpload({ session }: { session: Session }) {
         )}
         {formData.imageURL ? (
           <div className="flex mx-auto flex-1 px-4 max-w-fit justify-center items-center bg-muted/50 rounded-lg">
-            <Image
-              className="w-full"
+            <ClothingImage
               src={formData.imageURL as string}
-              alt="Clothing Item"
-              width={300}
-              height={300}
-              priority
             />
           </div>
         ) : (

@@ -5,6 +5,7 @@ import { Category } from "@/components/shared/category-select"
 import { Colour } from "@/components/shared/colour-select"
 import { Size } from "@/components/shared/size-select"
 import { EnvironmentEnum } from "@prisma/client"
+import { ClothingImage } from "../shared/clothing-image"
 
 export interface ClothingItemProps {
   src: string
@@ -52,14 +53,7 @@ export function ClothingItem({
       className
     )}>
       <div className="relative aspect-square overflow-hidden rounded-lg">
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          className="object-cover w-auto h-auto transition-transform"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          priority
-        />
+        <ClothingImage src={src} />
       </div>
       <div className="bg-muted px-4 py-2 mt-4">
 

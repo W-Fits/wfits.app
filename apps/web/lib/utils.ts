@@ -1,4 +1,4 @@
-import { categories, Category, slots } from "@/components/shared/category-select";
+import { categories, Category } from "@/components/shared/category-select";
 import { Colour, colours } from "@/components/shared/colour-select";
 import { Size, sizes } from "@/components/shared/size-select";
 import { clsx, type ClassValue } from "clsx";
@@ -30,8 +30,4 @@ export function getCategoryById(id: number): Category | null {
 
 export function getSizeById(id: number): Size | null {
   return sizes[id] ?? null;
-}
-
-export function getSlot(c: Category): Number {
-  return slots.findIndex((item) => item.includes(c));
 }
