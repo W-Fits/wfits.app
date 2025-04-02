@@ -50,7 +50,10 @@ async def get_items(
   where_clause.update(validated_filters)
 
   try:
-    items = await db.item.find_many(where=where_clause)
+    items = await db.item.find_many(
+      where=where_clause,
+      include={"category_tag": True, "colour_tag": True, "size_tag": True}
+    )
     return items
   except Exception as e:
     print(f"Error fetching items: {e}")
