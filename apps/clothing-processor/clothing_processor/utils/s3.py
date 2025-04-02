@@ -50,8 +50,16 @@ def s3_upload(image: Image.Image) -> str:
     bytes_image = to_bytes_image(image)
 
     # Upload the image to the specified bucket
-    s3.upload_fileobj(bytes_image, "wfits-bucket", file_name)
-    
+    s3.upload_fileobj(
+      bytes_image,
+      "wfits-bucket",
+      file_name,
+      ExtraArgs={
+        "ContentType": "image/png",
+        "ContentDisposition": "inline"
+      }
+    )
+
     s3_url = f"https://{BUCKET_NAME}.s3.amazonaws.com/{file_name}"
 
     return s3_url

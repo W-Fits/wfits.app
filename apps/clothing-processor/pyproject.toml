@@ -12,6 +12,7 @@ push-env = "clothing_processor.scripts.push_env:main"
 test-colour-match = "clothing_processor.scripts.test_colour_match:main"
 
 [tool.poetry.dependencies]
+shared-utils = {path = "../../packages/shared", develop = true}
 python = ">=3.11,<3.12"
 absl-py = "2.1.0"
 alembic = "1.14.1"
@@ -213,6 +214,7 @@ wrapt = "1.17.2"
 wsme = "0.12.1"
 yappi = "1.6.10"
 zipp = "3.21.0"
+fastapi-cors = "^0.0.6"
 
 
 [build-system]

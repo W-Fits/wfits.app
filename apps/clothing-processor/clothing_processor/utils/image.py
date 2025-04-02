@@ -30,7 +30,6 @@ COLOUR_MAP = {
   "Olive" : "#808000", 
   "Maroon" : "#800000", 
   "Coral" : "#FF7F50", 
-  "Fuchsia" : "#FF00FF", 
   "Turquoise" : "#40E0D0", 
   "Magenta" : "#FF00FF"
 }

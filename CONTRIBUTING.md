@@ -9,6 +9,8 @@ Please review this document before for guidance on how to make make changes.
 ├───apps
 │   └───clothing-processor
 │   └───web
+├───db
+│   └───migrations
 ├───packages
 ├───.gitignore
 ├───.npmrc
