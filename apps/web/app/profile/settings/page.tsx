@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth/next"
 import { redirect } from "next/navigation"
-import { authOptions } from "@/lib/auth" // Assuming this is where your authOptions are defined
+import { authOptions } from "@/lib/auth"
 import { ProfileSettings } from "@/components/profile/profile-settings"
 
 export default async function SettingsPage() {

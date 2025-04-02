@@ -9,48 +9,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { cn } from "@/lib/utils"
 
 export type Category =
-  | "T-shirts"
-  | "Shirts"
-  | "Pants"
-  | "Jeans"
-  | "Shorts"
-  | "Jackets"
-  | "Coats"
-  | "Sweaters"
-  | "Hoodies"
-  | "Suits"
-  | "Blazers"
-  | "Dresses"
-  | "Skirts"
-  | "Underwear"
-  | "Socks"
-  | "Swimwear"
-  | "Loungewear"
-  | "Activewear"
-  | "Shoes"
-  | "Accessories";
+  'T-shirt/top' | 'Trouser' | 'Pullover' | 'Dress' | 'Coat' |
+  'Sandal' | 'Shirt' | 'Sneaker' | 'Bag' | 'Ankle boot'
 
 export const categories: Category[] = [
-  "T-shirts",
-  "Shirts",
-  "Pants",
-  "Jeans",
-  "Shorts",
-  "Jackets",
-  "Coats",
-  "Sweaters",
-  "Hoodies",
-  "Suits",
-  "Blazers",
-  "Dresses",
-  "Skirts",
-  "Underwear",
-  "Socks",
-  "Swimwear",
-  "Loungewear",
-  "Activewear",
-  "Shoes",
-  "Accessories",
+  'T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
+  'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot'
 ] as const
 
 // Update the interface to work with numeric IDs
