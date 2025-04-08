@@ -7,8 +7,8 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'The WFits Project'
-copyright = '2025, Max Murphy, Leo Mosley, Logan Mee, Dan, Will'
-author = 'Max Murphy, Leo Mosley, Logan Mee, Dan, Will'
+copyright = '2025, Max Murphy, Leo Mosley, Logan Mee, Charlie Mackerel, Dan, Will'
+author = 'Max Murphy, Leo Mosley, Logan Mee, Charlie Mackerel, Dan, Will'
 release = '1.0.0'
 
 # -- General configuration ---------------------------------------------------

@@ -1,5 +1,5 @@
 .. The WFits Project documentation master file, created by
-   sphinx-quickstart on Tue Apr  8 11:44:01 2025.
+   sphinx-quickstart on Tue Apr  8 12:46:37 2025.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -15,6 +15,3 @@ documentation for details.
    :maxdepth: 2
    :caption: Contents:
 
-   usage
-   installation
-   api
