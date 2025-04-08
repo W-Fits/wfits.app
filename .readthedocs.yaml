@@ -1,7 +1,15 @@
 version: 2
 
-python:
-  version: 3.8
+# Set the OS, Python version, and other tools you might need
+build:
+  os: ubuntu-24.04  # Specify the OS version you want (e.g., ubuntu-24.04)
+  tools:
+    python: "3.8"  # Ensure this matches the Python version you're using
 
+# Specify the Python version you want to use
+python:
+  version: 3.8  # Python version for your environment
+
+# The directory where your docs are located
 sphinx:
-  configuration: docs/source/conf.py
+  configuration: docs/source/conf.py  # Path to your Sphinx configuration file
