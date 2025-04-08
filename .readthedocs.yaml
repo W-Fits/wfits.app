@@ -1,11 +1,7 @@
 version: 2
 
-# Specify the Python version you want to use
 python:
-  version: 3.8  # Change as per your desired Python version
-  install:
-    - requirements: requirements.txt  # Optional, if you have additional dependencies
+  version: 3.8
 
-# The directory where your docs are located
 sphinx:
-  configuration: docs/source/conf.py  # Path to the Sphinx configuration file
+  configuration: docs/source/conf.py
