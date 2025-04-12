@@ -13,7 +13,7 @@ export const unprotectedAPIPaths = [
 ];
 
 export function isNavHidden(pathname: string) {
-  return !navHidden.find((path) => pathname.startsWith(path));
+  return navHidden.find((path) => pathname.startsWith(path));
 }
 
 export function isUnprotectedPath(pathname: string) {

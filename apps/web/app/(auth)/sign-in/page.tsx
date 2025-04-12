@@ -35,7 +35,7 @@ export default function SignIn() {
               id="email"
               placeholder="email@example.com"
               type="email"
-              value={email}
+              value={email ?? ""}
               onChange={(e) => setEmail(e.currentTarget.value)}
               disabled={loading}
               autoFocus
@@ -46,7 +46,7 @@ export default function SignIn() {
             <Input
               id="password"
               type="password"
-              value={password}
+              value={password ?? ""}
               onChange={(e) => setPassword(e.currentTarget.value)}
               disabled={loading}
             />

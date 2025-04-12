@@ -5,6 +5,7 @@ import Credentials from "next-auth/providers/credentials";
 import Auth0 from "next-auth/providers/auth0";
 import { compare } from "bcrypt-ts";
 import { env } from "@/lib/env";
+import { User } from "@prisma/client";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -18,16 +19,20 @@ export const authOptions: NextAuthOptions = {
       name: "Credentials",
       credentials: {
         email: { label: "email", type: "text" },
+        username: { label: "username", type: "text" },
         password: { password: "email", type: "password" },
       },
       async authorize(credentials) {
         try {
           if (!credentials) throw new Error("Credentials not provided");
 
-          const { email, password } = credentials;
-          const user = await prisma.user.findUniqueOrThrow({
+          const { email, password, username } = credentials;
+          const user = await prisma.user.findFirstOrThrow({
             where: {
-              email: email,
+              OR: [
+                { email: email.toLocaleLowerCase() },
+                { username: username },
+              ]
             },
           });
 
@@ -55,6 +60,14 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.user_id;
         token.email = user.email;
+
+        const prismaUser = await prisma.user.findFirst({
+          where: { email: user.email },
+        });
+
+        if (prismaUser) {
+          token.name = prismaUser.username;
+        }
       }
       return token;
     },
@@ -62,6 +75,7 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user = {
           ...session.user,
+          name: token.name,
           id: token.id,
           email: token.email,
         };
