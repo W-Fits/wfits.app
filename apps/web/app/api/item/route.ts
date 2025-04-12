@@ -1,9 +1,27 @@
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const items = await prisma.item.findMany();
+    const searchParams = request.nextUrl.searchParams;
+    const categoryId = searchParams.get("category_id");
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      return NextResponse.json({ error: "Not authenticated" }, { status: 403 });
+    }
+
+    const items = await prisma.item.findMany({
+      where: {
+        category_id: Number(categoryId),
+        user_id: session.user.id
+      },
+      orderBy: {
+        item_name: "asc",
+      },
+    })
     return NextResponse.json(items, { status: 200 });
   } catch (error: any) {
     console.error("Error fetching items:", error);
