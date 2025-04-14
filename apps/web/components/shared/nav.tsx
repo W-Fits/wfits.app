@@ -11,5 +11,5 @@ export async function Nav() {
     { href: "/profile", label: "Profile" }
   ];
 
-  return <NavBar routes={routes} session={session} />
+  return session && <NavBar routes={routes} session={session} />
 }

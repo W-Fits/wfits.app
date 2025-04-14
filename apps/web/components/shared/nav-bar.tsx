@@ -18,9 +18,9 @@ function NavItem({
 }: {
   route: Route;
   pathname: string;
-  session: Session | null;
+  session: Session;
 }) {
-  if (session && route.href === "/profile") {
+  if (route.href === "/profile") {
     route.href += "/" + session.user.name;
   }
 
@@ -47,7 +47,7 @@ export function NavBar({
   session
 }: {
   routes: Route[],
-  session: Session | null
+  session: Session
 }) {
   const pathname = usePathname();
   const showNavBar = !isNavHidden(pathname);
