@@ -5,7 +5,6 @@ import Credentials from "next-auth/providers/credentials";
 import Auth0 from "next-auth/providers/auth0";
 import { compare } from "bcrypt-ts";
 import { env } from "@/lib/env";
-import { User } from "@prisma/client";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -27,14 +26,30 @@ export const authOptions: NextAuthOptions = {
           if (!credentials) throw new Error("Credentials not provided");
 
           const { email, password, username } = credentials;
-          const user = await prisma.user.findFirstOrThrow({
-            where: {
-              OR: [
-                { email: email.toLocaleLowerCase() },
-                { username: username },
-              ]
-            },
-          });
+
+          if (!email && !username) throw new Error("No username or email provided");
+
+          if (!password) throw new Error("No password proivded");
+
+          let user;
+
+          if (email) {
+            user = await prisma.user.findUnique({
+              where: { email: email.toLocaleLowerCase() },
+            });
+          } else if (username) {
+            user = await prisma.user.findUnique({
+              where: { username: username },
+            });
+          } else {
+            console.error("No username or email provided");
+            throw new Error("No username or email provided");
+          }
+
+          if (!user) {
+            console.error("User not found");
+            throw new Error("User not found"); // Or "Incorrect username/email"
+          }
 
           if (!user.password) throw new Error("Credentials login not allowed");
 
@@ -44,7 +59,7 @@ export const authOptions: NextAuthOptions = {
 
           return user as any;
         } catch (error) {
-          return null;
+          throw error;
         }
       },
     }),
