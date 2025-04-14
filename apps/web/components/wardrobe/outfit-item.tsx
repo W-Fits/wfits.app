@@ -2,21 +2,21 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import type { Item } from "@prisma/client"
 import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { Button } from "@/components/ui/button"
 import { Check, Grid2X2, Layers } from "lucide-react"
+import { ExtendedItem } from "./outfit"
 
 interface OutfitItemProps {
-  item: Item
+  item: ExtendedItem
   categoryName: string
-  onSelectItem: (newItem: Item) => void
+  onSelectItem: (newItem: ExtendedItem) => void
 }
 
 export function OutfitItem({ item, categoryName, onSelectItem }: OutfitItemProps) {
-  const [categoryItems, setCategoryItems] = useState<Item[]>([])
+  const [categoryItems, setCategoryItems] = useState<ExtendedItem[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [selectedItemId, setSelectedItemId] = useState<number>(item.item_id)
 
@@ -37,7 +37,7 @@ export function OutfitItem({ item, categoryName, onSelectItem }: OutfitItemProps
     }
   }
 
-  const handleSelectItem = (newItem: Item) => {
+  const handleSelectItem = (newItem: ExtendedItem) => {
     setSelectedItemId(newItem.item_id)
     onSelectItem(newItem)
   }

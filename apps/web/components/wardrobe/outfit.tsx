@@ -1,87 +1,108 @@
 "use client"
 
-import type { Category } from "@/components/shared/category-select"
-import type { Item } from "@prisma/client"
+import type { Item, Outfit } from "@prisma/client"
 import { OutfitItem } from "./outfit-item"
+import { useEffect, useState } from "react";
+import { useOptionalState } from "@/lib/hooks/use-optional-state";
 
-export type DisplayOutfit = {
-  [k in Category]?: Item
+export interface ExtendedItem extends Item {
+  category_tag: {
+    category_id: number;
+    category_name: string;
+  };
+  colour_tag: {
+    colour_id: number;
+    colour_name: string;
+    colour_value: string;
+  };
+  size_tag: {
+    size_id: number;
+    size_name: string;
+  };
 }
 
+export interface OutfitWithItems extends Outfit {
+  outfit_items: ExtendedItem[]
+}
+
+const categoryOrder = [
+  "Coat",
+  "Pullover",
+  "Shirt",
+  "T-shirt/Top",
+  "Trouser",
+  "Sandal",
+  "Sneaker",
+  "Ankle boot",
+];
+
+function sortItemsByCategory(items: ExtendedItem[]): ExtendedItem[] {
+  return [...items].sort((a, b) => {
+    const indexA = categoryOrder.indexOf(a.category_tag.category_name);
+    const indexB = categoryOrder.indexOf(b.category_tag.category_name);
+
+    if (indexA === -1 && indexB === -1) {
+      return 0;
+    } else if (indexA === -1) {
+      return 1;
+    } else if (indexB === -1) {
+      return -1;
+    }
+
+    return indexA - indexB;
+  });
+}
+
+
 export function Outfit({
-  outfit,
-  setOutfit,
+  initialOutfit,
   edit = false,
+  outfit: outfitProp,
+  setOutfit: setOutfitProp,
 }: {
-  outfit: DisplayOutfit
-  setOutfit: (outfit: DisplayOutfit) => void
-  edit: boolean
+  initialOutfit: OutfitWithItems;
+  edit?: boolean;
+  outfit?: OutfitWithItems | null;
+  setOutfit?: React.Dispatch<React.SetStateAction<OutfitWithItems | null>>;
 }) {
-  const handleSelectItem = (category: Category, newItem: Item) => {
+  const [outfit, setOutfit] = useOptionalState({
+    initialValue: initialOutfit,
+    value: outfitProp,
+    setValue: setOutfitProp,
+  });
+
+  useEffect(() => {
+    if (!outfit) return;
+
+    if (!initialOutfit) return setOutfit(null);
+
+    setOutfit((prev) => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        outfit_items: sortItemsByCategory(prev.outfit_items)
+      }
+    });
+  }, [initialOutfit]);
+
+  const handleSelectItem = (oldItem: ExtendedItem, newItem: ExtendedItem) => {
+    if (!outfit) return;
     setOutfit({
       ...outfit,
-      [category]: newItem,
-    })
+      outfit_items: [...outfit.outfit_items.filter((item) => item.item_id !== oldItem.item_id), newItem],
+    });
   }
 
   return (
     <div className="">
-      {outfit["Coat"] && (
+      {outfit && outfit.outfit_items.map((item) => (
         <OutfitItem
-          item={outfit["Coat"]}
-          categoryName="Coat"
-          onSelectItem={(newItem) => handleSelectItem("Coat", newItem)}
+          key={item.item_id}
+          item={item}
+          categoryName={item.category_tag.category_name}
+          onSelectItem={(newItem) => handleSelectItem(item, newItem)}
         />
-      )}
-      {outfit["Pullover"] && (
-        <OutfitItem
-          item={outfit["Pullover"]}
-          categoryName="Pullover"
-          onSelectItem={(newItem) => handleSelectItem("Pullover", newItem)}
-        />
-      )}
-      {outfit["T-shirt/top"] && (
-        <OutfitItem
-          item={outfit["T-shirt/top"]}
-          categoryName="T-shirt/top"
-          onSelectItem={(newItem) => handleSelectItem("T-shirt/top", newItem)}
-        />
-      )}
-      {outfit["Shirt"] && (
-        <OutfitItem
-          item={outfit["Shirt"]}
-          categoryName="Shirt"
-          onSelectItem={(newItem) => handleSelectItem("Shirt", newItem)}
-        />
-      )}
-      {outfit["Trouser"] && (
-        <OutfitItem
-          item={outfit["Trouser"]}
-          categoryName="Trouser"
-          onSelectItem={(newItem) => handleSelectItem("Trouser", newItem)}
-        />
-      )}
-      {outfit["Sandal"] && (
-        <OutfitItem
-          item={outfit["Sandal"]}
-          categoryName="Sandal"
-          onSelectItem={(newItem) => handleSelectItem("Sandal", newItem)}
-        />
-      )}
-      {outfit["Sneaker"] && (
-        <OutfitItem
-          item={outfit["Sneaker"]}
-          categoryName="Sneaker"
-          onSelectItem={(newItem) => handleSelectItem("Sneaker", newItem)}
-        />
-      )}
-      {outfit["Ankle boot"] && (
-        <OutfitItem
-          item={outfit["Ankle boot"]}
-          categoryName="Ankle boot"
-          onSelectItem={(newItem) => handleSelectItem("Ankle boot", newItem)}
-        />
-      )}
+      ))}
     </div>
-  )
+  );
 }
