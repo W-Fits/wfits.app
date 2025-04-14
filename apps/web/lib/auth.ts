@@ -42,12 +42,10 @@ export const authOptions: NextAuthOptions = {
               where: { username: username },
             });
           } else {
-            console.error("No username or email provided");
             throw new Error("No username or email provided");
           }
 
           if (!user) {
-            console.error("User not found");
             throw new Error("User not found"); // Or "Incorrect username/email"
           }
 
