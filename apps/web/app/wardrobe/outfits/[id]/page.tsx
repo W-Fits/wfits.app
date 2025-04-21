@@ -28,11 +28,11 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         }
       }
     }
-  });
+  }) as OutfitWithItems | null;
 
   if (!outfit) return notFound();
 
   return (
-    <Outfit initialOutfit={outfit as OutfitWithItems} />
+    <Outfit initialOutfit={outfit} />
   );
 }
