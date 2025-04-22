@@ -134,9 +134,7 @@ export function Outfit({
             key={outfit_item.item.item_id}
             item={outfit_item.item}
             categoryName={outfit_item.item.category_tag.category_name}
-            onSelectItem={(newItem) =>
-              handleSelectItem(outfit_item.item, newItem)
-            }
+            onSelectItem={(newItem) => handleSelectItem(outfit_item.item, newItem)}
           />
         ))}
     </div>

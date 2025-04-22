@@ -8,11 +8,45 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { ExtendedItem, Outfit, OutfitWithItems } from "@/components/wardrobe/outfit";
+import { Outfit as OutfitType, User } from "@prisma/client";
+import { SmallOutfit } from "@/components/wardrobe/small-outfit";
+
+export interface ExtendedOutfit extends OutfitType {
+  outfit_items: {
+    item_id: number;
+    outfit_id: number;
+    item: ExtendedItem;
+  }[];
+}
+
+export interface ExtendedUser extends User {
+  outfits: ExtendedOutfit[];
+};
 
 export default async function ProfilePage({ params }: { params: Promise<{ username: string }> }) {
   const { username } = await params;
 
-  const profile = await prisma.user.findFirst({ where: { username } });
+  const profile = await prisma.user.findFirst({
+    where: { username },
+    include: {
+      outfits: {
+        include: {
+          outfit_items: {
+            include: {
+              item: {
+                include: {
+                  category_tag: true,
+                  colour_tag: true,
+                  size_tag: true,
+                },
+              },
+            }
+          }
+        }
+      },
+    },
+  }) as ExtendedUser | null;
 
   if (!profile) return notFound();
 
@@ -59,7 +93,6 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
         </div>
       </div>
 
-
       <Tabs defaultValue="posts" className="w-full mt-6">
         <div className="flex justify-center border-b border-border">
           <TabsList className="flex h-auto bg-transparent p-0">
@@ -98,16 +131,11 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
         </TabsContent>
 
         <TabsContent value="outfits" className="space-y-4">
-          <div className="grid grid-cols-3 gap-2">
-            {/* Outfits content would go here */}
-            {Array(3)
-              .fill(0)
-              .map((_, i) => (
-                <div key={i} className="aspect-square bg-muted rounded-md flex items-center justify-center">
-                  <span className="text-muted-foreground">Outfit {i + 1}</span>
-                </div>
-              ))}
-          </div>
+          {profile.outfits &&
+            profile.outfits.length > 0 &&
+            profile.outfits.map((outfit) => (
+              <SmallOutfit key={outfit.outfit_id} outfit={outfit} />
+            ))}
         </TabsContent>
 
         <TabsContent value="liked" className="space-y-4">
