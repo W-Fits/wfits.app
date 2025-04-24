@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 interface Route {
   href: string;
   label: string;
+  icon: React.ReactNode
 }
 
 function NavItem({
@@ -24,19 +25,22 @@ function NavItem({
     route.href += "/" + session.user.name;
   }
 
+  const active = (
+    (pathname.startsWith("/" + route.href.split("/")[1]) && route.href !== "/") ||
+    pathname === route.href
+  );
+
   return (
     <Link
       key={route.href}
       href={route.href}
       className={cn(
-        "flex flex-col items-center px-2 py-1 min-w-16 rounded-3xl transition duration-100",
-        (
-          (pathname.startsWith("/" + route.href.split("/")[1]) && route.href !== "/") ||
-          pathname === route.href
-        ) && "text-background bg-primary",
+        "flex flex-col items-center justify-center gap-1 text-xs font-medium transition-colors",
+        active ? "text-primary" : "text-muted-foreground hover:text-primary",
       )}
       prefetch
     >
+      {route.icon}
       <span className="text-sm">{route.label}</span>
     </Link>
   );
@@ -53,20 +57,17 @@ export function NavBar({
   const showNavBar = !isNavHidden(pathname);
 
   return showNavBar && (
-    <nav
-      className={cn(
-        "fixed bottom-5 mx-auto left-1/2 transform -translate-x-1/2 bg-background",
-        "flex gap-3 items-center border px-2 py-2 rounded-full shadow-sm",
-      )}
-    >
-      {routes.map((route) => (
-        <NavItem
-          key={route.href}
-          route={route}
-          pathname={pathname}
-          session={session}
-        />
-      ))}
+    <nav className="fixed bottom-0 left-0 z-50 w-full border-t bg-background">
+      <div className="grid h-16 grid-cols-3">
+        {routes.map((route) => (
+          <NavItem
+            key={route.href}
+            route={route}
+            pathname={pathname}
+            session={session}
+          />
+        ))}
+      </div>
     </nav>
   )
 }
