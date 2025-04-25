@@ -7,10 +7,12 @@ export default function WardrobeLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex flex-col min-h-screen max-w-2xl pb-12">
+    <>
       <BreadcrumbHeader />
-      {children}
-    </div>
+      <div className="p-4 pt-20">
+        {children}
+      </div>
+    </>
   );
 }
 
