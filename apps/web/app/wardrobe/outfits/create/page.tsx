@@ -3,7 +3,7 @@
 import { ColourSelect } from "@/components/shared/colour-select";
 import { EnvironmentSelect } from "@/components/shared/environment-select";
 import { Button } from "@/components/ui/button";
-import { ExtendedItem, Outfit, OutfitWithItems } from "@/components/wardrobe/outfit";
+import { Outfit, OutfitWithItems } from "@/components/wardrobe/outfit";
 import { EnvironmentEnum } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

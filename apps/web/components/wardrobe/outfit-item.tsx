@@ -1,24 +1,39 @@
 "use client"
 
-import { useState } from "react"
-import Image from "next/image"
+import { useEffect, useState } from "react"
 import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { Button } from "@/components/ui/button"
-import { Check, Grid2X2, Layers } from "lucide-react"
-import { ExtendedItem } from "./outfit"
+import { Grid2X2, Layers } from "lucide-react"
+import type { ExtendedItem } from "./outfit"
+import { Badge } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
+import { ClothingItem } from "@/components/wardrobe/clothing-item"
+import { Category } from "@/components/shared/category-select"
+import { Size } from "@/components/shared/size-select"
+import { Colour } from "@/components/shared/colour-select"
 
-interface OutfitItemProps {
-  item: ExtendedItem
-  categoryName: string
-  onSelectItem: (newItem: ExtendedItem) => void
-}
-
-export function OutfitItem({ item, categoryName, onSelectItem }: OutfitItemProps) {
+export function OutfitItem({
+  item,
+  categoryName,
+  onSelectItem,
+  className,
+  edit = false
+}: {
+  item: ExtendedItem;
+  categoryName: string;
+  onSelectItem: (newItem: ExtendedItem) => void;
+  className?: string;
+  edit?: boolean;
+}) {
   const [categoryItems, setCategoryItems] = useState<ExtendedItem[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [selectedItemId, setSelectedItemId] = useState<number>(item.item_id)
+
+  useEffect(() => {
+    fetchCategoryItems();
+  }, [item]);
 
   const fetchCategoryItems = async () => {
     if (categoryItems.length > 0) return // Don't fetch if we already have items
@@ -42,27 +57,32 @@ export function OutfitItem({ item, categoryName, onSelectItem }: OutfitItemProps
     onSelectItem(newItem)
   }
 
+  console.log(!edit);
+
   return (
     <Drawer>
-      <DrawerTrigger asChild>
-        <div
-          className="border w-fit p-2 m-2 rounded-md shadow-md hover:shadow-lg transition-shadow cursor-pointer"
-          onClick={fetchCategoryItems}
-        >
-          <Image
-            src={item.item_url || "/placeholder.svg"}
-            alt={item.item_name}
-            width={100}
-            height={100}
-            className="object-cover"
+      <DrawerTrigger disabled={!edit} asChild>
+        <div className={cn("group relative flex flex-col border rounded-lg overflow-hidden hover:shadow-md transition-all duration-200 cursor-pointer bg-background", className)}>
+          <ClothingItem
+            src={item.item_url}
+            name={item.item_name}
+            category={item.category_tag.category_name as Category}
+            alt="Name"
+            size={item.size_tag.size_name as Size}
+            colour={{ value: item.colour_tag.colour_value, name: item.colour_tag.colour_name } as Colour}
           />
         </div>
       </DrawerTrigger>
-      <DrawerContent className="max-h-[90vh] top-[10vh]">
+      <DrawerContent className="max-h-[95vh] top-[5vh]">
         <DrawerHeader>
-          <DrawerTitle className="text-xl font-bold">{categoryName} Options</DrawerTitle>
+          <DrawerTitle className="text-xl font-bold flex items-center gap-2">
+            <span>{categoryName} Options</span>
+            <Badge variant="outline" className="ml-2">
+              {categoryItems.length || 0} items
+            </Badge>
+          </DrawerTitle>
         </DrawerHeader>
-        <div className="px-4 pb-4">
+        <div className="px-4 pb-6">
           {isLoading ? (
             <div className="flex justify-center items-center h-40">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
@@ -70,7 +90,7 @@ export function OutfitItem({ item, categoryName, onSelectItem }: OutfitItemProps
           ) : (
             <Tabs defaultValue="carousel" className="w-full">
               <div className="flex justify-between items-center mb-4">
-                <TabsList>
+                <TabsList className="grid w-full max-w-xs grid-cols-2">
                   <TabsTrigger value="carousel" className="flex items-center gap-1">
                     <Layers className="h-4 w-4" />
                     <span>Carousel</span>
@@ -80,90 +100,77 @@ export function OutfitItem({ item, categoryName, onSelectItem }: OutfitItemProps
                     <span>Grid</span>
                   </TabsTrigger>
                 </TabsList>
-                <div className="text-sm text-muted-foreground">{categoryItems.length} items</div>
               </div>
 
               <TabsContent value="carousel" className="mt-0">
-                <Carousel className="w-full max-w-xs mx-auto">
+                <Carousel className="w-full max-w-md mx-auto">
                   <CarouselContent>
                     {categoryItems.map((categoryItem) => (
                       <CarouselItem key={categoryItem.item_id}>
-                        <div className="p-1">
-                          <div
-                            className={`flex flex-col items-center p-2 border rounded-lg ${selectedItemId === categoryItem.item_id ? "border-primary border-2" : ""
-                              }`}
-                          >
-                            <div className="relative w-full">
-                              <Image
-                                src={categoryItem.item_url || "/placeholder.svg"}
-                                alt={categoryItem.item_name}
-                                width={200}
-                                height={200}
-                                className="object-cover rounded-md mx-auto"
-                              />
-                              {selectedItemId === categoryItem.item_id && (
-                                <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full p-1">
-                                  <Check className="h-4 w-4" />
-                                </div>
-                              )}
-                            </div>
-                            <div className="mt-2 text-center">
-                              <h3 className="font-medium">{categoryItem.item_name}</h3>
-                              <DrawerClose asChild>
-                                <Button
-                                  variant={selectedItemId === categoryItem.item_id ? "secondary" : "default"}
-                                  className="mt-2 w-full"
-                                  onClick={() => handleSelectItem(categoryItem)}
-                                >
-                                  {selectedItemId === categoryItem.item_id ? "Selected" : "Select"}
-                                </Button>
-                              </DrawerClose>
-                            </div>
-                          </div>
+                        <div className="space-y-4 p-1">
+                          <ClothingItem
+                            src={item.item_url}
+                            name={item.item_name}
+                            category={item.category_tag.category_name as Category}
+                            alt="Name"
+                            size={item.size_tag.size_name as Size}
+                            colour={{ value: item.colour_tag.colour_value, name: item.colour_tag.colour_name } as Colour}
+                          />
+                          <DrawerClose asChild>
+                            {selectedItemId == categoryItem.item_id ? (
+                              <Button className="w-full opacity-50">
+                                Selected
+                              </Button>
+                            ) : (
+                              <Button
+                                className="w-full"
+                                onClick={() => handleSelectItem(categoryItem)}
+                              >
+                                {selectedItemId === categoryItem.item_id ? "Selected" : "Select"}
+                              </Button>
+                            )}
+                          </DrawerClose>
                         </div>
                       </CarouselItem>
                     ))}
                   </CarouselContent>
-                  <CarouselPrevious className="left-0" />
-                  <CarouselNext className="right-0" />
+                  <div className="flex justify-center mt-4">
+                    <CarouselPrevious className="static translate-y-0 mr-2" />
+                    <CarouselNext className="static translate-y-0 ml-2" />
+                  </div>
                 </Carousel>
               </TabsContent>
 
               <TabsContent value="grid" className="mt-0">
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-h-[60vh] overflow-y-auto p-1">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-h-[60vh] overflow-y-auto p-1">
                   {categoryItems.map((categoryItem) => (
                     <div
                       key={categoryItem.item_id}
-                      className={`border rounded-lg p-2 flex flex-col items-center ${selectedItemId === categoryItem.item_id ? "border-primary border-2" : ""
-                        }`}
+                      className={cn(
+                        "border rounded-lg p-3 flex flex-col items-center gap-2 transition-all",
+                        selectedItemId === categoryItem.item_id
+                          ? "border-primary border-2 shadow-sm"
+                          : "hover:border-muted-foreground/20",
+                      )}
                     >
-                      <div className="relative w-full">
-                        <Image
-                          src={categoryItem.item_url || "/placeholder.svg"}
-                          alt={categoryItem.item_name}
-                          width={100}
-                          height={100}
-                          className="object-cover rounded-md mx-auto"
-                        />
-                        {selectedItemId === categoryItem.item_id && (
-                          <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full p-1">
-                            <Check className="h-3 w-3" />
-                          </div>
-                        )}
-                      </div>
-                      <div className="mt-2 text-center w-full">
-                        <h3 className="text-sm font-medium truncate max-w-full">{categoryItem.item_name}</h3>
-                        <DrawerClose asChild>
-                          <Button
-                            variant={selectedItemId === categoryItem.item_id ? "secondary" : "default"}
-                            size="sm"
-                            className="mt-2 w-full text-xs"
-                            onClick={() => handleSelectItem(categoryItem)}
-                          >
-                            {selectedItemId === categoryItem.item_id ? "Selected" : "Select"}
-                          </Button>
-                        </DrawerClose>
-                      </div>
+                      <ClothingItem
+                        src={item.item_url}
+                        name={item.item_name}
+                        category={item.category_tag.category_name as Category}
+                        alt="Name"
+                        size={item.size_tag.size_name as Size}
+                        colour={{ value: item.colour_tag.colour_value, name: item.colour_tag.colour_name } as Colour}
+                      />
+                      <DrawerClose asChild>
+                        <Button
+                          variant={selectedItemId === categoryItem.item_id ? "secondary" : "default"}
+                          size="sm"
+                          className="w-full text-xs"
+                          onClick={() => handleSelectItem(categoryItem)}
+                        >
+                          {selectedItemId === categoryItem.item_id ? "Selected" : "Select"}
+                        </Button>
+                      </DrawerClose>
                     </div>
                   ))}
                 </div>
@@ -171,7 +178,7 @@ export function OutfitItem({ item, categoryName, onSelectItem }: OutfitItemProps
             </Tabs>
           )}
         </div>
-      </DrawerContent>
-    </Drawer>
+      </DrawerContent >
+    </Drawer >
   )
 }

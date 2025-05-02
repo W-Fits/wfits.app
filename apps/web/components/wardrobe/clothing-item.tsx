@@ -1,31 +1,21 @@
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
-import { Category } from "@/components/shared/category-select"
-import { Colour } from "@/components/shared/colour-select"
-import { Size } from "@/components/shared/size-select"
-import { EnvironmentEnum } from "@prisma/client"
-import { ClothingImage } from "../shared/clothing-image"
+import { Droplets, Palmtree, Mountain, MapIcon as City, Home, Sun, Snowflake } from "lucide-react"
+import type { Size } from "@/components/shared/size-select"
+import type { Category } from "@/components/shared/category-select"
+import type { Colour } from "@/components/shared/colour-select"
 
-export interface ClothingItemProps {
-  src: string
+interface ClothingItemProps {
+  src?: string | null
   alt: string
-  name?: string
-  category?: Category
-  size?: Size
-  colour?: Colour
+  name: string
+  category: Category
+  size: Size
+  colour: Colour
   isWaterproof?: boolean
-  environment?: EnvironmentEnum
+  environment?: string
   className?: string
-  outline?: boolean
-
-  // Show/hide props
-  showName?: boolean
-  showCategory?: boolean
-  showSize?: boolean
-  showColour?: boolean
-  showWaterproof?: boolean
-  showEnvironment?: boolean
 }
 
 export function ClothingItem({
@@ -38,57 +28,85 @@ export function ClothingItem({
   isWaterproof,
   environment,
   className,
-  showName = true,
-  showCategory = true,
-  showSize = true,
-  showColour = true,
-  showWaterproof = true,
-  showEnvironment = true,
-  outline = true
 }: ClothingItemProps) {
+  // Map environment to icon
+  const getEnvironmentIcon = () => {
+    switch (environment?.toLowerCase()) {
+      case "Cold":
+        return <Snowflake className="h-3 w-3" />
+      case "Warm":
+        return <Sun className="h-3 w-3" />
+      default:
+        return null
+    }
+  }
+
   return (
-    <div className={cn(
-      "relative group overflow-hidden",
-      outline && "border border-muted shadow-sm rounded-lg",
-      className
-    )}>
-      <div className="relative aspect-square overflow-hidden rounded-lg">
-        <ClothingImage src={src} />
+    <div
+      className={cn(
+        "group relative flex flex-col overflow-hidden rounded-md border bg-card transition-all hover:shadow-md",
+        className,
+      )}
+    >
+      {/* Image container with fixed aspect ratio */}
+      <div className="relative aspect-square w-full overflow-hidden bg-muted">
+        {src ? (
+          <Image
+            src={src || "/placeholder.svg"}
+            alt={alt}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform group-hover:scale-105"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-muted">
+            <span className="text-xs text-muted-foreground">No image</span>
+          </div>
+        )}
+
+        {/* Attribute badges - top right */}
+        <div className="absolute right-2 top-2 flex flex-col gap-1.5">
+          {isWaterproof && (
+            <Badge
+              variant="secondary"
+              className="flex items-center gap-1 bg-blue-100/80 text-blue-700 backdrop-blur-sm dark:bg-blue-900/80 dark:text-blue-300"
+            >
+              <Droplets className="h-3 w-3" />
+            </Badge>
+          )}
+          {environment && getEnvironmentIcon() && (
+            <Badge
+              variant="secondary"
+              className="flex items-center gap-1 bg-green-100/80 text-green-700 backdrop-blur-sm dark:bg-green-900/80 dark:text-green-300"
+            >
+              {getEnvironmentIcon()}
+            </Badge>
+          )}
+        </div>
       </div>
-      <div className="bg-muted px-4 py-2 mt-4">
 
-        {showName && name && <h3 className="text-lg font-medium">{name}</h3>}
+      {/* Item details */}
+      <div className="flex flex-col p-3">
+        <h3 className="line-clamp-1 font-medium">{name}</h3>
 
-        <div className="flex flex-wrap gap-2 mt-2">
-          {showCategory && category && (
-            <Badge variant="outline" className="bg-primary/10">
-              {category}
-            </Badge>
-          )}
-
-          {showSize && size && (
-            <Badge variant="outline" className="bg-secondary/10">
-              Size: {size}
-            </Badge>
-          )}
-
-          {showColour && colour && (
-            <Badge variant="outline" className="bg-accent/10">
-              {colour.name}
-            </Badge>
-          )}
-
-          {showWaterproof && isWaterproof !== undefined && (
-            <Badge variant={isWaterproof ? "default" : "outline"} className={isWaterproof ? "bg-blue-500" : ""}>
-              {isWaterproof ? "Waterproof" : "Not Waterproof"}
-            </Badge>
-          )}
-
-          {showEnvironment && environment && (
-            <Badge variant="outline" className={environment === "Warm" ? "bg-orange-500/20" : "bg-blue-500/20"}>
-              {environment}
-            </Badge>
-          )}
+        {/* Attributes row */}
+        <div className="mt-1.5 flex flex-wrap items-center gap-2">
+          <Badge
+            variant="outline"
+            className="flex items-center gap-1 border-none bg-muted px-2 py-0 text-xs font-normal"
+          >
+            {category}
+          </Badge>
+          <Badge
+            variant="outline"
+            className="flex items-center gap-1 border-none bg-muted px-2 py-0 text-xs font-normal"
+          >
+            {size}
+          </Badge>
+          <div className="flex items-center gap-1 rounded-full px-2 py-0.5 text-xs bg-muted">
+            <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: colour.value }} />
+            {colour.name}
+          </div>
         </div>
       </div>
     </div>

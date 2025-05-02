@@ -1,9 +1,12 @@
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
-import Link from "next/link";
 import { redirect } from "next/navigation";
-import { SmallOutfit } from "@/components/wardrobe/small-outfit";
+import { OutfitWithItems } from "@/components/wardrobe/outfit";
+import { OutfitGrid } from "@/components/wardrobe/outfit-grid";
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { CreateOutfitQuickAction } from "@/components/wardrobe/create-outit-quick-action";
 
 export default async function OutfitsPage() {
   const session = await getServerSession(authOptions);
@@ -30,31 +33,17 @@ export default async function OutfitsPage() {
     orderBy: {
       created_at: "desc",
     }
-  });
+  }) as OutfitWithItems[] | null;
 
   return (
-    <section>
-      <header className="pt-12">
+    <div className="container space-y-4">
+      <div className="flex items-center mb-2 ">
         <h1 className="text-3xl font-bold tracking-tight">My Outfits</h1>
-      </header>
-      <div className="flex flex-col gap-1">
-        <Link
-          className="px-2 py-1 w-fit rounded-md bg-primary text-background"
-          href="/wardrobe/outfits/create"
-        >
-          Create Outfit
-        </Link>
       </div>
-      <div className="flex gap-2 flex-wrap mt-4">
-        {outfits && outfits.map((outfit) => (
-          <Link
-            key={outfit.outfit_id}
-            href={`/wardrobe/outfits/${outfit.outfit_id}`}
-          >
-            <SmallOutfit outfit={outfit} />
-          </Link>
-        ))}
-      </div>
-    </section>
+      <CreateOutfitQuickAction />
+      <Suspense fallback={<Skeleton className="" />}>
+        {outfits && <OutfitGrid outfits={outfits} />}
+      </Suspense>
+    </div>
   );
 }

@@ -11,10 +11,11 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Search, Filter } from "lucide-react"
+import { Search, Filter, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import { Skeleton } from "@/components/ui/skeleton"
 
 interface ExtendedItem extends Item {
   category_tag: {
@@ -67,17 +68,17 @@ export function ClothingItemGrid({
       }
 
       // Filter by category
-      if (selectedCategory && item.category_tag.category_name !== selectedCategory) {
+      if (selectedCategory && selectedCategory !== "all" && item.category_tag.category_name !== selectedCategory) {
         return false
       }
 
       // Filter by size
-      if (selectedSize && item.size_tag.size_name !== selectedSize) {
+      if (selectedSize && selectedSize !== "all" && item.size_tag.size_name !== selectedSize) {
         return false
       }
 
       // Filter by colour
-      if (selectedColour && item.colour_tag.colour_name !== selectedColour) {
+      if (selectedColour && selectedColour !== "all" && item.colour_tag.colour_name !== selectedColour) {
         return false
       }
 
@@ -87,7 +88,7 @@ export function ClothingItemGrid({
       }
 
       // Filter by environment
-      if (selectedEnvironment && item.environment !== selectedEnvironment) {
+      if (selectedEnvironment && selectedEnvironment !== "all" && item.environment !== selectedEnvironment) {
         return false
       }
 
@@ -97,11 +98,11 @@ export function ClothingItemGrid({
 
   // Count active filters
   const activeFilterCount = [
-    selectedCategory,
-    selectedSize,
-    selectedColour,
+    selectedCategory && selectedCategory !== "all" ? selectedCategory : null,
+    selectedSize && selectedSize !== "all" ? selectedSize : null,
+    selectedColour && selectedColour !== "all" ? selectedColour : null,
     waterproofOnly ? "waterproof" : null,
-    selectedEnvironment,
+    selectedEnvironment && selectedEnvironment !== "all" ? selectedEnvironment : null,
   ].filter(Boolean).length
 
   // Reset all filters
@@ -115,7 +116,7 @@ export function ClothingItemGrid({
   }
 
   return (
-    <div className="container mx-auto px-4 pt-6 pb-24">
+    <div className="container mx-auto px-0">
       <div className="flex flex-col gap-6">
         {/* Search and filter controls */}
         <div className="flex flex-col gap-4">
@@ -128,17 +129,25 @@ export function ClothingItemGrid({
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
               />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
             </div>
             <div className="flex gap-2">
               <Button
-                variant="outline"
+                variant={showFilters ? "secondary" : "outline"}
                 onClick={() => setShowFilters(!showFilters)}
                 className="flex items-center gap-2"
               >
                 <Filter className="h-4 w-4" />
                 Filters
                 {activeFilterCount > 0 && (
-                  <Badge variant="secondary" className="ml-1">
+                  <Badge variant="secondary" className="ml-1 bg-primary text-primary-foreground">
                     {activeFilterCount}
                   </Badge>
                 )}
@@ -151,16 +160,62 @@ export function ClothingItemGrid({
             </div>
           </div>
 
+          {/* Active filters */}
+          {activeFilterCount > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {selectedCategory && selectedCategory !== "all" && (
+                <Badge variant="secondary" className="flex items-center gap-1">
+                  Category: {selectedCategory}
+                  <button onClick={() => setSelectedCategory(null)} className="ml-1 hover:text-primary">
+                    <X className="h-3 w-3" />
+                  </button>
+                </Badge>
+              )}
+              {selectedSize && selectedSize !== "all" && (
+                <Badge variant="secondary" className="flex items-center gap-1">
+                  Size: {selectedSize}
+                  <button onClick={() => setSelectedSize(null)} className="ml-1 hover:text-primary">
+                    <X className="h-3 w-3" />
+                  </button>
+                </Badge>
+              )}
+              {selectedColour && selectedColour !== "all" && (
+                <Badge variant="secondary" className="flex items-center gap-1">
+                  Colour: {selectedColour}
+                  <button onClick={() => setSelectedColour(null)} className="ml-1 hover:text-primary">
+                    <X className="h-3 w-3" />
+                  </button>
+                </Badge>
+              )}
+              {waterproofOnly && (
+                <Badge variant="secondary" className="flex items-center gap-1">
+                  Waterproof
+                  <button onClick={() => setWaterproofOnly(false)} className="ml-1 hover:text-primary">
+                    <X className="h-3 w-3" />
+                  </button>
+                </Badge>
+              )}
+              {selectedEnvironment && selectedEnvironment !== "all" && (
+                <Badge variant="secondary" className="flex items-center gap-1">
+                  Environment: {selectedEnvironment}
+                  <button onClick={() => setSelectedEnvironment(null)} className="ml-1 hover:text-primary">
+                    <X className="h-3 w-3" />
+                  </button>
+                </Badge>
+              )}
+            </div>
+          )}
+
           {/* Filter panel */}
           {showFilters && (
             <div className="bg-card border rounded-lg p-4 shadow-sm">
-              <Accordion type="single" collapsible defaultValue="category" className="w-full">
+              <Accordion type="multiple" defaultValue={["category"]} className="w-full">
                 <AccordionItem value="category">
-                  <AccordionTrigger>Category</AccordionTrigger>
+                  <AccordionTrigger className="py-2">Category</AccordionTrigger>
                   <AccordionContent>
                     <Select
                       value={selectedCategory || ""}
-                      onValueChange={(value) => setSelectedCategory(value || null)}
+                      onValueChange={(value) => setSelectedCategory(value === "all" ? null : value)}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select category" />
@@ -178,9 +233,12 @@ export function ClothingItemGrid({
                 </AccordionItem>
 
                 <AccordionItem value="size">
-                  <AccordionTrigger>Size</AccordionTrigger>
+                  <AccordionTrigger className="py-2">Size</AccordionTrigger>
                   <AccordionContent>
-                    <Select value={selectedSize || ""} onValueChange={(value) => setSelectedSize(value || null)}>
+                    <Select
+                      value={selectedSize || ""}
+                      onValueChange={(value) => setSelectedSize(value === "all" ? null : value)}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Select size" />
                       </SelectTrigger>
@@ -197,9 +255,12 @@ export function ClothingItemGrid({
                 </AccordionItem>
 
                 <AccordionItem value="colour">
-                  <AccordionTrigger>Colour</AccordionTrigger>
+                  <AccordionTrigger className="py-2">Colour</AccordionTrigger>
                   <AccordionContent>
-                    <Select value={selectedColour || ""} onValueChange={(value) => setSelectedColour(value || null)}>
+                    <Select
+                      value={selectedColour || ""}
+                      onValueChange={(value) => setSelectedColour(value === "all" ? null : value)}
+                    >
                       <SelectTrigger>
                         <SelectValue placeholder="Select colour" />
                       </SelectTrigger>
@@ -216,7 +277,7 @@ export function ClothingItemGrid({
                 </AccordionItem>
 
                 <AccordionItem value="properties">
-                  <AccordionTrigger>Properties</AccordionTrigger>
+                  <AccordionTrigger className="py-2">Properties</AccordionTrigger>
                   <AccordionContent>
                     <div className="flex flex-col gap-4">
                       <div className="flex items-center space-x-2">
@@ -233,7 +294,7 @@ export function ClothingItemGrid({
                           <Label htmlFor="environment">Environment</Label>
                           <Select
                             value={selectedEnvironment || ""}
-                            onValueChange={(value) => setSelectedEnvironment(value || null)}
+                            onValueChange={(value) => setSelectedEnvironment(value === "all" ? null : value)}
                           >
                             <SelectTrigger id="environment">
                               <SelectValue placeholder="Select environment" />
@@ -263,10 +324,10 @@ export function ClothingItemGrid({
         </div>
 
         {/* Clothing items grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {filteredItems.length > 0 ? (
             filteredItems.map((item) => (
-              <Link href={`/wardrobe/clothes/item/${item.item_id}`} key={item.item_id}>
+              <Link href={`/wardrobe/clothes/item/${item.item_id}`} key={item.item_id} className="block h-full">
                 <ClothingItem
                   src={item.item_url}
                   alt={item.item_name}
@@ -276,15 +337,42 @@ export function ClothingItemGrid({
                   colour={{ name: item.colour_tag.colour_name, value: item.colour_tag.colour_value } as Colour}
                   isWaterproof={item.waterproof ?? undefined}
                   environment={item.environment ?? undefined}
+                  className="h-full"
                 />
               </Link>
             ))
           ) : (
-            <div className="col-span-full text-center py-12 text-muted-foreground">
-              No items found matching your filters. Try adjusting your search criteria.
+            <div className="col-span-full flex flex-col items-center justify-center py-12 text-center">
+              <div className="mb-4 rounded-full bg-muted p-3">
+                <Search className="h-6 w-6 text-muted-foreground" />
+              </div>
+              <h3 className="mb-1 text-lg font-medium">No items found</h3>
+              <p className="text-sm text-muted-foreground">Try adjusting your search or filter criteria</p>
+              <Button onClick={resetFilters} variant="outline" className="mt-4">
+                Clear all filters
+              </Button>
             </div>
           )}
         </div>
+
+        {/* Loading skeleton for reference (not used in actual component) */}
+        {false && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            {Array.from({ length: 10 }).map((_, i) => (
+              <div key={i} className="flex flex-col overflow-hidden rounded-md border">
+                <Skeleton className="aspect-square w-full" />
+                <div className="p-3 space-y-2">
+                  <Skeleton className="h-5 w-3/4" />
+                  <div className="flex flex-wrap gap-2">
+                    <Skeleton className="h-5 w-16" />
+                    <Skeleton className="h-5 w-12" />
+                    <Skeleton className="h-5 w-20" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )
