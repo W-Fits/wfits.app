@@ -57,7 +57,7 @@ export default function SignUp() {
             <Label>Username</Label>
             <Input
               type="text"
-              value={username ?? undefined}
+              value={username ?? ""}
               onChange={(e) => setUsername(e.currentTarget.value)}
               disabled={loading}
               autoFocus
@@ -68,7 +68,7 @@ export default function SignUp() {
             <Input
               placeholder="email@example.com"
               type="email"
-              value={email ?? undefined}
+              value={email ?? ""}
               onChange={(e) => setEmail(e.currentTarget.value)}
               disabled={loading}
             />
@@ -77,7 +77,7 @@ export default function SignUp() {
             <Label>Password</Label>
             <Input
               type="password"
-              value={password ?? undefined}
+              value={password ?? ""}
               onChange={(e) => setPassword(e.currentTarget.value)}
               disabled={loading}
             />

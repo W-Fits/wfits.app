@@ -1,17 +1,24 @@
-import { signIn } from "next-auth/react";
+import { signIn, SignInOptions } from "next-auth/react";
 
 export default async function credentialsSignIn(
-  email: string,
+  identifier: string,
   password: string,
 ) {
-  const response = await signIn("credentials", {
-    redirect: true,
+  const options = {
+    redirect: false,
     callbackUrl: "/",
-    email: email,
     password: password,
-  });
+  } as SignInOptions;
 
-  if (!response || !response.ok) throw new Error("Error logging in");
+  if (identifier.includes("@")) {
+    options.email = identifier;
+  } else {
+    options.username = identifier;
+  }
+
+  const response = await signIn("credentials", options);
+
+  if (!response || !response.ok) throw new Error("Error logging in.");
 
   return response;
 }

@@ -13,6 +13,11 @@ export async function GET(request: Request, { params }: Params) {
   try {
     const item = await prisma.item.findUnique({
       where: { item_id: parseInt(id) },
+      include: {
+        category_tag: true,
+        colour_tag: true,
+        size_tag: true,
+      },
     });
 
 

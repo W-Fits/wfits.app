@@ -1,17 +1,11 @@
-import { LogOut } from "lucide-react";
-import Link from "next/link";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
-export default function Profile() {
-  return (
-    <section className="p-2">
-      <h1 className="pt-12">Profile</h1>
-      <Link
-        className="flex items-center gap-2 text-sm w-fit text-background bg-primary rounded-md p-2"
-        href="/sign-out"
-      >
-        Sign out
-        <LogOut className="h-5 w-5" />
-      </Link>
-    </section>
-  );
+export default async function ProfilePage() {
+  const session = await getServerSession(authOptions)
+  if (!session) {
+    redirect("/sign-in");
+  }
+  return redirect(`/profile/${session.user.name}`);
 }

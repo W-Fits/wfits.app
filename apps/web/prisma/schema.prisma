@@ -101,7 +101,7 @@ model SizeTag {
 
 model User {
   user_id   Int       @id @default(autoincrement())
-  username  String    @db.VarChar(60)
+  username  String    @unique @db.VarChar(60)
   password  String?
   firstname String?   @db.VarChar(50)
   lastname  String?   @db.VarChar(50)

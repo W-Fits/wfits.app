@@ -18,18 +18,36 @@ export const authOptions: NextAuthOptions = {
       name: "Credentials",
       credentials: {
         email: { label: "email", type: "text" },
+        username: { label: "username", type: "text" },
         password: { password: "email", type: "password" },
       },
       async authorize(credentials) {
         try {
           if (!credentials) throw new Error("Credentials not provided");
 
-          const { email, password } = credentials;
-          const user = await prisma.user.findUniqueOrThrow({
-            where: {
-              email: email,
-            },
-          });
+          const { email, password, username } = credentials;
+
+          if (!email && !username) throw new Error("No username or email provided");
+
+          if (!password) throw new Error("No password proivded");
+
+          let user;
+
+          if (email) {
+            user = await prisma.user.findUnique({
+              where: { email: email.toLocaleLowerCase() },
+            });
+          } else if (username) {
+            user = await prisma.user.findUnique({
+              where: { username: username },
+            });
+          } else {
+            throw new Error("No username or email provided");
+          }
+
+          if (!user) {
+            throw new Error("User not found"); // Or "Incorrect username/email"
+          }
 
           if (!user.password) throw new Error("Credentials login not allowed");
 
@@ -39,7 +57,7 @@ export const authOptions: NextAuthOptions = {
 
           return user as any;
         } catch (error) {
-          return null;
+          throw error;
         }
       },
     }),
@@ -55,6 +73,14 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.user_id;
         token.email = user.email;
+
+        const prismaUser = await prisma.user.findFirst({
+          where: { email: user.email },
+        });
+
+        if (prismaUser) {
+          token.name = prismaUser.username;
+        }
       }
       return token;
     },
@@ -62,6 +88,7 @@ export const authOptions: NextAuthOptions = {
       if (token) {
         session.user = {
           ...session.user,
+          name: token.name,
           id: token.id,
           email: token.email,
         };

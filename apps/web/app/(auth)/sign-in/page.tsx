@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,11 +15,52 @@ import { Label } from "@/components/ui/label";
 import { Spinner } from "@/components/ui/spinner";
 import credentialsSignIn from "@/lib/actions/credentials-sign-in";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function SignIn() {
-  const [email, setEmail] = useState<string | undefined>();
+  const [identifier, setIdentifier] = useState<string | undefined>();
   const [password, setPassword] = useState<string | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+
+      if (!identifier) throw new Error("No username or email supplied");
+      if (!password) throw new Error("No password supplied");
+
+      const promise = credentialsSignIn(identifier, password);
+
+      toast.promise(promise, {
+        loading: "Signing in...",
+        success: "Signed in!",
+        error: "Couldn't sign in"
+      });
+
+      await promise;
+      router.push("/");
+      router.refresh();
+    } catch (error) {
+      toast.warning(String(error));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Enter" && !loading) {
+        handleSubmit();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [identifier, password, loading]);
 
   return (
     <section className="flex h-screen w-screen items-center justify-center flex-col gap-2">
@@ -30,13 +71,13 @@ export default function SignIn() {
         </CardHeader>
         <CardContent className="p-6 pt-0 grid gap-4">
           <div className="grid gap-2">
-            <Label>Email</Label>
+            <Label>Username or Email</Label>
             <Input
-              id="email"
+              id="identifier"
               placeholder="email@example.com"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.currentTarget.value)}
+              type="text"
+              value={identifier ?? ""}
+              onChange={(e) => setIdentifier(e.currentTarget.value)}
               disabled={loading}
               autoFocus
             />
@@ -46,24 +87,15 @@ export default function SignIn() {
             <Input
               id="password"
               type="password"
-              value={password}
+              value={password ?? ""}
               onChange={(e) => setPassword(e.currentTarget.value)}
               disabled={loading}
             />
           </div>
           <Button
-            onClick={async () => {
-              setLoading(true);
-
-              toast.promise(credentialsSignIn(email!, password!), {
-                loading: "Signing in...",
-                success: "Signed in!",
-                error: "Couldn't sign in"
-              });
-
-              setLoading(false);
-            }}
-            disabled={loading || !email || !password}
+            onClick={handleSubmit}
+            disabled={loading || !identifier || !password}
+            type="submit"
           >
             {loading ? <Spinner /> : "Sign in"}
           </Button>
