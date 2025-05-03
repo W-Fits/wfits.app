@@ -20,6 +20,7 @@ requests-cache = "^1.2.1"
 retry-requests = "^2.0.0"
 numpy = "^2.2.4"
 pandas = "^2.2.3"
+pytest = "^8.3.5"
 
 
 [build-system]
