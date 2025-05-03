@@ -7,9 +7,9 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.scripts]
-test-api = "clothing_processor.scripts.test_api:main"
+test-api = "clothing_processor.scripts._test_api:main"
 push-env = "clothing_processor.scripts.push_env:main"
-test-colour-match = "clothing_processor.scripts.test_colour_match:main"
+test-colour-match = "clothing_processor.scripts._test_colour_match:main"
 
 [tool.poetry.dependencies]
 shared-utils = {path = "../../packages/shared", develop = true}
@@ -216,6 +216,9 @@ yappi = "1.6.10"
 zipp = "3.21.0"
 fastapi-cors = "^0.0.6"
 
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
 
 [build-system]
 requires = ["poetry-core"]

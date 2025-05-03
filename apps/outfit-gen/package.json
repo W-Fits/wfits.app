@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "poetry run python run.py",
-    "generate:requirements": "poetry export --without-hashes --format=requirements-prod.txt > requirements-prod.txt"
+    "generate:requirements": "poetry export --without-hashes --format=requirements-prod.txt > requirements-prod.txt",
+    "test": "poetry run pytest"
   }
 }

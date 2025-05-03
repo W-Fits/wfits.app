@@ -95,8 +95,12 @@ def preprocess_image(image: Image.Image) -> NDArray[Any]:
   
 def to_base64(image: Image.Image) -> str:
   """Convert a PIL Image to a Base64 encoded string."""
-  buffer = to_bytes_image(image)
-  return base64.b64encode(buffer.read()).decode("utf-8")  # Encode to Base64
+  try:
+    buffer = to_bytes_image(image)
+    return base64.b64encode(buffer.read()).decode("utf-8")  # Encode to Base64
+  except Exception as e:
+    raise ValueError(f"Error converting Image to base64: {e}")
+
 
 
 def get_rgb_colour(image_array: NDArray[Any]) -> Tuple[int, int, int]:
@@ -128,12 +132,21 @@ def rgb_to_hex(rgb: tuple) -> str:
   """Convert RGB tuple to hex code. -> str"""
   if not isinstance(rgb, tuple) or len(rgb) != 3:
     raise ValueError(f"Invalid RGB tuple: {rgb}")
-  return f"#{rgb[0]:02x}{rgb[1]:02x}{rgb[2]:02x}"
+  return f"#{rgb[0]:02x}{rgb[1]:02x}{rgb[2]:02x}".upper()
 
 def hex_to_rgb(hex_code: str) -> Tuple[int, int, int]:
   """Convert hex colour to RGB tuple. -> Tuple[int, int, int]"""
   hex_code = hex_code.lstrip('#')
-  return tuple(int(hex_code[i:i+2], 16) for i in (0, 2, 4))
+  if len(hex_code) != 6:
+    raise ValueError(f"Invalid hex code format: '{hex_code}'. Expected a 6-digit hex code.")
+
+  if not all(c in '0123456789abcdefABCDEF' for c in hex_code):
+    raise ValueError(f"Invalid hex code format: '{hex_code}'. Contains non-hexadecimal characters.")
+
+  try:
+    return tuple(int(hex_code[i:i+2], 16) for i in (0, 2, 4))
+  except Exception as e:
+    raise ValueError(f"Error converting hex code '{hex_code}' to RGB: {e}")
 
 def calculate_distance(colour1: tuple, colour2: tuple) -> float:
   """Calculate the Euclidean distance between two RGB colours."""
