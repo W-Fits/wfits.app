@@ -4,6 +4,9 @@
   "scripts": {
     "dev": "poetry run python run.py",
     "generate:requirements": "poetry export --without-hashes --format=requirements-prod.txt > requirements-prod.txt",
-    "test": "poetry run pytest"
+    "test": "cross-env HOME=%USERPROFILE% poetry run pytest"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }
