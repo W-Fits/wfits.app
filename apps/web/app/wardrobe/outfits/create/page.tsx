@@ -24,117 +24,137 @@ export default function CreateOutfitPage() {
 
       // Simulated outfit response
       const result = {
+        "outfit_id": 1,
+        "outfit_name": "outfit",
+        "user_id": 1,
         "outfit_items": [
           {
-            "item_id": 5,
-            "colour_id": 16,
-            "category_id": 4,
-            "size_id": 2,
-            "user_id": 1,
-            "item_name": "Blue Jumper",
-            "item_url": "https://wfits-bucket.s3.amazonaws.com/fbcc6237-6dab-4c1b-859e-9af7163a57c0.png",
-            "waterproof": true,
-            "available": true,
-            "slot": 3,
-            "environment": "Cold",
-            "created_at": new Date("2025-03-25T13:41:10.478Z"),
-            "updated_at": new Date("2025-03-29T13:05:28.207Z"),
-            "category_tag": {
-              "category_id": 4,
-              "category_name": "Coat"
-            },
-            "colour_tag": {
+            "item_id": 1,
+            "outfit_id": 1,
+            "item": {
+              "item_id": 1,
               "colour_id": 16,
-              "colour_name": "Mustard",
-              "colour_value": "#FFDB58"
-            },
-            "size_tag": {
+              "category_id": 4,
               "size_id": 2,
-              "size_name": "m"
+              "user_id": 1,
+              "item_name": "Blue Jumper",
+              "item_url": "https://wfits-bucket.s3.amazonaws.com/fbcc6237-6dab-4c1b-859e-9af7163a57c0.png",
+              "waterproof": true,
+              "available": true,
+              "slot": 3,
+              "environment": "Cold",
+              "created_at": new Date("2025-03-25T13:41:10.478Z"),
+              "updated_at": new Date("2025-03-29T13:05:28.207Z"),
+              "category_tag": {
+                "category_id": 4,
+                "category_name": "Coat"
+              },
+              "colour_tag": {
+                "colour_id": 16,
+                "colour_name": "Mustard",
+                "colour_value": "#FFDB58"
+              },
+              "size_tag": {
+                "size_id": 2,
+                "size_name": "m"
+              }
             }
           },
           {
-            "item_id": 8,
-            "colour_id": 15,
-            "category_id": 0,
-            "size_id": 0,
-            "user_id": 1,
-            "item_name": "Blue T-Shirt",
-            "item_url": "https://wfits-bucket.s3.amazonaws.com/b02543f5-cf53-47f2-befc-61b93550bce4.png",
-            "waterproof": false,
-            "available": null,
-            "slot": 3,
-            "environment": "Warm",
-            "created_at": new Date("2025-03-25T13:44:58.983Z"),
-            "updated_at": new Date("2025-03-25T13:44:58.983Z"),
-            "category_tag": {
-              "category_id": 0,
-              "category_name": "T-shirt/top"
-            },
-            "colour_tag": {
+            "item_id": 2,
+            "outfit_id": 1,
+            "item": {
+              "item_id": 2,
               "colour_id": 15,
-              "colour_name": "Teal",
-              "colour_value": "#008080"
-            },
-            "size_tag": {
+              "category_id": 0,
               "size_id": 0,
-              "size_name": "xs"
+              "user_id": 1,
+              "item_name": "Blue T-Shirt",
+              "item_url": "https://wfits-bucket.s3.amazonaws.com/b02543f5-cf53-47f2-befc-61b93550bce4.png",
+              "waterproof": false,
+              "available": null,
+              "slot": 3,
+              "environment": "Warm",
+              "created_at": new Date("2025-03-25T13:44:58.983Z"),
+              "updated_at": new Date("2025-03-25T13:44:58.983Z"),
+              "category_tag": {
+                "category_id": 0,
+                "category_name": "T-shirt/top"
+              },
+              "colour_tag": {
+                "colour_id": 15,
+                "colour_name": "Teal",
+                "colour_value": "#008080"
+              },
+              "size_tag": {
+                "size_id": 0,
+                "size_name": "xs"
+              }
             }
           },
           {
-            "item_id": 7,
-            "colour_id": 3,
-            "category_id": 1,
-            "size_id": 2,
-            "user_id": 1,
-            "item_name": "Black Joggers",
-            "item_url": "https://wfits-bucket.s3.amazonaws.com/5e5b454c-d58d-4cac-891c-a9fb87c2fcdf.png",
-            "waterproof": false,
-            "available": null,
-            "slot": 2,
-            "environment": null,
-            "created_at": new Date("2025-03-25T13:43:08.863Z"),
-            "updated_at": new Date("2025-03-25T13:43:08.863Z"),
-            "category_tag": {
-              "category_id": 1,
-              "category_name": "Trouser"
-            },
-            "colour_tag": {
+            "item_id": 3,
+            "outfit_id": 1,
+            "item": {
+              "item_id": 3,
               "colour_id": 3,
-              "colour_name": "Navy",
-              "colour_value": "#000080"
-            },
-            "size_tag": {
+              "category_id": 1,
               "size_id": 2,
-              "size_name": "m"
+              "user_id": 1,
+              "item_name": "Black Joggers",
+              "item_url": "https://wfits-bucket.s3.amazonaws.com/5e5b454c-d58d-4cac-891c-a9fb87c2fcdf.png",
+              "waterproof": false,
+              "available": null,
+              "slot": 2,
+              "environment": null,
+              "created_at": new Date("2025-03-25T13:43:08.863Z"),
+              "updated_at": new Date("2025-03-25T13:43:08.863Z"),
+              "category_tag": {
+                "category_id": 1,
+                "category_name": "Trouser"
+              },
+              "colour_tag": {
+                "colour_id": 3,
+                "colour_name": "Navy",
+                "colour_value": "#000080"
+              },
+              "size_tag": {
+                "size_id": 2,
+                "size_name": "m"
+              }
             }
           },
           {
-            "item_id": 10,
-            "colour_id": 1,
-            "category_id": 8,
-            "size_id": 2,
-            "user_id": 1,
-            "item_name": "shoes",
-            "item_url": "https://wfits-bucket.s3.amazonaws.com/f7defc0b-96e5-49b0-86e6-569e5287da49.png",
-            "waterproof": false,
-            "available": null,
-            "slot": 8,
-            "environment": "Warm",
-            "created_at": new Date("2025-04-02T13:12:18.768Z"),
-            "updated_at": new Date("2025-04-02T13:12:18.768Z"),
-            "category_tag": {
-              "category_id": 8,
-              "category_name": "Bag"
-            },
-            "colour_tag": {
+            "item_id": 4,
+            "outfit_id": 1,
+            "item": {
+              "item_id": 4,
+
               "colour_id": 1,
-              "colour_name": "White",
-              "colour_value": "#FFFFFF"
-            },
-            "size_tag": {
+              "category_id": 8,
               "size_id": 2,
-              "size_name": "m"
+              "user_id": 1,
+              "item_name": "shoes",
+              "item_url": "https://wfits-bucket.s3.amazonaws.com/f7defc0b-96e5-49b0-86e6-569e5287da49.png",
+              "waterproof": false,
+              "available": null,
+              "slot": 8,
+              "environment": "Warm",
+              "created_at": new Date("2025-04-02T13:12:18.768Z"),
+              "updated_at": new Date("2025-04-02T13:12:18.768Z"),
+              "category_tag": {
+                "category_id": 8,
+                "category_name": "Bag"
+              },
+              "colour_tag": {
+                "colour_id": 1,
+                "colour_name": "White",
+                "colour_value": "#FFFFFF"
+              },
+              "size_tag": {
+                "size_id": 2,
+                "size_name": "m"
+              }
             }
           }
         ]
@@ -156,9 +176,7 @@ export default function CreateOutfitPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          items: outfit.outfit_items,
-        }),
+        body: JSON.stringify(outfit),
       });
 
       if (!response.ok) {

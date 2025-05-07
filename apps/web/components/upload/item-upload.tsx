@@ -18,7 +18,6 @@ import { toast } from "sonner";
 import { Session } from "next-auth";
 import { useRouter } from "next/navigation";
 import { EnvironmentEnum, Item } from "@prisma/client";
-import { ClothingImage } from "../shared/clothing-image";
 
 interface UploadData {
   file: File | null;
@@ -283,8 +282,12 @@ export function ItemUpload({ session }: { session: Session }) {
         )}
         {formData.imageURL ? (
           <div className="flex mx-auto flex-1 px-4 max-w-fit justify-center items-center bg-muted/50 rounded-lg">
-            <ClothingImage
+            <Image
+              className=""
               src={formData.imageURL as string}
+              width={200}
+              height={200}
+              alt={"Clothing Image"}
             />
           </div>
         ) : (

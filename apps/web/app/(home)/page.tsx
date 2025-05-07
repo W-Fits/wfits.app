@@ -1,53 +1,135 @@
-import { GridPattern } from "@/components/ui/animated-grid-pattern";
-import { Button } from "@/components/ui/button";
-import { FadeIn } from "@/components/ui/fade-in";
-import { WordFadeIn } from "@/components/ui/word-fade-in";
-import { authOptions } from "@/lib/auth";
-import { cn } from "@/lib/utils";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { prisma } from "@/lib/prisma";
+import { OutfitPost } from "@/components/post/outfit-post";
 import Link from "next/link";
+import { ChevronRight } from "lucide-react";
+import { ExtendedPost, Post } from "@/components/post/post";
+import { ExtendedOutfit } from "../profile/[username]/page";
 
-export default async function Home() {
+export default async function HomePage() {
   const session = await getServerSession(authOptions);
 
+  if (!session) return redirect('/sign-in');
+
+  const profile = await prisma.user.findUnique({
+    where: {
+      user_id: session.user.id
+    },
+    include: {
+      following: true,
+    }
+  });
+
+  if (!profile) return (
+    <section>
+      Error
+    </section>
+  );
+
+  const followingOutfits = await prisma.outfit.findMany({
+    include: {
+      outfit_items: {
+        include: {
+          item: {
+            include: {
+              category_tag: true,
+              colour_tag: true,
+              size_tag: true,
+            }
+          }
+        }
+      },
+      user: true,
+    },
+    where: {
+      user_id: {
+        in: profile.following.map((user) => user.user_id)
+      }
+    },
+    orderBy: {
+      created_at: "desc",
+    },
+    take: 3
+  }) as ExtendedOutfit[] | null;
+
+  const followingPosts = await prisma.post.findMany({
+    include: {
+      outfits: {
+        include: {
+          outfit: {
+            include: {
+              outfit_items: {
+                include: {
+                  item: {
+                    include: {
+                      category_tag: true,
+                      colour_tag: true,
+                      size_tag: true,
+                    }
+                  }
+                }
+              },
+              user: true,
+            }
+          }
+        }
+      }
+    },
+    where: {
+      user_id: {
+        in: profile.following.map((user) => user.user_id)
+      }
+    },
+    orderBy: {
+      created_at: "desc",
+    },
+    take: 3
+  });
+
   return (
-    <section className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-background">
-      <div className="text-balance -mt-24 text-center z-10">
-        <WordFadeIn
-          className="z-10 whitespace-pre-wrap text-center text-6xl font-medium  text-black tracking-tighter"
-          words="W Fits"
-        />
-        <WordFadeIn
-          className="z-10 whitespace-pre-wrap text-center text-4xl font-medium/relaxed text-neutral-800 tracking-tighter"
-          words="Your AI powered outfit planner."
-          initialDelay={0.6}
-        />
-        <WordFadeIn
-          className="z-10 whitespace-pre-wrap text-center text-4xl font-medium/relaxed text-neutral-500 tracking-tighter"
-          words="Coming soon."
-          initialDelay={1.6}
-          shiny
-        />
-        {!session && (
-          <FadeIn delay={2.6} className="z-10 mt-4">
-            <Link href="/sign-in">
-              <Button className="px-4 py-2 mt-4 text-sm font-medium text-white bg-black rounded-full shadow-sm">
-                Sign In
-              </Button>
+    <section className="grid space-y-2 p-4">
+      <section className="flex-1 space-y-2">
+        <div className="flex gap-1">
+          <h1 className="font-bold">Following Outfits</h1>
+          {followingOutfits && followingOutfits.length > 0 && (
+            <Link className="flex gap-1 items-center" href="outfits">
+              <ChevronRight className="w-4 h-4" />
+              View all
             </Link>
-          </FadeIn>
+          )}
+        </div>
+        {followingOutfits && followingOutfits.length > 0 ? (
+          <div className="space-y-4">
+            {followingOutfits.map((outfit, index) => (
+              <OutfitPost key={index} outfit={outfit} />
+            ))}
+          </div>
+        ) : (
+          <span>Now new outfits</span>
         )}
-      </div>
-      <GridPattern
-        numSquares={40}
-        maxOpacity={0.1}
-        duration={3}
-        repeatDelay={1}
-        className={cn(
-          "[mask-image:radial-gradient(100vh_circle_at_center,white,transparent)]",
-          "inset-x-0 inset-y-[-50%] h-[200%] skew-y-12",
+      </section>
+      <section className="flex-1 space-y-2">
+        <div className="flex gap-1">
+          <h1 className="font-bold">Following Posts</h1>
+          {followingPosts.length > 0 && (
+            <Link className="flex gap-1 items-center" href="posts">
+              <ChevronRight className="w-4 h-4" />
+              View all
+            </Link>
+          )}
+        </div>
+        {followingPosts.length > 0 ? (
+          <div className="space-y-4">
+            {followingPosts.map((post) => (
+              <Post key={post.post_id} post={post} className="border rounded-lg hover:bg-accent/50 " />
+            ))}
+          </div>
+        ) : (
+          <span>No new posts</span>
         )}
-      />
+      </section>
     </section>
   );
 }

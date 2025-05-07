@@ -8,9 +8,11 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ExtendedItem, Outfit, OutfitWithItems } from "@/components/wardrobe/outfit";
+import { ExtendedItem } from "@/components/wardrobe/outfit";
 import { Outfit as OutfitType, User } from "@prisma/client";
-import { SmallOutfit } from "@/components/wardrobe/small-outfit";
+import { OutfitGrid } from "@/components/wardrobe/outfit-grid";
+import { PostList } from "@/components/profile/post-list";
+import { LikesList } from "@/components/profile/likes-list";
 
 export interface ExtendedOutfit extends OutfitType {
   outfit_items: {
@@ -18,10 +20,13 @@ export interface ExtendedOutfit extends OutfitType {
     outfit_id: number;
     item: ExtendedItem;
   }[];
+  user?: User;
 }
 
 export interface ExtendedUser extends User {
   outfits: ExtendedOutfit[];
+  following: User[];
+  followedBy: User[];
 };
 
 export default async function ProfilePage({ params }: { params: Promise<{ username: string }> }) {
@@ -45,8 +50,11 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
           }
         }
       },
+      following: true,
+      followedBy: true,
     },
   }) as ExtendedUser | null;
+
 
   if (!profile) return notFound();
 
@@ -57,10 +65,30 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
     <main className="container max-w-4xl mx-auto px-4 py-6">
       <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8">
         <div className="flex w-full justify-between">
-          <Avatar className="w-24 h-24 border-2 border-border">
-            <AvatarImage src={""} alt={profile.username} />
-            <AvatarFallback>{profile.username.slice(0, 2).toUpperCase()}</AvatarFallback>
-          </Avatar>
+          <div className="flex gap-2">
+            <Avatar className="w-24 h-24 border-2 border-border">
+              <AvatarImage src={""} alt={profile.username} />
+              <AvatarFallback>{profile.username.slice(0, 2).toUpperCase()}</AvatarFallback>
+            </Avatar>
+            <div className="mt-4 ml-4 grid grid-cols-2 gap-2">
+              <Link className="flex flex-col text-center" href={`/profile/${username}/followers`}>
+                <span>
+                  {profile.followedBy.length}
+                </span>
+                <span className="-mt-1 text-sm text-muted-foreground">
+                  Followers
+                </span>
+              </Link>
+              <Link className="flex flex-col text-center" href={`/profile/${username}/following`}>
+                <span>
+                  {profile.following.length}
+                </span>
+                <span className="-mt-1 text-sm text-muted-foreground">
+                  Following
+                </span>
+              </Link>
+            </div>
+          </div>
           {isCurrentUser && (
             <div className="space-x-1">
               <Link
@@ -88,7 +116,6 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
         </div>
 
         <div className="flex-1">
-          <h1 className="text-2xl font-bold">{profile.firstname}</h1>
           <p className="text-muted-foreground">@{profile.username}</p>
         </div>
       </div>
@@ -118,37 +145,15 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
         </div>
 
         <TabsContent value="posts" className="space-y-4">
-          <div className="grid grid-cols-3 gap-2">
-            {/* Posts content would go here */}
-            {Array(6)
-              .fill(0)
-              .map((_, i) => (
-                <div key={i} className="aspect-square bg-muted rounded-md flex items-center justify-center">
-                  <span className="text-muted-foreground">Post {i + 1}</span>
-                </div>
-              ))}
-          </div>
+          <PostList id={profile.user_id} />
         </TabsContent>
 
         <TabsContent value="outfits" className="space-y-4">
-          {profile.outfits &&
-            profile.outfits.length > 0 &&
-            profile.outfits.map((outfit) => (
-              <SmallOutfit key={outfit.outfit_id} outfit={outfit} />
-            ))}
+          <OutfitGrid outfits={profile.outfits} />
         </TabsContent>
 
         <TabsContent value="liked" className="space-y-4">
-          <div className="grid grid-cols-3 gap-2">
-            {/* Liked posts content would go here */}
-            {Array(4)
-              .fill(0)
-              .map((_, i) => (
-                <div key={i} className="aspect-square bg-muted rounded-md flex items-center justify-center">
-                  <span className="text-muted-foreground">Liked {i + 1}</span>
-                </div>
-              ))}
-          </div>
+          <LikesList id={profile.user_id} />
         </TabsContent>
       </Tabs>
     </main>

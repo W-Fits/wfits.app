@@ -134,7 +134,7 @@ export function Outfit({
   return (
     <div className={cn("space-y-4", className)}>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">{"Outfit " + outfit.outfit_id}</h1>
+        <h1 className="text-2xl font-bold">{outfit.outfit_name}</h1>
         <div className="text-sm text-muted-foreground">{outfit.outfit_items.length} items</div>
       </div>
       <div className="grid gap-4">

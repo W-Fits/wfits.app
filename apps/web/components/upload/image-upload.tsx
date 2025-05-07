@@ -1,13 +1,11 @@
 "use client";
 
 import type React from "react";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useId } from "react";
 import { Upload, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { compress } from "@/lib/image";
-
-
 
 export function ImageUpload({
   onChange,
@@ -26,6 +24,7 @@ export function ImageUpload({
   disabled?: boolean;
   quality?: number;
 }) {
+  const inputId = useId();
   const [dragActive, setDragActive] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -39,7 +38,6 @@ export function ImageUpload({
       reader.onerror = (error) => reject(error);
     });
   };
-
 
   // Function to convert base64 string to File
   const base64ToFile = async (base64String: string, filename: string, type: string): Promise<File> => {
@@ -172,12 +170,12 @@ export function ImageUpload({
         onDrop={disabled ? undefined : handleDrop}
         onClick={() => {
           if (!disabled) {
-            document.getElementById("file-upload")?.click();
+            document.getElementById(inputId)?.click();
           }
         }}
       >
         <input
-          id="file-upload"
+          id={inputId}
           type="file"
           className="sr-only"
           accept={accept}

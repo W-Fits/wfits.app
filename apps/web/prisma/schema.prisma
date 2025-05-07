@@ -77,10 +77,59 @@ model Item {
 model Outfit {
   outfit_id    Int          @id @default(autoincrement())
   user_id      Int
+  outfit_name  String
   created_at   DateTime     @default(now()) @db.Date
   updated_at   DateTime     @updatedAt
   user         User         @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
   outfit_items OutfitItem[]
+  PostOutfit   PostOutfit[]
+  LikeOutfit   LikeOutfit[]
+}
+
+model Post {
+  post_id    Int          @id @default(autoincrement())
+  user_id    Int
+  post_title String
+  post_text  String
+  images     String[]
+  created_at DateTime     @default(now()) @db.Date
+  updated_at DateTime     @updatedAt
+  user       User         @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  outfits    PostOutfit[]
+  LikePost   LikePost[]
+}
+
+model LikePost {
+  post_id    Int
+  user_id    Int
+  created_at DateTime @default(now()) @db.Date
+  updated_at DateTime @updatedAt
+  user       User     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  post       Post     @relation(fields: [post_id], references: [post_id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([user_id, post_id])
+}
+
+model LikeOutfit {
+  user_id   Int
+  outfit_id Int
+
+  created_at DateTime @default(now()) @db.Date
+  updated_at DateTime @updatedAt
+  user       User     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  outfit     Outfit   @relation(fields: [outfit_id], references: [outfit_id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([user_id, outfit_id])
+}
+
+model PostOutfit {
+  outfit_id Int
+  post_id   Int
+
+  post   Post   @relation(fields: [post_id], references: [post_id], onDelete: NoAction, onUpdate: NoAction)
+  outfit Outfit @relation(fields: [outfit_id], references: [outfit_id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([outfit_id, post_id])
 }
 
 model OutfitItem {
@@ -108,10 +157,16 @@ model User {
   email     String    @unique @db.VarChar(150)
   set_temp  TempEnum? @default(C)
 
-  outfits Outfit[]
-  Account Account[]
-  Session Session[]
-  Item    Item[]
+  outfits    Outfit[]
+  Account    Account[]
+  Session    Session[]
+  Item       Item[]
+  Post       Post[]
+  LikePost   LikePost[]
+  LikeOutfit LikeOutfit[]
+
+  following  User[] @relation("UserFollows")
+  followedBy User[] @relation("UserFollows")
 }
 
 enum EnvironmentEnum {
