@@ -3,13 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-The WFits Project documentation
+The WFits Project Documentation
 ===============================
 
 Add your content using ``reStructuredText`` syntax. See the
 `reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
 documentation for details.
-
 
 Overview
 --------
@@ -92,7 +91,7 @@ Data Flow
 4. Recommended outfits are returned to the Web Client UI for display.
 
 Functional and Non-Functional Requirements
--------------------------------------------
+------------------------------------------
 
 - **Functional Requirements**:
   
@@ -106,3 +105,21 @@ Functional and Non-Functional Requirements
   - API call response times must be less than 2 seconds.
   - Secure API communications using HTTPS protocols.
 
+Contents
+--------
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Additional Documentation
+
+   api
+   setup
+   testing
+   glossary
+
+Indices and Tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

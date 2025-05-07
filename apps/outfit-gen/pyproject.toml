@@ -21,6 +21,7 @@ retry-requests = "^2.0.0"
 numpy = "^2.2.4"
 pandas = "^2.2.3"
 pytest = "^8.3.5"
+pytest-asyncio = "^0.26.0"
 
 
 [build-system]
