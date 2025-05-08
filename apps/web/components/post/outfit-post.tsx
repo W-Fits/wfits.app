@@ -12,7 +12,7 @@ import { ExtendedOutfit } from "@/app/profile/[username]/page";
 
 export async function OutfitPost({
   outfit,
-  className
+  className,
 }: {
   outfit: ExtendedOutfit;
   className?: string;
@@ -24,44 +24,53 @@ export async function OutfitPost({
   let initialLiked = false;
 
   if (session && !isCurrentUser) {
-    const currentUserWithRelations = await prisma.user.findFirst({
+    const currentUserWithRelations = await prisma.user.findUnique({
       where: {
         user_id: session.user.id,
       },
-      include: {
+      select: {
         following: {
           where: {
-            user_id: outfit.user_id
-          }
+            user_id: outfit.user_id,
+          },
+          select: {
+            user_id: true,
+          },
         },
-        LikeOutfit: {
+        likedOutfits: {
           where: {
-            outfit_id: outfit.outfit_id
-          }
-        }
-      }
+            outfit_id: outfit.outfit_id,
+          },
+          select: {
+            outfit_id: true,
+          },
+        },
+      },
     });
 
     isFollowing = !!currentUserWithRelations?.following.length;
-    initialLiked = !!currentUserWithRelations?.LikeOutfit.length;
+    initialLiked = !!currentUserWithRelations?.likedOutfits.length;
   }
+
 
   return (
     <div
       className={cn(
         "border rounded-lg p-4 space-y-3 hover:bg-accent/50 transition-colors",
         className
-      )}>
+      )}
+    >
       <div className="flex gap-2 flex-col">
         <div className="flex justify-between">
-          <Link className="flex w-fit gap-2 items-center cursor-pointer" href={`/profile/${outfit.user?.username}`}>
+          <Link
+            className="flex w-fit gap-2 items-center cursor-pointer"
+            href={`/profile/${outfit.user?.username}`}
+          >
             <Avatar className="w-8 h-8">
               <AvatarImage src="/icon"></AvatarImage>
               <AvatarFallback>PFP</AvatarFallback>
             </Avatar>
-            <span>
-              {outfit.user?.username}
-            </span>
+            <span>{outfit.user?.username}</span>
           </Link>
           {!isCurrentUser && (
             <FollowButton targetUserId={outfit.user_id} isFollowing={isFollowing} />
@@ -73,7 +82,7 @@ export async function OutfitPost({
         >
           {outfit.outfit_items.slice(0, 4).map((outfit_item) => (
             <Image
-              key={outfit_item.item_id} // Use item_id as a unique key
+              key={outfit_item.item_id}
               className="flex-1 aspect-square object-contain"
               src={outfit_item.item.item_url}
               width="200"
@@ -85,11 +94,13 @@ export async function OutfitPost({
         <div className="flex gap-2 items-center justify-between">
           <div className="flex gap-2 items-center">
             <h3 className="font-semibold">{outfit.outfit_name}</h3>
-            <span className="text-muted-foreground">{outfit.created_at.toLocaleDateString()}</span>
+            <span className="text-muted-foreground">
+              {outfit.created_at.toLocaleDateString()}
+            </span>
           </div>
           <LikeOutfitButton outfitId={outfit.outfit_id} initialLiked={initialLiked} />
         </div>
       </div>
     </div>
-  )
+  );
 }

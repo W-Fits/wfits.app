@@ -10,35 +10,44 @@ export async function toggleLikeOutfit(outfitId: number) {
 
     if (!session) throw new Error("User not signed in.");
 
-    const existingLike = await prisma.likeOutfit.findUnique({
-      where: {
-        user_id_outfit_id: {
-          user_id: session.user.id,
-          outfit_id: outfitId,
+    // Check if the user has already liked this outfit
+    const user = await prisma.user.findUnique({
+      where: { user_id: session.user.id },
+      select: {
+        likedOutfits: {
+          where: { outfit_id: outfitId },
+          select: { outfit_id: true },
         },
       },
     });
 
-    if (existingLike) {
-      await prisma.likeOutfit.delete({
-        where: {
-          user_id_outfit_id: {
-            user_id: session.user.id,
-            outfit_id: outfitId,
+    const hasLiked = user?.likedOutfits && user.likedOutfits.length > 0;
+
+    if (hasLiked) {
+      // Unlike the outfit
+      await prisma.user.update({
+        where: { user_id: session.user.id },
+        data: {
+          likedOutfits: {
+            disconnect: { outfit_id: outfitId },
           },
         },
       });
       return { success: true, message: "Unliked outfit successfully." };
     } else {
-      await prisma.likeOutfit.create({
+      // Like the outfit
+      await prisma.user.update({
+        where: { user_id: session.user.id },
         data: {
-          user_id: session.user.id,
-          outfit_id: outfitId,
+          likedOutfits: {
+            connect: { outfit_id: outfitId },
+          },
         },
       });
       return { success: true, message: "Liked outfit successfully." };
     }
   } catch (error) {
+    console.error("Failed to toggle outfit like:", error); // Log the error for debugging
     return { success: false, message: "Failed to toggle outfit like.", error: error };
   }
 }

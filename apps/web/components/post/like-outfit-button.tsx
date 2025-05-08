@@ -3,8 +3,7 @@
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { toggleLikePost } from "@/lib/actions/toggle-like-post";
-import { toast } from "sonner";
+import { toggleLikeOutfit } from "@/lib/actions/toggle-like-outfit";
 
 export function LikeOutfitButton({ outfitId, initialLiked }: { outfitId: number; initialLiked: boolean }) {
   const [liked, setLiked] = useState<boolean>(initialLiked);
@@ -17,13 +16,10 @@ export function LikeOutfitButton({ outfitId, initialLiked }: { outfitId: number;
     // Optimistically update the UI
     setLiked((prev) => !prev);
 
-    const result = await toggleLikePost(outfitId);
+    const result = await toggleLikeOutfit(outfitId);
 
     if (!result.success) {
       setLiked((prev) => !prev);
-      toast.warning(result.message);
-    } else {
-      toast.success(result.message);
     }
 
     setIsLoading(false);

@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { ExtendedUser } from "../page";
+import { ExtendedUser } from "@/app/profile/[username]/page";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { notFound } from "next/navigation";

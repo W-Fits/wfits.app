@@ -4,7 +4,6 @@ import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { toggleLikePost } from "@/lib/actions/toggle-like-post";
-import { toast } from "sonner";
 
 export function LikePostButton({ postId, initialLiked }: { postId: number; initialLiked: boolean }) {
   const [liked, setLiked] = useState<boolean>(initialLiked);
@@ -21,9 +20,6 @@ export function LikePostButton({ postId, initialLiked }: { postId: number; initi
 
     if (!result.success) {
       setLiked((prev) => !prev);
-      toast.warning(result.message,);
-    } else {
-      toast.success(result.message);
     }
 
     setIsLoading(false);

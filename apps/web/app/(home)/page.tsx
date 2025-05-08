@@ -6,7 +6,7 @@ import { OutfitPost } from "@/components/post/outfit-post";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { ExtendedPost, Post } from "@/components/post/post";
-import { ExtendedOutfit } from "../profile/[username]/page";
+import { ExtendedOutfit } from "@/app/profile/[username]/page";
 
 export default async function HomePage() {
   const session = await getServerSession(authOptions);
@@ -71,11 +71,11 @@ export default async function HomePage() {
                   }
                 }
               },
-              user: true,
             }
           }
         }
-      }
+      },
+      user: true
     },
     where: {
       user_id: {
@@ -86,7 +86,7 @@ export default async function HomePage() {
       created_at: "desc",
     },
     take: 3
-  });
+  }) as ExtendedPost[] | null;
 
   return (
     <section className="grid space-y-2 p-4">
@@ -113,14 +113,14 @@ export default async function HomePage() {
       <section className="flex-1 space-y-2">
         <div className="flex gap-1">
           <h1 className="font-bold">Following Posts</h1>
-          {followingPosts.length > 0 && (
+          {followingPosts && followingPosts.length > 0 && (
             <Link className="flex gap-1 items-center" href="posts">
               <ChevronRight className="w-4 h-4" />
               View all
             </Link>
           )}
         </div>
-        {followingPosts.length > 0 ? (
+        {followingPosts && followingPosts.length > 0 ? (
           <div className="space-y-4">
             {followingPosts.map((post) => (
               <Post key={post.post_id} post={post} className="border rounded-lg hover:bg-accent/50 " />

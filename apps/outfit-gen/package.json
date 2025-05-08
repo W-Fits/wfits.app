@@ -5,5 +5,11 @@
     "dev": "poetry run python run.py",
     "generate:requirements": "poetry export --without-hashes --format=requirements-prod.txt > requirements-prod.txt",
     "test": "poetry run pytest"
+  },
+  "devDependencies": {
+    "prisma": "5.17.0"
+  },
+  "dependencies": {
+    "@prisma/client": "5.17.0"
   }
 }

@@ -13,7 +13,7 @@ import { ChevronLeft, ChevronRight, Check } from "lucide-react";
 import { MultiImageUpload } from "@/components/upload/multi-image-upload";
 import { ExtendedOutfit } from "@/app/profile/[username]/page";
 import { Session } from "next-auth";
-import OutfitSelector from "../wardrobe/outfit-selector";
+import { OutfitSelector } from "@/components/wardrobe/outfit-selector";
 
 type FormData = {
   user_id: number;

@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle, Dialog
 import { ExtendedOutfit } from "@/app/profile/[username]/page";
 import { SmallOutfit } from "@/components/wardrobe/small-outfit";
 
-export default function OutfitSelector({
+export function OutfitSelector({
   availableOutfits,
   onOutfitsChange,
 }: {
