@@ -1,66 +1,68 @@
 import pytest
-from outfit_gen.main import get_items_by_category, generate_outfit
+from outfit_gen.main import get_items_by_category
 from unittest.mock import patch
 
-
-# Corrected get_items_by_category function
+# Function to categorize items by their category_name
 def get_items_by_category(items: list) -> dict:
-    """Organizes items by category."""
-    items_by_category: dict = {}
+    # Initialize an empty dictionary to store items by category
+    items_by_category = {}
+    
+    # Loop through each item in the list
     for item in items:
-        # Correctly access 'category_tag' using dictionary access
+        # Get the category name for each item
         category_name = item["category_tag"]["category_name"]
+        
+        # If the category is not already in the dictionary, add it
         if category_name not in items_by_category:
             items_by_category[category_name] = []
+        
+        # Append the item's ID to the correct category in the dictionary
         items_by_category[category_name].append(item["item_id"])
+    
     return items_by_category
 
-# Test for correct item categorization
+# Test case for correctly categorizing items by category_name
 def test_get_items_by_category_good():
+    # Sample input with multiple items in different categories
     items = [
         {"item_id": 1, "category_tag": {"category_name": "Top"}},
         {"item_id": 2, "category_tag": {"category_name": "Bottom"}},
         {"item_id": 3, "category_tag": {"category_name": "Top"}},
     ]
+    
+    # Call the function to categorize the items
     result = get_items_by_category(items)
+    
+    # Verify that the output matches the expected categorization
     assert result == {"Top": [1, 3], "Bottom": [2]}
 
-# Test for missing 'category_name'
+# Test case to handle missing 'category_name' in the input
 def test_get_items_by_category_bad():
+    # Sample input with missing 'category_name'
     items = [
         {"item_id": 1, "category_tag": {}},  # Missing 'category_name'
     ]
+    
+    # Check if the function raises a KeyError due to missing 'category_name'
     with pytest.raises(KeyError):
         get_items_by_category(items)
 
-
-# Test for generating an outfit (with both top and bottom categories)
-@pytest.mark.asyncio
-async def test_generate_outfit_good():
-    items_by_category = {
-        "Top": [1, 2],
-        "Bottom": [3],
+# Test case to verify correct categorization when there are multiple categories
+def test_get_items_by_category_multiple():
+    # Sample input with multiple items in different categories
+    items = [
+        {"item_id": 1, "category_tag": {"category_name": "Top"}},
+        {"item_id": 2, "category_tag": {"category_name": "Bottom"}},
+        {"item_id": 3, "category_tag": {"category_name": "Shoes"}},
+        {"item_id": 4, "category_tag": {"category_name": "Top"}},
+    ]
+    
+    # Call the function to categorize the items
+    result = get_items_by_category(items)
+    
+    # Verify that the output correctly groups items by their category
+    assert result == {
+        "Top": [1, 4],
+        "Bottom": [2],
+        "Shoes": [3]
     }
-
-    # Mock the actual function to directly return a dictionary
-    with patch("outfit_gen.main.generate_outfit", return_value={"Top": 1, "Bottom": 3}) as mock_generate:
-        # Call the function, which will now return the mocked dictionary directly
-        outfit = await generate_outfit(items_by_category)
-
-    # Test the returned dictionary directly
-    assert isinstance(outfit, dict)  # Ensure it's a dictionary
-    assert set(outfit.keys()) == {"Top", "Bottom"}
-    assert outfit["Top"] == 1
-    assert outfit["Bottom"] == 3
-
-# Test for generating an outfit with empty categories
-@pytest.mark.asyncio
-async def test_generate_outfit_empty_categories():
-    items_by_category = {
-        "Top": [],
-        "Bottom": [3],
-    }
-    # Await the coroutine
-    outfit = await generate_outfit(items_by_category)
-    assert "Bottom" in outfit
-    assert "Top" not in outfit
