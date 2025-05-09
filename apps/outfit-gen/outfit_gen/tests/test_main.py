@@ -1,6 +1,10 @@
 import pytest
 from outfit_gen.main import get_items_by_category
-from unittest.mock import patch
+from unittest.mock import AsyncMock, patch
+from outfit_gen.main import app
+from fastapi.testclient import TestClient
+
+client = TestClient(app)
 
 # Function to categorize items by their category_name
 def get_items_by_category(items: list) -> dict:
@@ -66,3 +70,31 @@ def test_get_items_by_category_multiple():
         "Bottom": [2],
         "Shoes": [3]
     }
+
+# @patch("outfit_gen.main.get_prisma_client", new_callable=AsyncMock)
+# @patch("outfit_gen.main.get_items", new_callable=AsyncMock)
+# def test_test_endpoint(mock_get_items, mock_get_prisma_client):
+#     # Setup mock data
+#     mock_get_prisma_client.return_value = "mock_db"
+
+#     mock_items = [
+#         type("Item", (), {
+#             "item_id": 1,
+#             "category_tag": type("CategoryTag", (), {"category_name": "Tops"})()
+#         }),
+#         type("Item", (), {
+#             "item_id": 2,
+#             "category_tag": type("CategoryTag", (), {"category_name": "Bottoms"})()
+#         })
+#     ]
+#     mock_get_items.return_value = mock_items
+
+#     # Make a request to the test endpoint
+#     response = client.get("/test")
+
+#     # Assert the expected results
+#     assert response.status_code == 200
+#     data = response.json()
+#     assert "Tops" in data
+#     assert "Bottoms" in data
+#     assert isinstance(data["Tops"], int)
