@@ -4,6 +4,9 @@ import io
 
 def valid_file_type(file: UploadFile):
   """Checks if the uploaded file is a valid image based on its extension -> bool."""
+  if file is None:
+    raise ValueError("Input file is None.")
+  
   valid_extensions = ['jpg', 'jpeg', 'png']
   file_extension = file.filename.split(".")[-1].lower()
   return file_extension in valid_extensions
