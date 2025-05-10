@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Spinner } from "@/components/ui/spinner";
-import credentialsSignIn from "@/lib/actions/credentials-sign-in";
+import { credentialsSignIn } from "@/lib/actions/credentials-sign-in";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -63,11 +63,11 @@ export default function SignIn() {
   }, [identifier, password, loading]);
 
   return (
-    <section className="flex h-screen w-screen items-center justify-center flex-col gap-2">
-      <Card className="min-w-[80%] sm:min-w-[40%]">
-        <CardHeader>
-          <CardTitle>Sign in</CardTitle>
-          <CardDescription>Sign in to your account.</CardDescription>
+    <section className="flex mt-[60%] w-screen items-center justify-center flex-col gap-2">
+      <Card className="min-w-[80%] sm:min-w-[40%] shadow-lg">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl font-bold text-center">Sign in</CardTitle>
+          <CardDescription className="text-center">Sign into an existing account</CardDescription>
         </CardHeader>
         <CardContent className="p-6 pt-0 grid gap-4">
           <div className="grid gap-2">

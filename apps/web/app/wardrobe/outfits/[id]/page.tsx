@@ -3,9 +3,6 @@ import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { getServerSession } from "next-auth"
 import { notFound, redirect } from "next/navigation"
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
 
 export default async function OutfitPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await getServerSession(authOptions)
@@ -36,7 +33,7 @@ export default async function OutfitPage({ params }: { params: Promise<{ id: str
   if (!outfit) return notFound()
 
   return (
-    <div className="flex justify-center">
+    <div className="flex p-4 justify-center">
       <Outfit className="w-full" initialOutfit={outfit} />
     </div>
   );

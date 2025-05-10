@@ -12,7 +12,7 @@ export default withAuth({
 });
 
 export const config = {
-  matcher: ["/((?!api/cron|api/auth|api/key|api/users/email|_next/static|_next/image|.*\\.png$).*)"],
+  matcher: ["/((?!api/username|!api/cron|api/auth|api/key|api/users/email|_next/static|_next/image|.*\\.png$).*)"],
 };
 
 export async function middleware(request: NextRequest) {

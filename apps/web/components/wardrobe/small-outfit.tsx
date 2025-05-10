@@ -23,7 +23,7 @@ export function SmallOutfit({
           />
         ))}
       </div>
-      Outfit {outfit.outfit_id}
+      {outfit.outfit_name}
     </div>
   );
 }

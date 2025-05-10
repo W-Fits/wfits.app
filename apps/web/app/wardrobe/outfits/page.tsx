@@ -36,7 +36,7 @@ export default async function OutfitsPage() {
   }) as OutfitWithItems[] | null;
 
   return (
-    <div className="container space-y-4">
+    <div className="container p-4 space-y-4">
       <div className="flex items-center mb-2 ">
         <h1 className="text-3xl font-bold tracking-tight">My Outfits</h1>
       </div>

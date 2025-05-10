@@ -10,6 +10,7 @@ export const unprotectedPaths = [signIn, signUp,];
 
 export const unprotectedAPIPaths = [
   "/api/auth",
+  "/api/username"
 ];
 
 export function isNavHidden(pathname: string) {

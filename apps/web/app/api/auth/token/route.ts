@@ -2,7 +2,7 @@
 import { env } from '@/lib/env';
 import { NextResponse } from 'next/server';
 
-async function getAccessToken(): Promise<string | null> {
+export async function getAccessToken(): Promise<string | null> {
   const tokenURL = `${env.AUTH0_DOMAIN}/oauth/token`;
   try {
     const response = await fetch(tokenURL, {

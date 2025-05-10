@@ -6,8 +6,8 @@ import { Slideshow, Slide } from "@/components/ui/slideshow";
 import { usePersistentState } from "@/lib/hooks/use-persistent-state";
 import { Info } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { CategorySelect } from "@/components/shared/category-select";
-import { ColourSelect } from "@/components/shared/colour-select";
+import { Category, categoryIdMapping, CategorySelect } from "@/components/shared/category-select";
+import { Colour, colourIdMapping, ColourSelect } from "@/components/shared/colour-select";
 import { SizeSelect } from "@/components/shared/size-select";
 import { EnvironmentSelect } from "@/components/shared/environment-select";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -18,7 +18,6 @@ import { toast } from "sonner";
 import { Session } from "next-auth";
 import { useRouter } from "next/navigation";
 import { EnvironmentEnum, Item } from "@prisma/client";
-import { ClothingImage } from "../shared/clothing-image";
 
 interface UploadData {
   file: File | null;
@@ -129,8 +128,8 @@ export function ItemUpload({ session }: { session: Session }) {
       setFormData((prev) => ({
         ...prev,
         imageURL: result.image_url,
-        category: result.class,
-        colour: result.colour
+        category: categoryIdMapping[result.class as Category],
+        colour: colourIdMapping[result.colour.name]
       }));
 
       return true;
@@ -283,8 +282,12 @@ export function ItemUpload({ session }: { session: Session }) {
         )}
         {formData.imageURL ? (
           <div className="flex mx-auto flex-1 px-4 max-w-fit justify-center items-center bg-muted/50 rounded-lg">
-            <ClothingImage
+            <Image
+              className=""
               src={formData.imageURL as string}
+              width={200}
+              height={200}
+              alt={"Clothing Image"}
             />
           </div>
         ) : (
@@ -301,6 +304,7 @@ export function ItemUpload({ session }: { session: Session }) {
               value={formData.file} maxSizeMB={5}
             />
             <Button
+              className="w-full"
               onClick={handleUpload}
               disabled={!formData.file || uploading}
             >
