@@ -21,6 +21,11 @@ export async function GET(request: NextRequest) {
       orderBy: {
         item_name: "asc",
       },
+      include: {
+        colour_tag: true,
+        category_tag: true,
+        size_tag: true
+      }
     })
     return NextResponse.json(items, { status: 200 });
   } catch (error: any) {

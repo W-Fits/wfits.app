@@ -57,8 +57,6 @@ export function OutfitItem({
     onSelectItem(newItem)
   }
 
-  console.log(!edit);
-
   return (
     <Drawer>
       <DrawerTrigger disabled={!edit} asChild>

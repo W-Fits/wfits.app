@@ -21,7 +21,7 @@ export default async function ClothesPage() {
   });
 
   return (
-    <section>
+    <section className="p-4">
       <header>
         <h1 className="text-3xl font-bold tracking-tight mb-2">Clothes</h1>
         <UploadItemQuickAction />

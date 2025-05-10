@@ -1,6 +1,6 @@
 import { signIn, SignInOptions } from "next-auth/react";
 
-export default async function credentialsSignIn(
+export async function credentialsSignIn(
   identifier: string,
   password: string,
 ) {

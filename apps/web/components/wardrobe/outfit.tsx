@@ -39,7 +39,7 @@ export interface DisplayOutfit {
   }[]
 }
 
-function getDisplayOutfit(outfit: OutfitWithItems) {
+export function getDisplayOutfit(outfit: OutfitWithItems) {
   const displayOutfit: DisplayOutfit = {
     "Coat": [],
     "Pullover": [],

@@ -2,14 +2,8 @@
   "name": "outfit-gen-api",
   "version": "0.1.0",
   "scripts": {
-    "dev": "poetry run python run.py",
+    "dev": "set USERPROFILE=%USERPROFILE% && poetry run python run.py",
     "generate:requirements": "poetry export --without-hashes --format=requirements-prod.txt > requirements-prod.txt",
-    "test": "poetry run pytest"
-  },
-  "devDependencies": {
-    "prisma": "5.17.0"
-  },
-  "dependencies": {
-    "@prisma/client": "5.17.0"
+    "test": "set USERPROFILE=%USERPROFILE% && poetry run pytest"
   }
 }

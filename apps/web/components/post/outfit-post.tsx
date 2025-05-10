@@ -1,5 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Outfit as OutfitType, User } from "@prisma/client";
 import { cn } from "@/lib/utils";
 import { FollowButton } from "../shared/follow-button";
 import { getServerSession } from "next-auth";
@@ -9,6 +7,8 @@ import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import { LikeOutfitButton } from "./like-outfit-button";
 import { ExtendedOutfit } from "@/app/profile/[username]/page";
+import { ProfilePhoto } from "../shared/profile-photo";
+import { userAgent } from "next/server";
 
 export async function OutfitPost({
   outfit,
@@ -46,12 +46,12 @@ export async function OutfitPost({
           },
         },
       },
+
     });
 
     isFollowing = !!currentUserWithRelations?.following.length;
     initialLiked = !!currentUserWithRelations?.likedOutfits.length;
   }
-
 
   return (
     <div
@@ -66,10 +66,11 @@ export async function OutfitPost({
             className="flex w-fit gap-2 items-center cursor-pointer"
             href={`/profile/${outfit.user?.username}`}
           >
-            <Avatar className="w-8 h-8">
-              <AvatarImage src="/icon"></AvatarImage>
-              <AvatarFallback>PFP</AvatarFallback>
-            </Avatar>
+            <ProfilePhoto
+              className="w-8 h-8"
+              src={outfit.user.profile_photo}
+              username={outfit.user.username}
+            />
             <span>{outfit.user?.username}</span>
           </Link>
           {!isCurrentUser && (

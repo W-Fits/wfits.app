@@ -6,8 +6,8 @@ import { Slideshow, Slide } from "@/components/ui/slideshow";
 import { usePersistentState } from "@/lib/hooks/use-persistent-state";
 import { Info } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { CategorySelect } from "@/components/shared/category-select";
-import { ColourSelect } from "@/components/shared/colour-select";
+import { Category, categoryIdMapping, CategorySelect } from "@/components/shared/category-select";
+import { Colour, colourIdMapping, ColourSelect } from "@/components/shared/colour-select";
 import { SizeSelect } from "@/components/shared/size-select";
 import { EnvironmentSelect } from "@/components/shared/environment-select";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -128,8 +128,8 @@ export function ItemUpload({ session }: { session: Session }) {
       setFormData((prev) => ({
         ...prev,
         imageURL: result.image_url,
-        category: result.class,
-        colour: result.colour
+        category: categoryIdMapping[result.class as Category],
+        colour: colourIdMapping[result.colour.name]
       }));
 
       return true;
@@ -304,6 +304,7 @@ export function ItemUpload({ session }: { session: Session }) {
               value={formData.file} maxSizeMB={5}
             />
             <Button
+              className="w-full"
               onClick={handleUpload}
               disabled={!formData.file || uploading}
             >

@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Post as PostType, User } from "@prisma/client";
 import { cn } from "@/lib/utils";
 import { ExtendedOutfit } from "@/app/profile/[username]/page";
@@ -9,6 +8,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { ProfilePhoto } from "../shared/profile-photo";
 
 export interface ExtendedPost extends PostType {
   outfits: {
@@ -69,10 +69,11 @@ export async function Post({
             className="flex w-fit gap-2 items-center cursor-pointer"
             href={`/profile/${post.user.username}`}
           >
-            <Avatar className="w-8 h-8">
-              <AvatarImage src="/icon"></AvatarImage>
-              <AvatarFallback>PFP</AvatarFallback>
-            </Avatar>
+            <ProfilePhoto
+              className="w-8 h-8"
+              src={post.user.profile_photo}
+              username={post.user.username}
+            />
             <span>{post.user.username}</span>
           </Link>
           {!isCurrentUser && (

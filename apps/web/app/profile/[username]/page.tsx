@@ -1,6 +1,5 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { Cog, Heart, LogOut, Rss, Shirt } from "lucide-react";
@@ -13,6 +12,8 @@ import { Outfit as OutfitType, User } from "@prisma/client";
 import { OutfitGrid } from "@/components/wardrobe/outfit-grid";
 import { PostList } from "@/components/profile/post-list";
 import { LikesList } from "@/components/profile/likes-list";
+import { ProfilePhoto } from "@/components/shared/profile-photo";
+import { FollowButton } from "@/components/shared/follow-button";
 
 export interface ExtendedOutfit extends OutfitType {
   outfit_items: {
@@ -20,7 +21,7 @@ export interface ExtendedOutfit extends OutfitType {
     outfit_id: number;
     item: ExtendedItem;
   }[];
-  user?: User;
+  user: User;
 }
 
 export interface ExtendedUser extends User {
@@ -60,16 +61,14 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
 
   const session = await getServerSession(authOptions);
   const isCurrentUser = session?.user?.id === profile.user_id;
+  const isFollowing = !isCurrentUser && !!profile.followedBy.find((user) => user.user_id === session?.user.id);
 
   return (
     <main className="container max-w-4xl mx-auto px-4 py-6">
       <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8">
         <div className="flex w-full justify-between">
           <div className="flex gap-2">
-            <Avatar className="w-24 h-24 border-2 border-border">
-              <AvatarImage src={""} alt={profile.username} />
-              <AvatarFallback>{profile.username.slice(0, 2).toUpperCase()}</AvatarFallback>
-            </Avatar>
+            <ProfilePhoto src={profile.profile_photo} username={profile.username} />
             <div className="mt-4 ml-4 grid grid-cols-2 gap-2">
               <Link className="flex flex-col text-center" href={`/profile/${username}/followers`}>
                 <span>
@@ -113,7 +112,14 @@ export default async function ProfilePage({ params }: { params: Promise<{ userna
               </Link>
             </div>
           )}
+          {!isCurrentUser && (
+            <FollowButton
+              targetUserId={profile.user_id}
+              isFollowing={isFollowing}
+            />
+          )}
         </div>
+
 
         <div className="flex-1">
           <p className="text-muted-foreground">@{profile.username}</p>

@@ -5,8 +5,8 @@ import { authOptions } from "@/lib/auth";
 import { notFound } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FollowButton } from "@/components/shared/follow-button";
+import { ProfilePhoto } from "@/components/shared/profile-photo";
 
 export default async function ProfileFollowingPage({ params }: { params: Promise<{ username: string }> }) {
   const { username } = await params;
@@ -53,10 +53,11 @@ export default async function ProfileFollowingPage({ params }: { params: Promise
         {profile.following.length > 0 ? profile.following.map((user) => (
           <div key={user.user_id} className="flex items-center justify-between">
             <Link className="flex items-center gap-2" href={`/profile/${user.username}`}>
-              <Avatar className="w-8 h-8">
-                <AvatarImage src="/icon"></AvatarImage>
-                <AvatarFallback>PFP</AvatarFallback>
-              </Avatar>
+              <ProfilePhoto
+                className="w-8 h-8"
+                src={user.profile_photo}
+                username={user.username}
+              />
               <span className="text-lg ">
                 {user.username}
               </span>
