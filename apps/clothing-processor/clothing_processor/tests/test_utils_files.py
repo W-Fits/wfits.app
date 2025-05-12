@@ -31,7 +31,6 @@ def test_valid_file_type_empty_exstension():
   file = create_upload_file('testImage')
   assert valid_file_type(file) == False
 
-
 # Create mock Image UploadFile with real image data to test the functions with
 def create_image_upload_file(filename: str):
     img = Image.new('RGB', (10, 10), color='red')
