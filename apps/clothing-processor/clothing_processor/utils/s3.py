@@ -13,7 +13,12 @@ _s3 = None
 BUCKET_NAME = "wfits-bucket"
 
 def load_s3_client():
-  """Load s3"""
+  """
+  Load and return the S3 client.
+
+  :return: The S3 client.
+  :rtype: boto3.client
+  """
   global _s3
   if _s3 is None:
     _s3 = boto3.client('s3')
@@ -21,7 +26,13 @@ def load_s3_client():
 
 
 def test_s3_connection():
-  """Test connection to a specific S3 bucket to check if the credentials are correct."""
+  """
+  Test connection to a specific S3 bucket to check if the credentials are correct.
+
+  :raise Exception: If there is an issue with the connection or AWS credentials.
+  :return: None
+  :rtype: None
+  """
   try:
     # Initialize the S3 resource with boto3
     s3 = load_s3_client()
@@ -40,7 +51,15 @@ def test_s3_connection():
     print(f"Error: {e}")
 
 def s3_upload(image: Image.Image) -> str:
-  """Uploads a PIL Image to S3 -> images S3 URL"""
+  """
+  Uploads a PIL Image to S3 and returns the image's S3 URL.
+
+  :param image: The PIL Image to upload.
+  :type image: Image.Image
+  :raise ValueError: If the upload fails due to an error.
+  :return: The S3 URL of the uploaded image.
+  :rtype: str
+  """
   try:
     # Initialize the S3 client
     s3 = load_s3_client()

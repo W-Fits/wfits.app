@@ -35,7 +35,15 @@ COLOUR_MAP = {
 }
 
 def to_image_array(image: ImageFile.Image) -> NDArray[Any]:
-  """Converts a PIL Image to a NumPy array -> NDArray[Any]."""
+  """
+  Convert a PIL Image to a NumPy array.
+
+  :param image: The input PIL Image.
+  :type image: ImageFile.Image
+  :raise ValueError: If conversion fails or the array is empty.
+  :return: The converted NumPy array.
+  :rtype: NDArray[Any]
+  """
   if image is None:
     raise ValueError("Input image is None.")
   
@@ -51,7 +59,15 @@ def to_image_array(image: ImageFile.Image) -> NDArray[Any]:
 
 
 def remove_background(image_array: NDArray[Any]) -> tuple[NDArray[Any], Image.Image]:
-  """Removes background from a NumPy image array -> Image."""
+  """
+  Remove background from image array and return cleaned array and image.
+
+  :param image_array: The input NumPy array of the image.
+  :type image_array: NDArray[Any]
+  :raise ValueError: If image is invalid or background removal fails.
+  :return: A tuple containing the cleaned image array and PIL Image.
+  :rtype: tuple[NDArray[Any], Image.Image]
+  """
   if image_array is None or image_array.size == 0:
     raise ValueError("Input image array is None or empty.")
 
@@ -65,7 +81,15 @@ def remove_background(image_array: NDArray[Any]) -> tuple[NDArray[Any], Image.Im
 
 
 def to_bytes_image(image: Image.Image) -> io.BytesIO:
-  """Converts a PIL Image to a BytesIO object -> io.BytesIO."""
+  """
+  Convert a PIL Image to a BytesIO object.
+
+  :param image: The input PIL Image.
+  :type image: Image.Image
+  :raise ValueError: If conversion to bytes fails.
+  :return: The image as a BytesIO object.
+  :rtype: io.BytesIO
+  """
   try:
     bytes_image = io.BytesIO()
     image.save(bytes_image, format='PNG')
@@ -77,7 +101,15 @@ def to_bytes_image(image: Image.Image) -> io.BytesIO:
 
 
 def preprocess_image(image: Image.Image) -> NDArray[Any]:
-  """Prepares a PIL Image for model input -> NDArray[Any]."""
+  """
+  Preprocess a PIL Image for model input.
+
+  :param image: The input PIL Image.
+  :type image: Image.Image
+  :raise ValueError: If image is invalid or preprocessing fails.
+  :return: The preprocessed image as a NumPy array.
+  :rtype: NDArray[Any]
+  """
   if not isinstance(image, Image.Image):
     raise ValueError("Input must be a valid PIL Image.")
 
@@ -94,7 +126,15 @@ def preprocess_image(image: Image.Image) -> NDArray[Any]:
     raise ValueError(f"Error during image preprocessing: {e}")
   
 def to_base64(image: Image.Image) -> str:
-  """Convert a PIL Image to a Base64 encoded string."""
+  """
+  Convert a PIL Image to a Base64 encoded string.
+
+  :param image: The input PIL Image.
+  :type image: Image.Image
+  :raise ValueError: If conversion to base64 fails.
+  :return: The Base64 encoded string representation of the image.
+  :rtype: str
+  """
   try:
     buffer = to_bytes_image(image)
     return base64.b64encode(buffer.read()).decode("utf-8")  # Encode to Base64
@@ -104,7 +144,15 @@ def to_base64(image: Image.Image) -> str:
 
 
 def get_rgb_colour(image_array: NDArray[Any]) -> Tuple[int, int, int]:
-  """Find the dominant colour of an image with a removed background -> Hexcode."""
+  """
+  Find the dominant RGB colour of an image array.
+
+  :param image_array: The input NumPy image array.
+  :type image_array: NDArray[Any]
+  :raise ValueError: If no visible pixels are found or the input is invalid.
+  :return: The RGB tuple of the dominant colour.
+  :rtype: Tuple[int, int, int]
+  """
   
   if image_array.shape[-1] != 4:
     raise ValueError("Expected an RGBA image array.")
@@ -125,17 +173,41 @@ def get_rgb_colour(image_array: NDArray[Any]) -> Tuple[int, int, int]:
   return output
 
 def get_hex_colour(image_array: NDArray[Any]) -> str:
-  """Use the `get_rgb_colour` and convert it to hex code. -> str """
+  """
+  Convert the dominant RGB colour of an image array to hex code.
+
+  :param image_array: The input NumPy image array.
+  :type image_array: NDArray[Any]
+  :raise ValueError: If no visible pixels are found or the input is invalid.
+  :return: The hex code of the dominant colour.
+  :rtype: str
+  """
   return get_hex_colour(get_rgb_colour(image_array))
 
 def rgb_to_hex(rgb: tuple) -> str:
-  """Convert RGB tuple to hex code. -> str"""
+  """
+  Convert an RGB tuple to a hex code.
+
+  :param rgb: The RGB tuple.
+  :type rgb: tuple
+  :raise ValueError: If the RGB tuple is invalid.
+  :return: The hex code representing the colour.
+  :rtype: str
+  """
   if not isinstance(rgb, tuple) or len(rgb) != 3:
     raise ValueError(f"Invalid RGB tuple: {rgb}")
   return f"#{rgb[0]:02x}{rgb[1]:02x}{rgb[2]:02x}".upper()
 
 def hex_to_rgb(hex_code: str) -> Tuple[int, int, int]:
-  """Convert hex colour to RGB tuple. -> Tuple[int, int, int]"""
+  """
+  Convert a hex code to an RGB tuple.
+
+  :param hex_code: The hex code to convert.
+  :type hex_code: str
+  :raise ValueError: If the hex code is invalid.
+  :return: The RGB tuple corresponding to the hex code.
+  :rtype: Tuple[int, int, int]
+  """
   hex_code = hex_code.lstrip('#')
   if len(hex_code) != 6:
     raise ValueError(f"Invalid hex code format: '{hex_code}'. Expected a 6-digit hex code.")
@@ -149,7 +221,17 @@ def hex_to_rgb(hex_code: str) -> Tuple[int, int, int]:
     raise ValueError(f"Error converting hex code '{hex_code}' to RGB: {e}")
 
 def calculate_distance(colour1: tuple, colour2: tuple) -> float:
-  """Calculate the Euclidean distance between two RGB colours."""
+  """
+  Calculate the Euclidean distance between two RGB colours.
+
+  :param colour1: The first RGB tuple.
+  :type colour1: tuple
+  :param colour2: The second RGB tuple.
+  :type colour2: tuple
+  :raise ValueError: If the inputs are not valid RGB tuples.
+  :return: The Euclidean distance between the two colours.
+  :rtype: float
+  """
   if not (isinstance(colour1, tuple) and isinstance(colour2, tuple)):
     raise ValueError("Both inputs must be tuples.")
   
@@ -162,7 +244,14 @@ def calculate_distance(colour1: tuple, colour2: tuple) -> float:
   return (sum((a - b) ** 2 for a, b in zip(colour1, colour2))) ** 0.5
 
 def match_colour(rgb: Tuple[int, int, int]) -> Dict[str, str]:
-  """Match RGB to colour in colour map -> { name: str, value: str } | None"""
+  """
+  Match RGB colour to the closest in the colour map.
+
+  :param rgb: The RGB tuple to match.
+  :type rgb: Tuple[int, int, int]
+  :return: A dictionary containing the name and hex code of the closest matching colour.
+  :rtype: Dict[str, str]
+  """
 
   closest_colour = None
   smallest_distance = float('inf')
@@ -181,6 +270,13 @@ def match_colour(rgb: Tuple[int, int, int]) -> Dict[str, str]:
   return closest_colour
 
 def get_colour(image_array: NDArray[Any]) -> Dict[str, str]:
-  """Find the colour that the dominant colour of image -> { name: str, value: str }"""
+  """
+  Find the closest colour match for the dominant colour in an image.
+
+  :param image_array: The input NumPy image array.
+  :type image_array: NDArray[Any]
+  :return: A dictionary containing the name and hex code of the closest matching colour.
+  :rtype: Dict[str, str]
+  """
   dominant_rgb = get_rgb_colour(image_array)
   return match_colour(dominant_rgb)
