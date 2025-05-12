@@ -12,7 +12,13 @@ class_names = [
 
 
 def load_model() -> tf.keras.Model:
-  """Load the TensorFlow model -> tf.keras.Model."""
+  """
+  Load and return the pre-trained TensorFlow model.
+
+  :return: The loaded TensorFlow model.
+  :rtype: tf.keras.Model
+  :raise ValueError: If the model fails to load.
+  """
   try:
     import os
     os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
@@ -21,7 +27,17 @@ def load_model() -> tf.keras.Model:
     raise ValueError(f"Failed to load model: {e}")
 
 def predict_class(model: tf.keras.Model, image: NDArray[Any]) -> str:
-  """Predict the class of a preprocessed image -> str."""
+  """
+  Predict the class of a preprocessed image using the given model.
+
+  :param model: The pre-trained TensorFlow model to use for prediction.
+  :type model: tf.keras.Model
+  :param image: The preprocessed image to predict, in the form of a numpy array.
+  :type image: NDArray[Any]
+  :raise ValueError: If the input image is not a valid numpy array or if the prediction fails.
+  :return: The predicted class label as a string.
+  :rtype: str
+  """
   if image is None or not isinstance(image, np.ndarray):
     raise ValueError("Input image must be a valid numpy array.")
 

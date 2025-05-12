@@ -6,6 +6,19 @@ from typing import Tuple, Optional
 
 
 async def forecast(latitude: float, longitude: float, temperature_threshold: float = 15.0) -> Tuple[bool, str]:
+  """
+  Get weather forecast and determine temperature condition based on location.
+
+  :param latitude: Geographic latitude of the location.
+  :type latitude: float
+  :param longitude: Geographic longitude of the location.
+  :type longitude: float
+  :param temperature_threshold: Temperature threshold to classify as 'Cold' or 'Warm'.
+  :type temperature_threshold: float
+  :raise Exception: If the weather API request fails.
+  :return: Dictionary with rain flag, temperature condition, and average temperature.
+  :rtype: dict[str, Any]
+  """
   cache_session = requests_cache.CachedSession(".cache", expire_after=3600)
   retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
   openmeteo = openmeteo_requests.Client(session=retry_session)

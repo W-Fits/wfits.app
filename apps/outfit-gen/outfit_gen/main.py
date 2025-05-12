@@ -26,7 +26,14 @@ class GenerateOutfitRequest(BaseModel):
     latitude: Optional[float] = None
 
 def get_items_by_category(items: List) -> Dict[str, List]:
-    """Organises items by category."""
+    """
+    Group items by their category name.
+
+    :param items: List of items with a category_tag.category_name attribute.
+    :type items: list
+    :return: Dictionary mapping category names to lists of items.
+    :rtype: dict[str, list]
+    """
     items_by_category: Dict[str, List[Any]] = defaultdict(list)
     for item in items:
         try:
@@ -38,7 +45,14 @@ def get_items_by_category(items: List) -> Dict[str, List]:
     return dict(items_by_category)
 
 def generate_outfit(items_by_category: Dict[str, List[Any]]) -> Dict[str, Any]:
-    """Generates an outfit by selecting one item from each category."""
+    """
+    Select one random item per category to form an outfit.
+
+    :param items_by_category: Dictionary mapping category names to lists of items.
+    :type items_by_category: dict[str, list]
+    :return: Dictionary mapping category names to selected items.
+    :rtype: dict[str, Any]
+    """
     outfit: Dict[str, Any] = {}
     for category_name, category_items in items_by_category.items():
         if category_items:
@@ -47,7 +61,14 @@ def generate_outfit(items_by_category: Dict[str, List[Any]]) -> Dict[str, Any]:
     return outfit
 
 def to_json(item):
-    """Converts the Item object to a JSON-serializable dictionary."""
+    """
+    Convert an item object to a JSON-serializable dictionary.
+
+    :param item: The item to serialize.
+    :type item: Any
+    :return: A dictionary representation of the item suitable for JSON output.
+    :rtype: dict
+    """
     return {
         "item_id": item.item_id,
         "colour_id": item.colour_id,
@@ -80,6 +101,14 @@ def to_json(item):
     }
 
 def clean(outfit: Dict[str, Any]):
+    """
+    Convert all items in an outfit to JSON-serializable dictionaries.
+
+    :param outfit: Dictionary mapping category names to item objects.
+    :type outfit: dict[str, Any]
+    :return: Dictionary with the same keys and JSON-serializable item values.
+    :rtype: dict[str, dict]
+    """
     output = {}
     for category, item in outfit.items():
         output[category] = to_json(item)
@@ -88,8 +117,14 @@ def clean(outfit: Dict[str, Any]):
 # @app.post("/", dependencies=[Depends(auth0_auth_middleware)])
 @app.post("/")
 async def generate_outfit_endpoint(body: GenerateOutfitRequest):
-    """Generates an outfit based on the provided filters,
-    selecting one item per category."""
+    """
+    Generate an outfit based on user filters and location-based weather.
+
+    :param body: Request body containing filters, user ID, and optional coordinates.
+    :type body: GenerateOutfitRequest
+    :return: JSON response with the generated outfit or an error message.
+    :rtype: JSONResponse
+    """
     filters = body.filters
     user_id = body.user_id
     longitude = body.longitude
@@ -122,6 +157,15 @@ async def generate_outfit_endpoint(body: GenerateOutfitRequest):
 
 @app.get("/test")
 async def test_endpoint():
+    """
+    Generate a sample outfit using default user ID and no location filters.
+
+    :param: This endpoint takes no parameters.
+    :type: n/a
+    :raise Exception: If an error occurs during outfit generation.
+    :return: A JSON response with the generated outfit or an error message.
+    :rtype: JSONResponse
+    """
     filters = {}
     longitude = latitude = None
     user_id = 1

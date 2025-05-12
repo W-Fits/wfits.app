@@ -10,7 +10,15 @@ def valid_file_type(file: UploadFile):
 
 
 async def get_image(file: UploadFile):
-  """Reads and processes an uploaded image -> ImageFile."""
+  """
+  Reads and processes an uploaded image file.
+
+  :param file: The uploaded image file.
+  :type file: UploadFile
+  :raise ValueError: If the file type is invalid or there is an error processing the image.
+  :return: A PIL Image object of the uploaded image.
+  :rtype: Image.Image
+  """
   if not valid_file_type(file):
     raise ValueError(f"Invalid file type: {file.filename}. Please upload a valid image file.")
   
