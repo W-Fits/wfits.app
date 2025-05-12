@@ -13,7 +13,15 @@ ALLOWED_FILTERS = {
 }
 
 def parse_filters(filters: Dict) -> Dict:
-  """Validates and converts filter values based on ALLOWED_FILTERS."""
+  """
+  Validate and convert filter values based on allowed filters.
+
+  :param filters: A dictionary of filters to validate and convert.
+  :type filters: dict
+  :raise ValueError: If a filter value is invalid or cannot be converted.
+  :return: A dictionary of validated and converted filters.
+  :rtype: dict[str, Any]
+  """
   validated_filters = {}
   for key, value in filters.items():
     if key in ALLOWED_FILTERS:
@@ -41,7 +49,19 @@ async def get_items(
   user_id: int,
   filters: Dict,
 ) -> List[PrismaItem]:
-  """Applies filters to the Item table based on the provided criteria, user ID, and optional location."""
+  """
+  Apply filters to the Item table based on user ID and filter criteria.
+
+  :param db: The Prisma database client.
+  :type db: Prisma
+  :param user_id: The ID of the user whose items are being fetched.
+  :type user_id: int
+  :param filters: A dictionary of filter criteria to apply to the query.
+  :type filters: dict
+  :raise Exception: If there is an error fetching items from the database.
+  :return: A list of items that match the filters and user ID.
+  :rtype: list[PrismaItem]
+  """
 
   where_clause = {"user_id": user_id}  # Base filter: items for the user
 
@@ -61,7 +81,15 @@ async def get_items(
 
 
 async def get_prisma_client() -> Prisma:
-  """Returns a Prisma client instance, caching it for reuse."""
+  """
+  Return a Prisma client instance, reusing a cached instance if available.
+
+  :param: This function takes no parameters.
+  :type: n/a
+  :raise Exception: If there is an error connecting to the database.
+  :return: A Prisma client instance connected to the database.
+  :rtype: Prisma
+  """
   global _prisma_client
 
   if _prisma_client is None:
@@ -77,7 +105,15 @@ async def get_prisma_client() -> Prisma:
 
 
 async def disconnect_prisma_client():
-  """Disconnects the Prisma client if it's currently connected."""
+  """
+  Disconnect the Prisma client if it is currently connected.
+
+  :param: This function takes no parameters.
+  :type: n/a
+  :raise Exception: If there is an error disconnecting from the database.
+  :return: n/a
+  :rtype: n/a
+  """
   global _prisma_client
   if _prisma_client:
     try:
