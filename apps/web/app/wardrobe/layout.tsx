@@ -1,5 +1,5 @@
 import type React from "react"
-import BreadcrumbHeader from "@/components/shared/breadcrumb-header"
+import { BreadcrumbHeader } from "@/components/shared/breadcrumb-header"
 
 export default function WardrobeLayout({
   children,
@@ -9,7 +9,7 @@ export default function WardrobeLayout({
   return (
     <>
       <BreadcrumbHeader />
-      <div className="p-4 pt-20">
+      <div className="pt-16">
         {children}
       </div>
     </>

@@ -3,14 +3,7 @@ from PIL import Image
 import io
 
 def valid_file_type(file: UploadFile):
-  """
-  Checks if the uploaded file is a valid image based on its extension.
-
-  :param file: The uploaded file.
-  :type file: UploadFile
-  :return: True if the file is a valid image type, False otherwise.
-  :rtype: bool
-  """
+  """Checks if the uploaded file is a valid image based on its extension -> bool."""
   valid_extensions = ['jpg', 'jpeg', 'png']
   file_extension = file.filename.split(".")[-1].lower()
   return file_extension in valid_extensions

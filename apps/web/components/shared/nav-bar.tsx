@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 
 interface Route {
   href: string;
-  label: string;
   icon: React.ReactNode
 }
 
@@ -35,13 +34,12 @@ function NavItem({
       key={route.href}
       href={route.href}
       className={cn(
-        "flex flex-col items-center justify-center gap-1 text-xs font-medium transition-colors",
+        "flex flex-col items-center justify-center gap-1 text-sm font-medium transition-colors",
         active ? "text-primary" : "text-muted-foreground hover:text-primary",
       )}
       prefetch
     >
       {route.icon}
-      <span className="text-sm">{route.label}</span>
     </Link>
   );
 }
@@ -58,7 +56,7 @@ export function NavBar({
 
   return showNavBar && (
     <nav className="fixed bottom-0 left-0 z-50 w-full border-t bg-background">
-      <div className="grid h-16 grid-cols-3">
+      <div className="flex justify-between p-6">
         {routes.map((route) => (
           <NavItem
             key={route.href}

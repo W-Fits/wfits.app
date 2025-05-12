@@ -40,6 +40,12 @@ def test_get_items_by_category_good():
     # Verify that the output matches the expected categorization
     assert result == {"Top": [1, 3], "Bottom": [2]}
 
+    # Dynamically generated output for test result
+    print({
+        "status": 200,
+        "message": f"Items categorized successfully: {result}"
+    })
+
 # Test case to handle missing 'category_name' in the input
 def test_get_items_by_category_bad():
     # Sample input with missing 'category_name'
@@ -50,6 +56,12 @@ def test_get_items_by_category_bad():
     # Check if the function raises a KeyError due to missing 'category_name'
     with pytest.raises(KeyError):
         get_items_by_category(items)
+
+    # Dynamically generated output for error handling
+    print({
+        "status": 400,
+        "message": "Error: Missing 'category_name' in input"
+    })
 
 # Test case to verify correct categorization when there are multiple categories
 def test_get_items_by_category_multiple():
@@ -71,30 +83,8 @@ def test_get_items_by_category_multiple():
         "Shoes": [3]
     }
 
-# @patch("outfit_gen.main.get_prisma_client", new_callable=AsyncMock)
-# @patch("outfit_gen.main.get_items", new_callable=AsyncMock)
-# def test_test_endpoint(mock_get_items, mock_get_prisma_client):
-#     # Setup mock data
-#     mock_get_prisma_client.return_value = "mock_db"
-
-#     mock_items = [
-#         type("Item", (), {
-#             "item_id": 1,
-#             "category_tag": type("CategoryTag", (), {"category_name": "Tops"})()
-#         }),
-#         type("Item", (), {
-#             "item_id": 2,
-#             "category_tag": type("CategoryTag", (), {"category_name": "Bottoms"})()
-#         })
-#     ]
-#     mock_get_items.return_value = mock_items
-
-#     # Make a request to the test endpoint
-#     response = client.get("/test")
-
-#     # Assert the expected results
-#     assert response.status_code == 200
-#     data = response.json()
-#     assert "Tops" in data
-#     assert "Bottoms" in data
-#     assert isinstance(data["Tops"], int)
+    # Dynamically generated output for test result
+    print({
+        "status": 200,
+        "message": f"Items categorized successfully: {result}"
+    })

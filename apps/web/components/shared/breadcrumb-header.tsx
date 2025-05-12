@@ -36,7 +36,7 @@ function generateBreadcrumbs(pathname: string): BreadcrumbItem[] {
   return breadcrumbs;
 }
 
-export default function BreadcrumbHeader() {
+export function BreadcrumbHeader() {
   const pathname = usePathname();
   const breadcrumbs = useMemo<BreadcrumbItem[]>(
     () => generateBreadcrumbs(pathname),

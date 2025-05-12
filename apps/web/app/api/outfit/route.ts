@@ -45,7 +45,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { items } = await request.json();
+    const { outfit_items, outfit_name } = await request.json();
     const session = await getServerSession(authOptions);
 
     if (!session) {
@@ -54,12 +54,13 @@ export async function POST(request: Request) {
 
     const outfit = await prisma.outfit.create({
       data: {
-        user_id: session.user.id
+        user_id: session.user.id,
+        outfit_name: outfit_name
       },
     });
 
-    const outfit_items = await prisma.outfitItem.createMany({
-      data: [...items.map((item: Item) => ({ outfit_id: outfit.outfit_id, item_id: item.item_id }))],
+    const items = await prisma.outfitItem.createMany({
+      data: [...outfit_items.map((item: Item) => ({ outfit_id: outfit.outfit_id, item_id: item.item_id }))],
     });
 
     return NextResponse.json(outfit, { status: 201 });

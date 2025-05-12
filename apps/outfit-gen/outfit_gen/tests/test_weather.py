@@ -36,3 +36,9 @@ async def test_forecast_cold_condition():
 
         # Assert that the average temperature in the result is a float type
         assert isinstance(result["average_temp"], float)
+
+        # Dynamically generated output for test result
+        print({
+            "status": 200,
+            "message": f"Forecast test passed: {result}"
+        })
