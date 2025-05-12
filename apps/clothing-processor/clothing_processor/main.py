@@ -29,7 +29,15 @@ model = load_model()
 
 @app.post("/", dependencies=[Depends(auth0_auth_middleware)])
 async def upload_image(upload_file: UploadFile | None = None):
-  # Check file has been uploaded
+  """
+  Upload an image, process it, and return the predicted class, dominant color, and image URL.
+
+  :param upload_file: The image file to be uploaded.
+  :type upload_file: UploadFile | None
+  :raise ValueError: If the file type is invalid or there is an error processing the image.
+  :return: A JSON response containing the predicted class, dominant color, and image URL.
+  :rtype: JSONResponse
+  """
   if not upload_file:
     return JSONResponse(content={"error": "File not provided"}, status_code=422)
   
