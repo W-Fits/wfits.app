@@ -1,7 +1,10 @@
 import os
 import pytest
 from PIL import Image
-from clothing_processor.utils.image import to_image_array, get_colour, get_class
+from shared_utils.env import get_env
+import requests
+import json
+from dotenv import load_dotenv
 
 test_cases = [
     ("Black_T-shirt.jpg", "Black", "T-shirt/top"),
@@ -29,24 +32,70 @@ test_cases = [
     ("Magenta_Pullover.jpg", "Magenta", "Pullover"),
 ]
 
-def test_imageOuput():
-    
-    print("Starting manual image test suite...\n")
+load_dotenv()
 
-    for filename, expected_colour, expected_class in test_cases:
-        try:
-            image_path = os.path.join("tests", "assets", filename)
-            image = Image.open(image_path).convert("RGBA")
-            img_array = to_image_array(image)
+env = get_env()
 
-            predicted_colour = get_colour(img_array)
-            predicted_class = get_class(img_array)
+TOKEN_URL = f"https://{env['AUTH0_DOMAIN']}/oauth/token"
 
-            # Check results
-            assert predicted_colour["name"] == expected_colour 
-            assert predicted_class == expected_class
+UPLOAD_URL = "http://127.0.0.1:8000/"
 
-        except FileNotFoundError:
-            print(f"[!] {filename} not found. Skipping.")
-        except Exception as e:
-            print(f"[!] Error processing {filename}: {e}")
+def auth_token():
+  """Fetch an Auth0 access token."""
+  try:
+    res = requests.post(
+      TOKEN_URL,
+      headers={"Content-Type": "application/json"},
+      data=json.dumps({
+        "client_id": env["AUTH0_CLIENT_ID"],
+        "client_secret": env["AUTH0_CLIENT_SECRET"],
+        "audience": env["AUTH0_AUDIENCE"],
+        "grant_type": "client_credentials"
+      }),
+    )
+    res.raise_for_status()
+    return res.json().get("access_token")
+  except requests.exceptions.RequestException as e:
+    pytest.fail(f"Error fetching Auth0 token: {e}")
+    return None
+
+token = auth_token()
+
+@pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+def test_req_1(filename, expected_colour, expected_class):
+  """
+    Test clothing processing for different items.
+    """
+  if not token:
+    pytest.skip("Auth0 token not available.")
+
+  file_path = f"clothing_processor/data/test-images/assests/{filename}"
+  if not os.path.exists(file_path):
+    pytest.fail(f"Test image file not found: {file_path}")
+
+  try:
+    with open(file_path, "rb") as f:
+        files = {"upload_file": (f.name, f, "multipart/form-data")}
+        res = requests.post(
+            url=UPLOAD_URL,
+            headers={"Authorization": f"Bearer {token}"},
+            files=files,
+        )
+
+        assert res.status_code == 200
+
+        content = res.json()
+        response_class = content["class"]
+        response_colour = content["colour"]
+
+        assert response_colour["name"] == expected_colour
+        assert response_class == expected_class
+
+  except requests.exceptions.RequestException as e:
+    pytest.fail(f"Request error for {filename}: {e}")
+  except json.JSONDecodeError:
+    pytest.fail(f"Failed to decode JSON response for {filename}. Response: {res.text}")
+  except KeyError as e:
+    pytest.fail(
+        f"Missing key in response for {filename}: {e}. Response: {res.json()}"
+    )
