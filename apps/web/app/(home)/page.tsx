@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { OutfitPost } from "@/components/post/outfit-post";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Search } from "lucide-react";
 import { ExtendedPost, Post } from "@/components/post/post";
 import { ExtendedOutfit } from "@/app/profile/[username]/page";
 
@@ -71,7 +71,8 @@ export default async function HomePage() {
                   }
                 }
               },
-            }
+              user: true
+            },
           }
         }
       },
@@ -107,7 +108,17 @@ export default async function HomePage() {
             ))}
           </div>
         ) : (
-          <span>Now new outfits</span>
+          <div>
+            There are no new outfits from people you follow.
+            <Link href="/search" className="flex mt-2 max-w-[75%] aspect-video  cursor-pointer mx-auto bg-muted/10 rounded-lg flex-col items-center justify-center p-4 transition-all border border-muted/70 shadow-xs">
+              <div className="flex justify-center items-center h-20 w-20 p-4 bg-muted rounded-full">
+                <Search className="w-full h-full stroke-primary/80" />
+              </div>
+              <span className="text-center text-balance">
+                Search for new people to follow.
+              </span>
+            </Link>
+          </div>
         )}
       </section>
       <section className="flex-1 space-y-2">
@@ -127,7 +138,17 @@ export default async function HomePage() {
             ))}
           </div>
         ) : (
-          <span>No new posts</span>
+          <div>
+            There are no new posts from people you follow.
+            <Link href="/search" className="flex mt-2 max-w-[75%] aspect-video  cursor-pointer mx-auto bg-muted/10 rounded-lg flex-col items-center justify-center p-4 transition-all border border-muted/70 shadow-xs">
+              <div className="flex justify-center items-center h-20 w-20 p-4 bg-muted rounded-full">
+                <Search className="w-full h-full stroke-primary/80" />
+              </div>
+              <span className="text-center text-balance">
+                Search for new people to follow.
+              </span>
+            </Link>
+          </div>
         )}
       </section>
     </section>
