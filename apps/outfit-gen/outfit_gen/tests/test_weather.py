@@ -10,8 +10,8 @@ async def test_forecast_cold_condition():
     mock_response = MagicMock()
     mock_hourly = MagicMock()
 
-    # Simulate hourly temperature values below the threshold of 15°C
-    mock_hourly.Variables.return_value.ValuesAsNumpy.return_value = [10.0, 12.0, 13.5]
+    # Simulate hourly temperature values below the threshold of 12°C
+    mock_hourly.Variables.return_value.ValuesAsNumpy.return_value = [10.0, 11.0, 11.5]
     mock_hourly.Time.return_value = 1715133600 
     mock_hourly.TimeEnd.return_value = 1715144400 
     mock_hourly.Interval.return_value = 3600 
@@ -26,7 +26,7 @@ async def test_forecast_cold_condition():
         mock_client.weather_api.return_value = [mock_response]  # Simulate the API returning the mock response
 
         # Call the forecast function with the mocked response data
-        result = await forecast(50.0, 8.0, temperature_threshold=15.0)
+        result = await forecast(50.0, 8.0, temperature_threshold=12.0)
 
         # Assert that the condition is correctly identified as "Cold" based on the hourly temperatures being below the threshold
         assert result["condition"] == "Cold"
@@ -45,12 +45,12 @@ async def test_forecast_cold_condition():
 
 # this test checks if the 'forecast' function can catagories warm weather 
 
-async def test_forecast_cold_condition():
+async def test_forecast_warm_condition():
     # Create a MagicMock object to mock the response object from the weather API
     mock_response = MagicMock()
     mock_hourly = MagicMock()
 
-    # Simulate hourly temperature values below the threshold of 15°C
+    # Simulate hourly temperature values below the threshold of 12°C
     mock_hourly.Variables.return_value.ValuesAsNumpy.return_value = [16.0, 16.5, 17.0]
     mock_hourly.Time.return_value = 1715133600 
     mock_hourly.TimeEnd.return_value = 1715144400 
@@ -66,7 +66,7 @@ async def test_forecast_cold_condition():
         mock_client.weather_api.return_value = [mock_response]  # Simulate the API returning the mock response
 
         # Call the forecast function with the mocked response data
-        result = await forecast(50.0, 8.0, temperature_threshold=15.0)
+        result = await forecast(50.0, 8.0, temperature_threshold=12.0)
 
         # Assert that the condition is correctly identified as "Cold" based on the hourly temperatures being below the threshold
         assert result["condition"] == "Warm"
