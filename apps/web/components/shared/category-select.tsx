@@ -29,7 +29,7 @@ interface CategorySelectProps {
 // Mapping between category names and IDs (remains the same)
 export const categoryMapping = allCategories.reduce(
   (acc, category, index) => {
-    acc[index + 1] = category
+    acc[index] = category
     return acc
   },
   {} as Record<number, Category>,
@@ -37,7 +37,7 @@ export const categoryMapping = allCategories.reduce(
 
 export const categoryIdMapping = allCategories.reduce(
   (acc, category, index) => {
-    acc[category] = index + 1
+    acc[category] = index
     return acc
   },
   {} as Record<Category, number>,
@@ -45,7 +45,7 @@ export const categoryIdMapping = allCategories.reduce(
 
 export function CategorySelect({ value, onChange, categories, placeholder = "Select a category" }: CategorySelectProps) {
   const [open, setOpen] = useState(false)
-  const selectedCategoryName = value ? categoryMapping[value] : null
+  const selectedCategoryName = value || value === 0 ? categoryMapping[value] : null
 
   // Filter the allCategories based on the provided categories prop (array of IDs)
   const displayCategories = categories ? allCategories.filter(categoryName =>

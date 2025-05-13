@@ -20,7 +20,7 @@ interface SizeSelectProps {
 // Add a mapping between size strings and IDs
 export const sizeMapping = sizes.reduce(
   (acc, size, index) => {
-    acc[index + 1] = size
+    acc[index] = size
     return acc
   },
   {} as Record<number, Size>,
@@ -28,7 +28,7 @@ export const sizeMapping = sizes.reduce(
 
 export const sizeIdMapping = sizes.reduce(
   (acc, size, index) => {
-    acc[size] = index + 1
+    acc[size] = index
     return acc
   },
   {} as Record<Size, number>,
@@ -36,7 +36,7 @@ export const sizeIdMapping = sizes.reduce(
 
 export function SizeSelect({ value, onChange }: SizeSelectProps) {
   const [open, setOpen] = useState(false)
-  const selectedSize = value ? sizeMapping[value] : null
+  const selectedSize = value || value === 0 ? sizeMapping[value] : null
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -51,18 +51,17 @@ export function SizeSelect({ value, onChange }: SizeSelectProps) {
           <CommandList>
             <CommandGroup>
               {sizes.map((size, index) => {
-                const sizeId = index + 1
                 return (
                   <CommandItem
                     key={size}
                     value={size}
                     onSelect={() => {
-                      onChange(sizeId)
+                      onChange(index)
                       setOpen(false)
                     }}
                   >
                     {size.toUpperCase()}
-                    <Check className={cn("ml-auto h-4 w-4", value === sizeId ? "opacity-100" : "opacity-0")} />
+                    <Check className={cn("ml-auto h-4 w-4", value === index ? "opacity-100" : "opacity-0")} />
                   </CommandItem>
                 )
               })}

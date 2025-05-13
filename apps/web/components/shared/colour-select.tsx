@@ -14,95 +14,31 @@ export interface Colour {
 }
 
 export const colours: Colour[] = [
-  {
-    name: "slate",
-    value: "#cbd5e1",
-  },
-  {
-    name: "gray",
-    value: "#9ca3af",
-  },
-  {
-    name: "zinc",
-    value: "#71717a",
-  },
-  {
-    name: "neutral",
-    value: "#52525b",
-  },
-  {
-    name: "stone",
-    value: "#504640",
-  },
-  {
-    name: "red",
-    value: "#ef4444",
-  },
-  {
-    name: "orange",
-    value: "#f97316",
-  },
-  {
-    name: "amber",
-    value: "#f59e0b",
-  },
-  {
-    name: "yellow",
-    value: "#eab308",
-  },
-  {
-    name: "lime",
-    value: "#84cc16",
-  },
-  {
-    name: "green",
-    value: "#22c55e",
-  },
-  {
-    name: "emerald",
-    value: "#10b981",
-  },
-  {
-    name: "teal",
-    value: "#14b8a6",
-  },
-  {
-    name: "cyan",
-    value: "#06b6d4",
-  },
-  {
-    name: "sky",
-    value: "#0ea5e9",
-  },
-  {
-    name: "blue",
-    value: "#3b82f6",
-  },
-  {
-    name: "indigo",
-    value: "#6366f1",
-  },
-  {
-    name: "violet",
-    value: "#8b5cf6",
-  },
-  {
-    name: "purple",
-    value: "#a855f7",
-  },
-  {
-    name: "fuchsia",
-    value: "#d946ef",
-  },
-  {
-    name: "pink",
-    value: "#ec4899",
-  },
-  {
-    name: "rose",
-    value: "#f472b6",
-  },
-]
+  { name: "Black", value: "#000000" },
+  { name: "White", value: "#FFFFFF" },
+  { name: "Grey", value: "#808080" },
+  { name: "Navy", value: "#000080" },
+  { name: "Beige", value: "#F5F5DC" },
+  { name: "Brown", value: "#8B4513" },
+  { name: "Red", value: "#FF0000" },
+  { name: "Pink", value: "#FFC0CB" },
+  { name: "Orange", value: "#FFA500" },
+  { name: "Yellow", value: "#FFFF00" },
+  { name: "Green", value: "#008000" },
+  { name: "Blue", value: "#0000FF" },
+  { name: "Purple", value: "#800080" },
+  { name: "Cream", value: "#FFFDD0" },
+  { name: "Khaki", value: "#C3B091" },
+  { name: "Teal", value: "#008080" },
+  { name: "Mustard", value: "#FFDB58" },
+  { name: "Lavender", value: "#E6E6FA" },
+  { name: "Olive", value: "#808000" },
+  { name: "Maroon", value: "#800000" },
+  { name: "Coral", value: "#FF7F50" },
+  { name: "Turquoise", value: "#40E0D0" },
+  { name: "Magenta", value: "#FF00F" }
+];
+
 
 // Update the interface to work with numeric IDs
 interface ColorSelectProps {
@@ -113,7 +49,7 @@ interface ColorSelectProps {
 // Add a mapping between colour objects and IDs
 export const colourMapping = colours.reduce(
   (acc, colour, index) => {
-    acc[index + 1] = colour
+    acc[index] = colour
     return acc
   },
   {} as Record<number, Colour>,
@@ -121,7 +57,7 @@ export const colourMapping = colours.reduce(
 
 export const colourIdMapping = colours.reduce(
   (acc, colour, index) => {
-    acc[colour.name] = index + 1
+    acc[colour.name] = index
     return acc
   },
   {} as Record<string, number>,
@@ -129,7 +65,7 @@ export const colourIdMapping = colours.reduce(
 
 export function ColourSelect({ value, onChange }: ColorSelectProps) {
   const [open, setOpen] = useState(false)
-  const selectedColour = value ? colourMapping[value] : null
+  const selectedColour = value || value === 0 ? colourMapping[value] : null
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -157,13 +93,12 @@ export function ColourSelect({ value, onChange }: ColorSelectProps) {
             <CommandEmpty>No color found.</CommandEmpty>
             <CommandGroup className="max-h-64 overflow-y-auto">
               {colours.map((color, index) => {
-                const colourId = index + 1
                 return (
                   <CommandItem
                     key={color.name}
                     value={color.name}
                     onSelect={() => {
-                      onChange(colourId)
+                      onChange(index)
                       setOpen(false)
                     }}
                   >
@@ -175,7 +110,7 @@ export function ColourSelect({ value, onChange }: ColorSelectProps) {
                       />
                       <span>{color.name}</span>
                     </div>
-                    <Check className={cn("ml-auto h-4 w-4", value === colourId ? "opacity-100" : "opacity-0")} />
+                    <Check className={cn("ml-auto h-4 w-4", value === index ? "opacity-100" : "opacity-0")} />
                   </CommandItem>
                 )
               })}
