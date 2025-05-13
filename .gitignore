@@ -36,6 +36,7 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+.cache.sqlite
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
