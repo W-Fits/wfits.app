@@ -1,28 +1,36 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { toast } from "sonner"
-import { useRouter } from "next/navigation"
-import { Check, X, Loader2, ZoomIn } from "lucide-react"
+import { useState } from "react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { Check, X, Loader2, ZoomIn, Trash2 } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { CategorySelect } from "@/components/shared/category-select"
-import { ColourSelect } from "@/components/shared/colour-select"
-import { SizeSelect } from "@/components/shared/size-select"
-import { EnvironmentSelect } from "@/components/shared/environment-select"
-import type { Item } from "@prisma/client"
-import { ClothingImage } from "../shared/clothing-image"
-import { ImageModal } from "../shared/image-modal"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { CategorySelect } from "@/components/shared/category-select";
+import { ColourSelect } from "@/components/shared/colour-select";
+import { SizeSelect } from "@/components/shared/size-select";
+import { EnvironmentSelect } from "@/components/shared/environment-select";
+import type { Item } from "@prisma/client";
+import { ClothingImage } from "../shared/clothing-image";
+import { ImageModal } from "../shared/image-modal";
+
+import { deleteItem } from "@/lib/actions/delete-item"; // Assuming your server action is in this path
 
 export function ClothingItemEditor({ item }: { item: Item }) {
-  const router = useRouter()
+  const router = useRouter();
   const [formData, setFormData] = useState({
     item_name: item.item_name,
     colour_id: item.colour_id,
@@ -32,47 +40,71 @@ export function ClothingItemEditor({ item }: { item: Item }) {
     available: item.available ?? true,
     slot: item.slot,
     environment: item.environment,
-  })
+  });
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isImageModalOpen, setIsImageModalOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false); // State for delete loading
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   const handleChange = (field: string, value: string | number | boolean) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
-    }))
-  }
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     toast.promise(
       async () => {
-        setIsSubmitting(true)
+        setIsSubmitting(true);
         const response = await fetch(`/api/item/${item.item_id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
-        })
+        });
 
         if (!response.ok) {
-          throw new Error("Failed to update item")
+          throw new Error("Failed to update item");
         }
 
-        setIsSubmitting(false)
-        router.refresh()
-        return response.json()
+        setIsSubmitting(false);
+        router.refresh();
+        return response.json();
       },
       {
         loading: "Updating clothing item...",
         success: "Item updated successfully!",
         error: "Failed to update item. Please try again.",
       },
-    )
-  }
+    );
+  };
+
+  const handleDelete = async () => {
+    toast.promise(
+      async () => {
+        setIsDeleting(true);
+        const result = await deleteItem(item.item_id);
+
+        if (result.error) {
+          throw new Error(result.error);
+        }
+
+        setIsDeleting(false);
+        router.push("/items"); // Redirect after successful deletion
+        router.refresh(); // Refresh the cache
+        return result;
+      },
+      {
+        loading: "Deleting clothing item...",
+        success: "Item deleted successfully!",
+        error: (error) => error.message,
+      },
+    );
+  };
 
   return (
     <>
@@ -113,17 +145,26 @@ export function ClothingItemEditor({ item }: { item: Item }) {
 
             <div className="space-y-2">
               <Label htmlFor="category">Category</Label>
-              <CategorySelect value={formData.category_id} onChange={(value) => handleChange("category_id", value)} />
+              <CategorySelect
+                value={formData.category_id}
+                onChange={(value) => handleChange("category_id", value)}
+              />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="colour">Color</Label>
-              <ColourSelect value={formData.colour_id} onChange={(value) => handleChange("colour_id", value)} />
+              <ColourSelect
+                value={formData.colour_id}
+                onChange={(value) => handleChange("colour_id", value)}
+              />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="size">Size</Label>
-              <SizeSelect value={formData.size_id} onChange={(value) => handleChange("size_id", value)} />
+              <SizeSelect
+                value={formData.size_id}
+                onChange={(value) => handleChange("size_id", value)}
+              />
             </div>
 
             <div className="space-y-2">
@@ -158,15 +199,39 @@ export function ClothingItemEditor({ item }: { item: Item }) {
               />
             </div>
 
-            <CardFooter className="flex justify-end gap-2 px-0 pt-4">
-              <Button type="button" variant="outline" onClick={() => router.back()} disabled={isSubmitting}>
-                <X className="w-4 h-4 mr-2" />
-                Cancel
+            <CardFooter className="flex justify-between gap-2 px-0 pt-4">
+              <Button
+                type="button"
+                variant="destructive" // Using destructive variant for delete
+                size="icon"
+                onClick={handleDelete}
+                disabled={isDeleting || isSubmitting} // Disable if submitting or already deleting
+              >
+                {isDeleting ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Trash2 className="w-4 h-4" />
+                )}
               </Button>
-              <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Check className="w-4 h-4 mr-2" />}
-                Save Changes
-              </Button>
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => router.back()}
+                  disabled={isSubmitting || isDeleting}
+                >
+                  <X className="w-4 h-4 mr-2" />
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={isSubmitting || isDeleting}>
+                  {isSubmitting ? (
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  ) : (
+                    <Check className="w-4 h-4 mr-2" />
+                  )}
+                  Save Changes
+                </Button>
+              </div>
             </CardFooter>
           </form>
         </CardContent>
@@ -179,6 +244,5 @@ export function ClothingItemEditor({ item }: { item: Item }) {
         alt={item.item_name}
       />
     </>
-  )
+  );
 }
-

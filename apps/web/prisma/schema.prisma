@@ -41,14 +41,16 @@ model Session {
 model CategoryTag {
   category_id   Int    @id @default(autoincrement())
   category_name String @unique @db.VarChar(35)
-  items         Item[]
+
+  items Item[]
 }
 
 model ColourTag {
   colour_id    Int    @id @default(autoincrement())
   colour_name  String @unique @db.VarChar(35)
   colour_value String @unique @db.Char(7)
-  items        Item[]
+
+  items Item[]
 }
 
 model Item {
@@ -69,41 +71,47 @@ model Item {
   category_tag CategoryTag @relation(fields: [category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction)
   colour_tag   ColourTag   @relation(fields: [colour_id], references: [colour_id], onDelete: NoAction, onUpdate: NoAction)
   size_tag     SizeTag     @relation(fields: [size_id], references: [size_id], onDelete: NoAction, onUpdate: NoAction)
-  user         User?       @relation(fields: [user_id], references: [user_id])
+
+  user User? @relation(fields: [user_id], references: [user_id])
 
   outfit_items OutfitItem[]
 }
 
 model Outfit {
-  outfit_id    Int          @id @default(autoincrement())
-  user_id      Int
-  outfit_name  String
-  created_at   DateTime     @default(now()) @db.Date
-  updated_at   DateTime     @updatedAt
-  user         User         @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  outfit_id   Int      @id @default(autoincrement())
+  user_id     Int
+  outfit_name String
+  created_at  DateTime @default(now()) @db.Date
+  updated_at  DateTime @updatedAt
+
+  user         User         @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
   outfit_items OutfitItem[]
   PostOutfit   PostOutfit[]
-  likedBy      User[]       @relation("LikedOutfits")
+
+  likedBy User[] @relation("LikedOutfits")
 }
 
 model Post {
-  post_id    Int          @id @default(autoincrement())
+  post_id    Int      @id @default(autoincrement())
   user_id    Int
   post_title String
   post_text  String
   images     String[]
-  created_at DateTime     @default(now()) @db.Date
-  updated_at DateTime     @updatedAt
-  user       User         @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
-  outfits    PostOutfit[]
-  likedBy    User[]       @relation("LikedPosts")
+  created_at DateTime @default(now()) @db.Date
+  updated_at DateTime @updatedAt
+
+  user    User         @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+  outfits PostOutfit[]
+
+  likedBy User[] @relation("LikedPosts")
 }
 
 model PostOutfit {
   outfit_id Int
   post_id   Int
 
-  post   Post   @relation(fields: [post_id], references: [post_id], onDelete: NoAction, onUpdate: NoAction)
+  post Post @relation(fields: [post_id], references: [post_id], onDelete: Cascade, onUpdate: NoAction)
+
   outfit Outfit @relation(fields: [outfit_id], references: [outfit_id], onDelete: Cascade, onUpdate: NoAction)
 
   @@id([outfit_id, post_id])
@@ -113,7 +121,8 @@ model OutfitItem {
   outfit_id Int
   item_id   Int
 
-  item   Item   @relation(fields: [item_id], references: [item_id], onDelete: NoAction, onUpdate: NoAction)
+  item Item @relation(fields: [item_id], references: [item_id], onDelete: Cascade, onUpdate: NoAction)
+
   outfit Outfit @relation(fields: [outfit_id], references: [outfit_id], onDelete: Cascade, onUpdate: NoAction)
 
   @@id([outfit_id, item_id])
@@ -122,7 +131,8 @@ model OutfitItem {
 model SizeTag {
   size_id   Int    @id @default(autoincrement())
   size_name String @unique @db.VarChar(35)
-  items     Item[]
+
+  items Item[]
 }
 
 model User {
