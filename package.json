@@ -7,7 +7,7 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky",
-    "test": "tubro test"
+    "test": "turbo test"
   },
   "devDependencies": {
     "husky": "^9.1.7",
