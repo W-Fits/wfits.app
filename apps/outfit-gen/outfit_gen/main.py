@@ -6,6 +6,7 @@ from shared_utils.auth import auth0_auth_middleware
 from outfit_gen.utils.db import get_prisma_client, get_items
 from outfit_gen.utils.weather import forecast
 from pydantic import BaseModel
+from datetime import datetime
 from collections import defaultdict
 import random
 
@@ -24,6 +25,43 @@ class GenerateOutfitRequest(BaseModel):
     user_id: int
     longitude: Optional[float] = None
     latitude: Optional[float] = None
+
+class CategoryTag(BaseModel):
+    category_id: int
+    category_name: str
+
+class ColourTag(BaseModel):
+    colour_id: int
+    colour_name: str
+    colour_value: str
+
+class SizeTag(BaseModel):
+    size_id: int
+    size_name: str
+
+class Item(BaseModel):
+    item_id: int
+    colour_id: int
+    category_id: int
+    size_id: int
+    user_id: int
+    item_name: str
+    item_url: str
+    waterproof: bool
+    available: bool
+    slot: int
+    environment: str
+    created_at: Optional[str]  # ISO 8601 format string or None
+    updated_at: Optional[str]  # ISO 8601 format string or None
+    category_tag: Optional[CategoryTag] = None
+    colour_tag: Optional[ColourTag] = None
+    size_tag: Optional[SizeTag] = None
+
+    class Config:
+        # This ensures the datetime objects are converted to ISO format strings automatically
+        json_encoders = {
+            datetime: lambda v: v.isoformat() if v else None
+        }
 
 def get_items_by_category(items: List) -> Dict[str, List]:
     """
