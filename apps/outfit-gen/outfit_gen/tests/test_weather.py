@@ -1,5 +1,4 @@
 import pytest
-import asyncio
 from unittest.mock import patch, MagicMock
 from outfit_gen.utils.weather import forecast  # adjust this import path accordingly
 

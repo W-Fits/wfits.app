@@ -1,11 +1,13 @@
 version: 2
 
-# Set the OS, Python version, and other tools you might need
-build:
-  os: ubuntu-24.04  # Set the desired operating system (e.g., ubuntu-24.04)
-  tools:
-    python: "3.8"  # Specify Python version to be used in the build environment
-
-# Sphinx configuration file location
 sphinx:
-  configuration: docs/source/conf.py  # Path to your Sphinx configuration file
+  configuration: docs/source/conf.py
+
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "3.11"
+
+python:
+  install: 
+    - requirements: docs/source/requirements.txt
