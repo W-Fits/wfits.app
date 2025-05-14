@@ -1,6 +1,5 @@
 import { Completed, ProfileSetup, Tutorial, Welcome } from "@/components/onboarding";
 import { Step, StepForm } from "@/components/ui/step-form";
-import { redirect } from "next/navigation";
 
 export default function Onboarding() {
   const steps: Step[] = [

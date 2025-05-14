@@ -34,7 +34,7 @@ export default async function OutfitPage({ params }: { params: Promise<{ id: str
 
   return (
     <div className="flex p-4 justify-center">
-      <Outfit className="w-full" initialOutfit={outfit} />
+      <Outfit className="w-full" initialOutfit={outfit} edit={true} />
     </div>
   );
 }

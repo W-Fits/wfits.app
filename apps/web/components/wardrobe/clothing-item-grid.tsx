@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { Skeleton } from "@/components/ui/skeleton"
 
-interface ExtendedItem extends Item {
+export interface ExtendedItem extends Item {
   category_tag: {
     category_id: number
     category_name: string

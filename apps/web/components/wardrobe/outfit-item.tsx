@@ -19,13 +19,15 @@ export function OutfitItem({
   categoryName,
   onSelectItem,
   className,
-  edit = false
+  edit = false,
+  isPending
 }: {
   item: ExtendedItem;
   categoryName: string;
-  onSelectItem: (newItem: ExtendedItem) => void;
+  onSelectItem?: ((newItem: ExtendedItem) => Promise<void>) | ((newItem: ExtendedItem) => void);
   className?: string;
   edit?: boolean;
+  isPending?: boolean;
 }) {
   const [categoryItems, setCategoryItems] = useState<ExtendedItem[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -54,7 +56,7 @@ export function OutfitItem({
 
   const handleSelectItem = (newItem: ExtendedItem) => {
     setSelectedItemId(newItem.item_id)
-    onSelectItem(newItem)
+    if (onSelectItem) onSelectItem(newItem)
   }
 
   return (
