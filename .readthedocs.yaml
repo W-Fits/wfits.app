@@ -9,4 +9,6 @@ build:
     python: "3.11"
 
 python:
-  install: "sphin myst-parser"
+  install: 
+    - sphin 
+    - myst-parser
