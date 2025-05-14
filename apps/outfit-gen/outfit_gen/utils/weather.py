@@ -5,7 +5,7 @@ from retry_requests import retry
 from typing import Tuple, Optional
 
 
-async def forecast(latitude: float, longitude: float, temperature_threshold: float = 15.0) -> Tuple[bool, str]:
+async def forecast(latitude: float, longitude: float, temperature_threshold: float = 12) -> Tuple[bool, str]:
   """
   Get weather forecast and determine temperature condition based on location.
 
