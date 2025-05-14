@@ -10,5 +10,4 @@ build:
 
 python:
   install: 
-    - sphin 
-    - myst-parser
+    - requirements: "docs/requirements.txt"
