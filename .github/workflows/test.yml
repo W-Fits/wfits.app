@@ -11,15 +11,15 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -30,23 +30,31 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install poetry
-          poetry install
+          poetry install --with dev -C apps/clothing-processor
+          poetry install --with dev -C apps/outfit-gen
+          poetry install --with dev -C packages/shared
 
       - name: Run turbo test
         run: npx turbo run test --output-logs=new-only
 
-      - name: Upload Jest test report
+      - name: Upload Jest report (web)
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: jest-report
-          path: ./path-to-your-jest-output # e.g., apps/web/test-results/
+          path: apps/web/test-results/
 
-      - name: Upload Pytest report
+      - name: Upload Pytest report (clothing-processor)
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: pytest-report
-          path: ./path-to-your-pytest-output # e.g., apps/api/test-results/
+          name: clothing-processor-pytest
+          path: apps/clothing-processor/test-results/
+
+      - name: Upload Pytest report (outfit-gen)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: outfit-gen-pytest
+          path: apps/outfit-gen/test-results/
