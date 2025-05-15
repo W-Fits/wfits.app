@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="34" failures="7" errors="0" time="5.876">
+  <testsuite name="Next.js Page Dummy Test" errors="0" failures="0" skipped="0" timestamp="2025-05-15T12:45:28" time="1.2" tests="1">
+    <testcase classname="Next.js Page Dummy Test Test" name="Next.js Page Dummy Test Test" time="0.014">
+    </testcase>
+  </testsuite>
+  <testsuite name="deleteItem" errors="0" failures="0" skipped="0" timestamp="2025-05-15T12:45:28" time="1.246" tests="4">
+    <testcase classname="deleteItem should return an error if the user is not authenticated" name="deleteItem should return an error if the user is not authenticated" time="0.019">
+    </testcase>
+    <testcase classname="deleteItem should delete the item successfully" name="deleteItem should delete the item successfully" time="0.002">
+    </testcase>
+    <testcase classname="deleteItem should handle errors when deleting the item" name="deleteItem should handle errors when deleting the item" time="0.033">
+    </testcase>
+    <testcase classname="deleteItem should handle unexpected errors" name="deleteItem should handle unexpected errors" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="deleteOutfit" errors="0" failures="0" skipped="0" timestamp="2025-05-15T12:45:28" time="1.278" tests="4">
+    <testcase classname="deleteOutfit should return an error if the user is not authenticated" name="deleteOutfit should return an error if the user is not authenticated" time="0.021">
+    </testcase>
+    <testcase classname="deleteOutfit should delete the outfit successfully" name="deleteOutfit should delete the outfit successfully" time="0.003">
+    </testcase>
+    <testcase classname="deleteOutfit should handle errors when deleting the outfit" name="deleteOutfit should handle errors when deleting the outfit" time="0.048">
+    </testcase>
+    <testcase classname="deleteOutfit should handle unexpected errors" name="deleteOutfit should handle unexpected errors" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="toggleFollowUser" errors="0" failures="0" skipped="0" timestamp="2025-05-15T12:45:28" time="1.243" tests="5">
+    <testcase classname="toggleFollowUser should return an error if the user is not signed in" name="toggleFollowUser should return an error if the user is not signed in" time="0.021">
+    </testcase>
+    <testcase classname="toggleFollowUser should return an error if the user tries to follow themselves" name="toggleFollowUser should return an error if the user tries to follow themselves" time="0.002">
+    </testcase>
+    <testcase classname="toggleFollowUser should unfollow a user if already following" name="toggleFollowUser should unfollow a user if already following" time="0.003">
+    </testcase>
+    <testcase classname="toggleFollowUser should follow a user if not already following" name="toggleFollowUser should follow a user if not already following" time="0.004">
+    </testcase>
+    <testcase classname="toggleFollowUser should handle errors during the process" name="toggleFollowUser should handle errors during the process" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="createOutfit" errors="0" failures="0" skipped="0" timestamp="2025-05-15T12:45:28" time="1.293" tests="5">
+    <testcase classname="createOutfit should return an error if the user is not authenticated" name="createOutfit should return an error if the user is not authenticated" time="0.023">
+    </testcase>
+    <testcase classname="createOutfit should return an error for invalid JSON in outfit_items" name="createOutfit should return an error for invalid JSON in outfit_items" time="0.038">
+    </testcase>
+    <testcase classname="createOutfit should return an error if name or items are missing" name="createOutfit should return an error if name or items are missing" time="0.001">
+    </testcase>
+    <testcase classname="createOutfit should create an outfit successfully" name="createOutfit should create an outfit successfully" time="0.004">
+    </testcase>
+    <testcase classname="createOutfit should handle unexpected errors" name="createOutfit should handle unexpected errors" time="0.032">
+    </testcase>
+  </testsuite>
+  <testsuite name="handleShare" errors="0" failures="2" skipped="0" timestamp="2025-05-15T12:45:28" time="1.289" tests="5">
+    <testcase classname="handleShare should return null if createdOutfit is null" name="handleShare should return null if createdOutfit is null" time="0.02">
+    </testcase>
+    <testcase classname="handleShare should use navigator.share when available" name="handleShare should use navigator.share when available" time="0.004">
+    </testcase>
+    <testcase classname="handleShare should set error when navigator.share fails" name="handleShare should set error when navigator.share fails" time="0.039">
+      <failure>Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: &quot;Error sharing&quot;
+
+Number of calls: 0
+    at Object.toHaveBeenCalledWith (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\apps\web\__tests__\wadrobe\outfits\create\handle-share.test.tsx:71:32)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)</failure>
+    </testcase>
+    <testcase classname="handleShare should fallback to clipboard if navigator.share is not available" name="handleShare should fallback to clipboard if navigator.share is not available" time="0.003">
+    </testcase>
+    <testcase classname="handleShare should prompt if clipboard fails" name="handleShare should prompt if clipboard fails" time="0.003">
+      <failure>Error: expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+Expected: StringContaining &quot;Copy this link&quot;, StringContaining &quot;/profile/testuser/outfit/123&quot;
+
+Number of calls: 0
+    at Object.toHaveBeenCalledWith (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\apps\web\__tests__\wadrobe\outfits\create\handle-share.test.tsx:104:24)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="updateOutfit" errors="0" failures="0" skipped="0" timestamp="2025-05-15T12:45:28" time="1.283" tests="4">
+    <testcase classname="updateOutfit should return an error if the user is not authenticated" name="updateOutfit should return an error if the user is not authenticated" time="0.023">
+    </testcase>
+    <testcase classname="updateOutfit should update the outfit successfully" name="updateOutfit should update the outfit successfully" time="0.005">
+    </testcase>
+    <testcase classname="updateOutfit should handle errors when updating the outfit" name="updateOutfit should handle errors when updating the outfit" time="0.047">
+    </testcase>
+    <testcase classname="updateOutfit should handle unexpected errors" name="updateOutfit should handle unexpected errors" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="OutfitGrid" errors="0" failures="0" skipped="0" timestamp="2025-05-15T12:45:28" time="2.469" tests="1">
+    <testcase classname="OutfitGrid renders all user outfits" name="OutfitGrid renders all user outfits" time="0.079">
+    </testcase>
+  </testsuite>
+  <testsuite name="ClothingItemGrid" errors="0" failures="5" skipped="0" timestamp="2025-05-15T12:45:28" time="2.789" tests="5">
+    <testcase classname="ClothingItemGrid should render the grid of clothing items" name="ClothingItemGrid should render the grid of clothing items" time="0.124">
+      <failure>TestingLibraryElementError: Unable to find an element with the text: Rain Jacket. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;div
+      class=&quot;container mx-auto px-0&quot;
+    &gt;
+      &lt;div
+        class=&quot;flex flex-col gap-6&quot;
+      &gt;
+        &lt;div
+          class=&quot;flex flex-col gap-4&quot;
+        &gt;
+          &lt;div
+            class=&quot;flex flex-col sm:flex-row gap-4&quot;
+          &gt;
+            &lt;div
+              class=&quot;relative flex-1&quot;
+            &gt;
+              &lt;svg
+                class=&quot;lucide lucide-search absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4&quot;
+                fill=&quot;none&quot;
+                height=&quot;24&quot;
+                stroke=&quot;currentColor&quot;
+                stroke-linecap=&quot;round&quot;
+                stroke-linejoin=&quot;round&quot;
+                stroke-width=&quot;2&quot;
+                viewBox=&quot;0 0 24 24&quot;
+                width=&quot;24&quot;
+                xmlns=&quot;http://www.w3.org/2000/svg&quot;
+              &gt;
+                &lt;circle
+                  cx=&quot;11&quot;
+                  cy=&quot;11&quot;
+                  r=&quot;8&quot;
+                /&gt;
+                &lt;path
+                  d=&quot;m21 21-4.3-4.3&quot;
+                /&gt;
+              &lt;/svg&gt;
+              &lt;input
+                class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10&quot;
+                placeholder=&quot;Search items...&quot;
+                value=&quot;&quot;
+              /&gt;
+            &lt;/div&gt;
+            &lt;div
+              class=&quot;flex gap-2&quot;
+            &gt;
+              &lt;button
+                class=&quot;justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex items-center gap-2&quot;
+              &gt;
+                &lt;svg
+                  class=&quot;lucide lucide-filter h-4 w-4&quot;
+                  fill=&quot;none&quot;
+                  height=&quot;24&quot;
+                  stroke=&quot;currentColor&quot;
+                  stroke-linecap=&quot;round&quot;
+                  stroke-linejoin=&quot;round&quot;
+                  stroke-width=&quot;2&quot;
+                  viewBox=&quot;0 0 24 24&quot;
+                  width=&quot;24&quot;
+                  xmlns=&quot;http://www.w3.org/2000/svg&quot;
+                &gt;
+                  &lt;polygon
+                    points=&quot;22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3&quot;
+                  /&gt;
+                &lt;/svg&gt;
+                Filters
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;text-sm text-muted-foreground&quot;
+        &gt;
+          Showing 
+          2
+           of 
+          2
+           items
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4&quot;
+        &gt;
+          &lt;a
+            class=&quot;block h-full&quot;
+            href=&quot;/wardrobe/clothes/item/20&quot;
+          &gt;
+            &lt;div
+              class=&quot;group relative flex flex-col overflow-hidden rounded-md border bg-card transition-all hover:shadow-md h-full&quot;
+            &gt;
+              &lt;div
+                class=&quot;relative aspect-square w-full overflow-hidden bg-muted&quot;
+              &gt;
+                &lt;img
+                  alt=&quot;Oasis T-Shirt&quot;
+                  class=&quot;object-cover transition-transform group-hover:scale-105&quot;
+                  data-nimg=&quot;fill&quot;
+                  decoding=&quot;async&quot;
+                  loading=&quot;lazy&quot;
+                  sizes=&quot;(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw&quot;
+                  src=&quot;/_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=3840&amp;q=75&quot;
+                  srcset=&quot;/_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=256&amp;q=75 256w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=384&amp;q=75 384w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=1200&amp;q=75 1200w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=1920&amp;q=75 1920w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=2048&amp;q=75 2048w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=3840&amp;q=75 3840w&quot;
+                  style=&quot;position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; color: transparent;&quot;
+                /&gt;
+                &lt;div
+                  class=&quot;absolute right-2 top-2 flex flex-col gap-1.5&quot;
+                /&gt;...
+    at Object.getElementError (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\@testing-library+dom@10.4.0\node_modules\@testing-library\dom\dist\config.js:37:19)
+    at C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\@testing-library+dom@10.4.0\node_modules\@testing-library\dom\dist\query-helpers.js:76:38
+    at C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\@testing-library+dom@10.4.0\node_modules\@testing-library\dom\dist\query-helpers.js:52:17
+    at C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\@testing-library+dom@10.4.0\node_modules\@testing-library\dom\dist\query-helpers.js:95:19
+    at Object.getByText (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\apps\web\__tests__\components\wardrobe\clothing-item-grid.test.tsx:70:19)
+    at Promise.then.completed (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-runner@29.7.0\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-runner@29.7.0\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-runner@29.7.0\node_modules\jest-runner\build\testWorker.js:106:12)</failure>
+    </testcase>
+    <testcase classname="ClothingItemGrid should filter items based on category" name="ClothingItemGrid should filter items based on category" time="0.137">
+      <failure>TestingLibraryElementError: Unable to find an element with the placeholder text of: Select category
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;div
+      class=&quot;container mx-auto px-0&quot;
+    &gt;
+      &lt;div
+        class=&quot;flex flex-col gap-6&quot;
+      &gt;
+        &lt;div
+          class=&quot;flex flex-col gap-4&quot;
+        &gt;
+          &lt;div
+            class=&quot;flex flex-col sm:flex-row gap-4&quot;
+          &gt;
+            &lt;div
+              class=&quot;relative flex-1&quot;
+            &gt;
+              &lt;svg
+                class=&quot;lucide lucide-search absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4&quot;
+                fill=&quot;none&quot;
+                height=&quot;24&quot;
+                stroke=&quot;currentColor&quot;
+                stroke-linecap=&quot;round&quot;
+                stroke-linejoin=&quot;round&quot;
+                stroke-width=&quot;2&quot;
+                viewBox=&quot;0 0 24 24&quot;
+                width=&quot;24&quot;
+                xmlns=&quot;http://www.w3.org/2000/svg&quot;
+              &gt;
+                &lt;circle
+                  cx=&quot;11&quot;
+                  cy=&quot;11&quot;
+                  r=&quot;8&quot;
+                /&gt;
+                &lt;path
+                  d=&quot;m21 21-4.3-4.3&quot;
+                /&gt;
+              &lt;/svg&gt;
+              &lt;input
+                class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10&quot;
+                placeholder=&quot;Search items...&quot;
+                value=&quot;&quot;
+              /&gt;
+            &lt;/div&gt;
+            &lt;div
+              class=&quot;flex gap-2&quot;
+            &gt;
+              &lt;button
+                class=&quot;justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 px-4 py-2 flex items-center gap-2&quot;
+              &gt;
+                &lt;svg
+                  class=&quot;lucide lucide-filter h-4 w-4&quot;
+                  fill=&quot;none&quot;
+                  height=&quot;24&quot;
+                  stroke=&quot;currentColor&quot;
+                  stroke-linecap=&quot;round&quot;
+                  stroke-linejoin=&quot;round&quot;
+                  stroke-width=&quot;2&quot;
+                  viewBox=&quot;0 0 24 24&quot;
+                  width=&quot;24&quot;
+                  xmlns=&quot;http://www.w3.org/2000/svg&quot;
+                &gt;
+                  &lt;polygon
+                    points=&quot;22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3&quot;
+                  /&gt;
+                &lt;/svg&gt;
+                Filters
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div
+            class=&quot;bg-card border rounded-lg p-4 shadow-sm&quot;
+          &gt;
+            &lt;div
+              class=&quot;w-full&quot;
+              data-orientation=&quot;vertical&quot;
+            &gt;
+              &lt;div
+                class=&quot;border-b&quot;
+                data-orientation=&quot;vertical&quot;
+                data-state=&quot;open&quot;
+              &gt;
+                &lt;h3
+                  class=&quot;flex&quot;
+                  data-orientation=&quot;vertical&quot;
+                  data-state=&quot;open&quot;
+                &gt;
+                  &lt;button
+                    aria-controls=&quot;radix-:r1:&quot;
+                    aria-expanded=&quot;true&quot;
+                    class=&quot;flex flex-1 items-center justify-between font-medium transition-all hover:underline [&amp;[data-state=open]&gt;svg]:rotate-180 py-2&quot;
+                    data-orientation=&quot;vertical&quot;
+                    data-radix-collection-item=&quot;&quot;
+                    data-state=&quot;open&quot;
+                    id=&quot;radix-:r0:&quot;
+                    type=&quot;button&quot;
+                  &gt;
+                    Category
+                    &lt;svg
+                      class=&quot;lucide lucide-chevron-down h-4 w-4 shrink-0 transition-transform duration-200&quot;
+                      fill=&quot;none&quot;
+                      height=&quot;24&quot;
+                      stroke=&quot;currentColor&quot;
+                      stroke-linecap=&quot;round&quot;
+                      stroke-linejoin=&quot;round&quot;
+                      stroke-width=&quot;2&quot;
+                      viewBox=&quot;0 0 24 24&quot;
+                      width=&quot;24&quot;
+                      xmlns=&quot;http://www.w3.org/2000/svg&quot;
+                    &gt;
+                      &lt;path
+                        d=&quot;m6 9 6 6 6-6&quot;
+                      /&gt;
+                    &lt;/svg&gt;
+                  &lt;/button&gt;
+                &lt;/h3&gt;
+                &lt;div
+                  aria-labelledby=&quot;radix-:r0:&quot;
+                  class=&quot;overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down&quot;
+                  data-orientation=&quot;vertical&quot;
+                  data-state=&quot;open&quot;
+                  id=&quot;radix-:r1:&quot;
+                  role=&quot;region&quot;
+                  style=&quot;--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width); transition-duration: 0s; animation-name: none;&quot;
+ ...
+    at Object.getElementError (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\@testing-library+dom@10.4.0\node_modules\@testing-library\dom\dist\config.js:37:19)
+    at C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\@testing-library+dom@10.4.0\node_modules\@testing-library\dom\dist\query-helpers.js:76:38
+    at C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\@testing-library+dom@10.4.0\node_modules\@testing-library\dom\dist\query-helpers.js:52:17
+    at C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\@testing-library+dom@10.4.0\node_modules\@testing-library\dom\dist\query-helpers.js:95:19
+    at Object.getByPlaceholderText (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\apps\web\__tests__\components\wardrobe\clothing-item-grid.test.tsx:79:35)
+    at Promise.then.completed (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-runner@29.7.0\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-runner@29.7.0\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-runner@29.7.0\node_modules\jest-runner\build\testWorker.js:106:12)</failure>
+    </testcase>
+    <testcase classname="ClothingItemGrid should display all items when &apos;All categories&apos; is selected" name="ClothingItemGrid should display all items when &apos;All categories&apos; is selected" time="0.07">
+      <failure>TestingLibraryElementError: Unable to find an element with the placeholder text of: Select category
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;div
+      class=&quot;container mx-auto px-0&quot;
+    &gt;
+      &lt;div
+        class=&quot;flex flex-col gap-6&quot;
+      &gt;
+        &lt;div
+          class=&quot;flex flex-col gap-4&quot;
+        &gt;
+          &lt;div
+            class=&quot;flex flex-col sm:flex-row gap-4&quot;
+          &gt;
+            &lt;div
+              class=&quot;relative flex-1&quot;
+            &gt;
+              &lt;svg
+                class=&quot;lucide lucide-search absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4&quot;
+                fill=&quot;none&quot;
+                height=&quot;24&quot;
+                stroke=&quot;currentColor&quot;
+                stroke-linecap=&quot;round&quot;
+                stroke-linejoin=&quot;round&quot;
+                stroke-width=&quot;2&quot;
+                viewBox=&quot;0 0 24 24&quot;
+                width=&quot;24&quot;
+                xmlns=&quot;http://www.w3.org/2000/svg&quot;
+              &gt;
+                &lt;circle
+                  cx=&quot;11&quot;
+                  cy=&quot;11&quot;
+                  r=&quot;8&quot;
+                /&gt;
+                &lt;path
+                  d=&quot;m21 21-4.3-4.3&quot;
+                /&gt;
+              &lt;/svg&gt;
+              &lt;input
+                class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10&quot;
+                placeholder=&quot;Search items...&quot;
+                value=&quot;&quot;
+              /&gt;
+            &lt;/div&gt;
+            &lt;div
+              class=&quot;flex gap-2&quot;
+            &gt;
+              &lt;button
+                class=&quot;justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 px-4 py-2 flex items-center gap-2&quot;
+              &gt;
+                &lt;svg
+                  class=&quot;lucide lucide-filter h-4 w-4&quot;
+                  fill=&quot;none&quot;
+                  height=&quot;24&quot;
+                  stroke=&quot;currentColor&quot;
+                  stroke-linecap=&quot;round&quot;
+                  stroke-linejoin=&quot;round&quot;
+                  stroke-width=&quot;2&quot;
+                  viewBox=&quot;0 0 24 24&quot;
+                  width=&quot;24&quot;
+                  xmlns=&quot;http://www.w3.org/2000/svg&quot;
+                &gt;
+                  &lt;polygon
+                    points=&quot;22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3&quot;
+                  /&gt;
+                &lt;/svg&gt;
+                Filters
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div
+            class=&quot;bg-card border rounded-lg p-4 shadow-sm&quot;
+          &gt;
+            &lt;div
+              class=&quot;w-full&quot;
+              data-orientation=&quot;vertical&quot;
+            &gt;
+              &lt;div
+                class=&quot;border-b&quot;
+                data-orientation=&quot;vertical&quot;
+                data-state=&quot;open&quot;
+              &gt;
+                &lt;h3
+                  class=&quot;flex&quot;
+                  data-orientation=&quot;vertical&quot;
+                  data-state=&quot;open&quot;
+                &gt;
+                  &lt;button
+                    aria-controls=&quot;radix-:rc:&quot;
+                    aria-expanded=&quot;true&quot;
+                    class=&quot;flex flex-1 items-center justify-between font-medium transition-all hover:underline [&amp;[data-state=open]&gt;svg]:rotate-180 py-2&quot;
+                    data-orientation=&quot;vertical&quot;
+                    data-radix-collection-item=&quot;&quot;
+                    data-state=&quot;open&quot;
+                    id=&quot;radix-:rb:&quot;
+                    type=&quot;button&quot;
+                  &gt;
+                    Category
+                    &lt;svg
+                      class=&quot;lucide lucide-chevron-down h-4 w-4 shrink-0 transition-transform duration-200&quot;
+                      fill=&quot;none&quot;
+                      height=&quot;24&quot;
+                      stroke=&quot;currentColor&quot;
+                      stroke-linecap=&quot;round&quot;
+                      stroke-linejoin=&quot;round&quot;
+                      stroke-width=&quot;2&quot;
+                      viewBox=&quot;0 0 24 24&quot;
+                      width=&quot;24&quot;
+                      xmlns=&quot;http://www.w3.org/2000/svg&quot;
+                    &gt;
+                      &lt;path
+                        d=&quot;m6 9 6 6 6-6&quot;
+                      /&gt;
+                    &lt;/svg&gt;
+                  &lt;/button&gt;
+                &lt;/h3&gt;
+                &lt;div
+                  aria-labelledby=&quot;radix-:rb:&quot;
+                  class=&quot;overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down&quot;
+                  data-orientation=&quot;vertical&quot;
+                  data-state=&quot;open&quot;
+                  id=&quot;radix-:rc:&quot;
+                  role=&quot;region&quot;
+                  style=&quot;--radix-accordion-content-height: var(--radix-collapsible-content-height); --radix-accordion-content-width: var(--radix-collapsible-content-width); transition-duration: 0s; animation-name: none;&quot;
+ ...
+    at Object.getElementError (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\@testing-library+dom@10.4.0\node_modules\@testing-library\dom\dist\config.js:37:19)
+    at C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\@testing-library+dom@10.4.0\node_modules\@testing-library\dom\dist\query-helpers.js:76:38
+    at C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\@testing-library+dom@10.4.0\node_modules\@testing-library\dom\dist\query-helpers.js:52:17
+    at C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\@testing-library+dom@10.4.0\node_modules\@testing-library\dom\dist\query-helpers.js:95:19
+    at Object.getByPlaceholderText (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\apps\web\__tests__\components\wardrobe\clothing-item-grid.test.tsx:95:35)
+    at Promise.then.completed (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-runner@29.7.0\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-runner@29.7.0\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-runner@29.7.0\node_modules\jest-runner\build\testWorker.js:106:12)</failure>
+    </testcase>
+    <testcase classname="ClothingItemGrid should filter items based on search input" name="ClothingItemGrid should filter items based on search input" time="0.016">
+      <failure>TestingLibraryElementError: Unable to find an element with the placeholder text of: Search your wardrobe
+
+Ignored nodes: comments, script, style
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;div
+      class=&quot;container mx-auto px-0&quot;
+    &gt;
+      &lt;div
+        class=&quot;flex flex-col gap-6&quot;
+      &gt;
+        &lt;div
+          class=&quot;flex flex-col gap-4&quot;
+        &gt;
+          &lt;div
+            class=&quot;flex flex-col sm:flex-row gap-4&quot;
+          &gt;
+            &lt;div
+              class=&quot;relative flex-1&quot;
+            &gt;
+              &lt;svg
+                class=&quot;lucide lucide-search absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4&quot;
+                fill=&quot;none&quot;
+                height=&quot;24&quot;
+                stroke=&quot;currentColor&quot;
+                stroke-linecap=&quot;round&quot;
+                stroke-linejoin=&quot;round&quot;
+                stroke-width=&quot;2&quot;
+                viewBox=&quot;0 0 24 24&quot;
+                width=&quot;24&quot;
+                xmlns=&quot;http://www.w3.org/2000/svg&quot;
+              &gt;
+                &lt;circle
+                  cx=&quot;11&quot;
+                  cy=&quot;11&quot;
+                  r=&quot;8&quot;
+                /&gt;
+                &lt;path
+                  d=&quot;m21 21-4.3-4.3&quot;
+                /&gt;
+              &lt;/svg&gt;
+              &lt;input
+                class=&quot;flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10&quot;
+                placeholder=&quot;Search items...&quot;
+                value=&quot;&quot;
+              /&gt;
+            &lt;/div&gt;
+            &lt;div
+              class=&quot;flex gap-2&quot;
+            &gt;
+              &lt;button
+                class=&quot;justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 flex items-center gap-2&quot;
+              &gt;
+                &lt;svg
+                  class=&quot;lucide lucide-filter h-4 w-4&quot;
+                  fill=&quot;none&quot;
+                  height=&quot;24&quot;
+                  stroke=&quot;currentColor&quot;
+                  stroke-linecap=&quot;round&quot;
+                  stroke-linejoin=&quot;round&quot;
+                  stroke-width=&quot;2&quot;
+                  viewBox=&quot;0 0 24 24&quot;
+                  width=&quot;24&quot;
+                  xmlns=&quot;http://www.w3.org/2000/svg&quot;
+                &gt;
+                  &lt;polygon
+                    points=&quot;22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3&quot;
+                  /&gt;
+                &lt;/svg&gt;
+                Filters
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;text-sm text-muted-foreground&quot;
+        &gt;
+          Showing 
+          2
+           of 
+          2
+           items
+        &lt;/div&gt;
+        &lt;div
+          class=&quot;grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4&quot;
+        &gt;
+          &lt;a
+            class=&quot;block h-full&quot;
+            href=&quot;/wardrobe/clothes/item/20&quot;
+          &gt;
+            &lt;div
+              class=&quot;group relative flex flex-col overflow-hidden rounded-md border bg-card transition-all hover:shadow-md h-full&quot;
+            &gt;
+              &lt;div
+                class=&quot;relative aspect-square w-full overflow-hidden bg-muted&quot;
+              &gt;
+                &lt;img
+                  alt=&quot;Oasis T-Shirt&quot;
+                  class=&quot;object-cover transition-transform group-hover:scale-105&quot;
+                  data-nimg=&quot;fill&quot;
+                  decoding=&quot;async&quot;
+                  loading=&quot;lazy&quot;
+                  sizes=&quot;(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw&quot;
+                  src=&quot;/_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=3840&amp;q=75&quot;
+                  srcset=&quot;/_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=256&amp;q=75 256w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=384&amp;q=75 384w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=640&amp;q=75 640w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=750&amp;q=75 750w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=828&amp;q=75 828w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=1080&amp;q=75 1080w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=1200&amp;q=75 1200w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=1920&amp;q=75 1920w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=2048&amp;q=75 2048w, /_next/image?url=https%3A%2F%2Fwfits-bucket.s3.amazonaws.com%2F60e96b7b-32b6-438f-811f-1c5026f80d8a.png&amp;w=3840&amp;q=75 3840w&quot;
+                  style=&quot;position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; color: transparent;&quot;
+                /&gt;
+                &lt;div
+                  class=&quot;absolute right-2 top-2 flex flex-col gap-1.5&quot;
+                /&gt;...
+    at Object.getElementError (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\@testing-library+dom@10.4.0\node_modules\@testing-library\dom\dist\config.js:37:19)
+    at C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\@testing-library+dom@10.4.0\node_modules\@testing-library\dom\dist\query-helpers.js:76:38
+    at C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\@testing-library+dom@10.4.0\node_modules\@testing-library\dom\dist\query-helpers.js:52:17
+    at C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\@testing-library+dom@10.4.0\node_modules\@testing-library\dom\dist\query-helpers.js:95:19
+    at Object.getByPlaceholderText (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\apps\web\__tests__\components\wardrobe\clothing-item-grid.test.tsx:109:32)
+    at Promise.then.completed (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-runner@29.7.0\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-runner@29.7.0\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-runner@29.7.0\node_modules\jest-runner\build\testWorker.js:106:12)</failure>
+    </testcase>
+    <testcase classname="ClothingItemGrid should render all items passed as props" name="ClothingItemGrid should render all items passed as props" time="0.015">
+      <failure>TypeError: expect(...).toBeInTheDocument is not a function
+    at Object.toBeInTheDocument (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\apps\web\__tests__\components\wardrobe\clothing-item-grid.test.tsx:126:48)
+    at Promise.then.completed (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _runTest (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-circus@29.7.0\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-runner@29.7.0\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-runner@29.7.0\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\Leo\Desktop\code\year-2\setap\coursework\w-fits\node_modules\.pnpm\jest-runner@29.7.0\node_modules\jest-runner\build\testWorker.js:106:12)</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

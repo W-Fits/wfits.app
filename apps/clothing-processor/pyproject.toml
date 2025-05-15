@@ -223,6 +223,8 @@ pytest = "^8.3.5"
 pytest-asyncio = "^0.26.0"
 pytest-cov = "^6.1.1"
 pytest-xml = "^0.1.1"
+pytest-item-dict = "^1.1.2"
+data-to-xml = "^1.0.9"
 
 [tool.pytest.ini_options]
 minversion = "6.0"

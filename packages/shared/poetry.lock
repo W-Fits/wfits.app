@@ -231,6 +231,17 @@ files = [
 toml = ["tomli"]
 
 [[package]]
+name = "data-to-xml"
+version = "1.0.9"
+description = "A simple dict to xml converter"
+optional = false
+python-versions = ">=3.11"
+files = [
+    {file = "data_to_xml-1.0.9-py3-none-any.whl", hash = "sha256:bc1cd0e9bdaab8fd243ad4b341d68d6a0931f6630a99275008c3733c59216872"},
+    {file = "data_to_xml-1.0.9.tar.gz", hash = "sha256:a634017bc14364ae14d28dc1dfcdb972b09d2572d245789036f2e136c1b0871f"},
+]
+
+[[package]]
 name = "dict2xml"
 version = "1.7.6"
 description = "Small utility to convert a python dictionary into an XML string"
@@ -621,6 +632,20 @@ pytest = ">=4.6"
 testing = ["fields", "hunter", "process-tests", "pytest-xdist", "virtualenv"]
 
 [[package]]
+name = "pytest-item-dict"
+version = "1.1.2"
+description = "Get a hierarchical dict of session.items"
+optional = false
+python-versions = ">=3.11"
+files = [
+    {file = "pytest_item_dict-1.1.2-py3-none-any.whl", hash = "sha256:dd9e8935457ba1a787640afd9dd2cb8947d25d8436bacf291c08d7869dee4075"},
+    {file = "pytest_item_dict-1.1.2.tar.gz", hash = "sha256:a12a073315ce7ba413aafe05d90d7f8ae9ac9635f61e757afaa763852f2d5fde"},
+]
+
+[package.dependencies]
+pytest = ">=8.3.0"
+
+[[package]]
 name = "pytest-metadata"
 version = "3.1.1"
 description = "pytest plugin for test session metadata"
@@ -762,4 +787,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "d09264d3f3cd3f62d170dceaa3bad865a77c8b2806702291d7b499226781afd3"
+content-hash = "a96ba366540e0d7f160fb0c7ca0ae74cab529f50d94fed044d096fcefa5d5bfc"

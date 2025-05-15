@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="24" skipped="0" tests="70" time="25.588" timestamp="2025-05-15T13:48:06.874924+01:00" hostname="DESKTOP-R5AU3QO"><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Black_T-shirt.jpg-Black-T-shirt/top]" time="0.003"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Black_T-shirt.jpg">filename = 'Black_T-shirt.jpg', expected_colour = 'Black', expected_class = 'T-shirt/top'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Black_T-shirt.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[White_Trouser.jpg-White-Trouser]" time="0.002"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/White_Trouser.jpg">filename = 'White_Trouser.jpg', expected_colour = 'White', expected_class = 'Trouser'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/White_Trouser.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Grey_Pullover.jpg-Grey-Pullover]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Grey_Pullover.jpg">filename = 'Grey_Pullover.jpg', expected_colour = 'Grey', expected_class = 'Pullover'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Grey_Pullover.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Navy_Dress.jpg-Navy-Dress]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Navy_Dress.jpg">filename = 'Navy_Dress.jpg', expected_colour = 'Navy', expected_class = 'Dress'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Navy_Dress.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Beige_Coat.jpg-Beige-Coat]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Beige_Coat.jpg">filename = 'Beige_Coat.jpg', expected_colour = 'Beige', expected_class = 'Coat'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Beige_Coat.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Brown_Sandal.jpg-Brown-Sandal]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Brown_Sandal.jpg">filename = 'Brown_Sandal.jpg', expected_colour = 'Brown', expected_class = 'Sandal'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Brown_Sandal.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Red_Shirt.jpg-Red-Shirt]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Red_Shirt.jpg">filename = 'Red_Shirt.jpg', expected_colour = 'Red', expected_class = 'Shirt'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Red_Shirt.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Pink_Sneaker.jpg-Pink-Sneaker]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Pink_Sneaker.jpg">filename = 'Pink_Sneaker.jpg', expected_colour = 'Pink', expected_class = 'Sneaker'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Pink_Sneaker.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Orange_Bag.jpg-Orange-Bag]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Orange_Bag.jpg">filename = 'Orange_Bag.jpg', expected_colour = 'Orange', expected_class = 'Bag'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Orange_Bag.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Yellow_Ankle_boot.jpg-Yellow-Ankle boot]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Yellow_Ankle_boot.jpg">filename = 'Yellow_Ankle_boot.jpg', expected_colour = 'Yellow', expected_class = 'Ankle boot'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Yellow_Ankle_boot.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Green_T-shirt.jpg-Green-T-shirt/top]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Green_T-shirt.jpg">filename = 'Green_T-shirt.jpg', expected_colour = 'Green', expected_class = 'T-shirt/top'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Green_T-shirt.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Blue_Trouser.jpg-Blue-Trouser]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Blue_Trouser.jpg">filename = 'Blue_Trouser.jpg', expected_colour = 'Blue', expected_class = 'Trouser'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Blue_Trouser.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Purple_Pullover.jpg-Purple-Pullover]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Purple_Pullover.jpg">filename = 'Purple_Pullover.jpg', expected_colour = 'Purple', expected_class = 'Pullover'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Purple_Pullover.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Cream_Dress.jpg-Cream-Dress]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Cream_Dress.jpg">filename = 'Cream_Dress.jpg', expected_colour = 'Cream', expected_class = 'Dress'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Cream_Dress.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Khaki_Coat.jpg-Khaki-Coat]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Khaki_Coat.jpg">filename = 'Khaki_Coat.jpg', expected_colour = 'Khaki', expected_class = 'Coat'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Khaki_Coat.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Teal_Sandal.jpg-Teal-Sandal]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Teal_Sandal.jpg">filename = 'Teal_Sandal.jpg', expected_colour = 'Teal', expected_class = 'Sandal'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Teal_Sandal.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Mustard_Shirt.jpg-Mustard-Shirt]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Mustard_Shirt.jpg">filename = 'Mustard_Shirt.jpg', expected_colour = 'Mustard', expected_class = 'Shirt'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Mustard_Shirt.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Lavender_Sneaker.jpg-Lavender-Sneaker]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Lavender_Sneaker.jpg">filename = 'Lavender_Sneaker.jpg', expected_colour = 'Lavender', expected_class = 'Sneaker'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Lavender_Sneaker.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Olive_Bag.jpg-Olive-Bag]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Olive_Bag.jpg">filename = 'Olive_Bag.jpg', expected_colour = 'Olive', expected_class = 'Bag'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Olive_Bag.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Maroon_Ankle_boot.jpg-Maroon-Ankle boot]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Maroon_Ankle_boot.jpg">filename = 'Maroon_Ankle_boot.jpg', expected_colour = 'Maroon', expected_class = 'Ankle boot'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Maroon_Ankle_boot.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Coral_T-shirt.jpg-Coral-T-shirt/top]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Coral_T-shirt.jpg">filename = 'Coral_T-shirt.jpg', expected_colour = 'Coral', expected_class = 'T-shirt/top'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Coral_T-shirt.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Turquoise_Trouser.jpg-Turquoise-Trouser]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Turquoise_Trouser.jpg">filename = 'Turquoise_Trouser.jpg', expected_colour = 'Turquoise', expected_class = 'Trouser'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Turquoise_Trouser.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_req_1" name="test_req_1[Magenta_Pullover.jpg-Magenta-Pullover]" time="0.001"><failure message="Failed: Test image file not found: clothing_processor/data/test-images/assests/Magenta_Pullover.jpg">filename = 'Magenta_Pullover.jpg', expected_colour = 'Magenta', expected_class = 'Pullover'
+
+    @pytest.mark.parametrize("filename, expected_colour, expected_class", test_cases)
+    def test_req_1(filename, expected_colour, expected_class):
+      """
+        Test clothing processing for different items.
+        """
+      if not token:
+        pytest.skip("Auth0 token not available.")
+    
+      file_path = f"clothing_processor/data/test-images/assests/{filename}"
+      if not os.path.exists(file_path):
+&gt;       pytest.fail(f"Test image file not found: {file_path}")
+E       Failed: Test image file not found: clothing_processor/data/test-images/assests/Magenta_Pullover.jpg
+
+clothing_processor\tests\test_req_1.py:74: Failed</failure></testcase><testcase classname="clothing_processor.tests.test_utils_files" name="test_valid_file_type_valid_file" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_files" name="test_valid_file_type_invalid_file" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_files" name="test_valid_file_type_none_input" time="0.001"><failure message="AttributeError: 'NoneType' object has no attribute 'filename'">def test_valid_file_type_none_input():
+      with pytest.raises(ValueError, match='Input file is None.'):
+&gt;       valid_file_type(None)
+
+clothing_processor\tests\test_utils_files.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+file = None
+
+    def valid_file_type(file: UploadFile):
+      """Checks if the uploaded file is a valid image based on its extension -&gt; bool."""
+      valid_extensions = ['jpg', 'jpeg', 'png']
+&gt;     file_extension = file.filename.split(".")[-1].lower()
+E     AttributeError: 'NoneType' object has no attribute 'filename'
+
+clothing_processor\utils\files.py:8: AttributeError</failure></testcase><testcase classname="clothing_processor.tests.test_utils_files" name="test_valid_file_type_empty_exstension" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_files" name="test_get_image_valid_image" time="0.164" /><testcase classname="clothing_processor.tests.test_utils_files" name="test_get_image_invalid_type" time="0.003" /><testcase classname="clothing_processor.tests.test_utils_files" name="test_get_image_invalid_image_content" time="0.975" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_to_image_array_valid_image" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_to_image_array_none_input" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_to_image_array_empty_image" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_remove_background_valid_input" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_remove_background_none_input" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_remove_background_empty_input" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_to_bytes_image_valid_image" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_to_bytes_image_invalid_image_object" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_preprocess_image_valid_image" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_preprocess_image_invalid_input_type" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_to_base64_valid_image" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_get_rgb_colour_solid_color_image" time="0.002" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_get_rgb_colour_with_transparency" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_get_rgb_colour_no_visible_pixels" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_get_rgb_colour_invalid_shape" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_rgb_to_hex_valid_rgb" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_rgb_to_hex_invalid_input_type" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_hex_to_rgb_valid_hex" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_hex_to_rgb_invalid_hex_format" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_calculate_distance_same_colour" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_calculate_distance_different_colours" time="0.002" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_calculate_distance_invalid_input_types" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_calculate_distance_invalid_tuple_length" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_calculate_distance_invalid_value_types" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_match_colour_perfect_match" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_match_colour_closest_match" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_match_colour_colour_between_map_entries" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_match_colour_empty_colour_map" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_get_colour_valid_input" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_get_colour_no_visible_pixels" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_image" name="test_get_colour_invalid_image_array_shape" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_predictions" name="test_load_model_success" time="0.003" /><testcase classname="clothing_processor.tests.test_utils_predictions" name="test_load_model_failure" time="0.002" /><testcase classname="clothing_processor.tests.test_utils_predictions" name="test_predict_class_valid" time="0.003" /><testcase classname="clothing_processor.tests.test_utils_predictions" name="test_predict_class_none_input" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_predictions" name="test_predict_class_invalid_input_type" time="0.001" /><testcase classname="clothing_processor.tests.test_utils_s3" name="test_s3_connection" time="0.003" /><testcase classname="clothing_processor.tests.test_utils_s3" name="test_load_s3_client" time="0.002" /><testcase classname="clothing_processor.tests.test_utils_s3" name="test_s3_upload_success" time="0.002" /><testcase classname="clothing_processor.tests.test_utils_s3" name="test_s3_upload_failure" time="0.002" /></testsuite></testsuites>
