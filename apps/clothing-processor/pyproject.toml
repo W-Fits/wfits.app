@@ -221,6 +221,13 @@ pytest-asyncio = "^0.26.0"
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.5"
 pytest-asyncio = "^0.26.0"
+pytest-cov = "^6.1.1"
+pytest-xml = "^0.1.1"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--junitxml=test-results/pytest/results.xml"
+testpaths = ["tests"]
 
 [build-system]
 requires = ["poetry-core"]

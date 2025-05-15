@@ -14,8 +14,17 @@ const config: Config = {
     '^@/lib/(.*)$': '<rootDir>/lib/$1',
     '^@/prisma/(.*)$': '<rootDir>/prisma/$1',
     '^@/app/(.*)$': '<rootDir>/app/$1',
-  }
+  },
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputDirectory: 'test-results/jest',
+        outputName: 'junit.xml',
+      },
+    ],
+  ],
 }
-
 
 export default createJestConfig(config)

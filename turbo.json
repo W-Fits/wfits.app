@@ -29,6 +29,13 @@
       "cache": false,
       "persistent": true
     },
-    "test": {}
+    "test": {
+      "outputs": [
+        "test-results/**"
+      ],
+      "dependsOn": [
+        "^test"
+      ]
+    }
   }
 }
