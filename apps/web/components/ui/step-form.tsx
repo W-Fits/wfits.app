@@ -3,10 +3,9 @@
 import type React from "react";
 
 import { useState, useEffect, useRef, useImperativeHandle, forwardRef } from "react";
-import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Check } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface Step {
@@ -40,7 +39,6 @@ export const StepForm = forwardRef<StepFormRef, StepFormProps>(function StepForm
   { onComplete, onSkip, startAtStep = 0, className, headerTop, steps, completedContent },
   ref
 ) {
-  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(startAtStep);
   const [completed, setCompleted] = useState(false);
   const [prevStep, setPrevStep] = useState(startAtStep);
@@ -223,7 +221,7 @@ export const StepForm = forwardRef<StepFormRef, StepFormProps>(function StepForm
                 return (
                   <div key={index} className="relative flex items-center">
                     <div
-                      // @ts-ignore
+                      // @ts-expect-error incorrect ref type
                       ref={(el) => (stepRefs.current[index] = el)}
                       className={cn("relative flex flex-col", "items-center")}
                     >

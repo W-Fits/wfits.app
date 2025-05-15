@@ -1,13 +1,9 @@
-import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth"
 import { notFound } from "next/navigation";
 import { ExtendedOutfit } from "../../page";
 import { Outfit } from "@/components/wardrobe/outfit";
 
 export default async function OutfitPage({ params }: { params: Promise<{ id: number }> }) {
-  const session = await getServerSession(authOptions);
-
   const { id } = await params;
 
   if (!id) return notFound();

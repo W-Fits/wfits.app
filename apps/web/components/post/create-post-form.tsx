@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { ChevronLeft, ChevronRight, Check } from "lucide-react";
-import { MultiImageUpload } from "@/components/upload/multi-image-upload";
+import { MultiImageUpload, PhotoItem } from "@/components/upload/multi-image-upload";
 import { ExtendedOutfit } from "@/app/profile/[username]/page";
 import { Session } from "next-auth";
 import { OutfitSelector } from "@/components/wardrobe/outfit-selector";
@@ -39,7 +39,7 @@ export function CreatePostForm({ session, outfits }: { session: Session, outfits
   const progress = (currentStep / totalSteps) * 100;
 
   const updateFormData = useCallback(
-    (field: keyof FormData, value: any) => {
+    (field: keyof FormData, value: number | string | PhotoItem[] | ExtendedOutfit[]) => {
       setFormData((prev) => ({
         ...prev,
         [field]: value,
@@ -68,7 +68,7 @@ export function CreatePostForm({ session, outfits }: { session: Session, outfits
       formDataToSend.append("post_text", formData.post_text);
       formDataToSend.append("user_id", formData.user_id.toString()); // Ensure user_id is included
 
-      formData.photos.forEach((photo, index) => {
+      formData.photos.forEach((photo) => {
         formDataToSend.append(`photos`, photo, photo.name); // Include file name
       });
 

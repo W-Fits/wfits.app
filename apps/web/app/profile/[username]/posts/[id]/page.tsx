@@ -1,12 +1,8 @@
 import { ExtendedPost, Post } from "@/components/post/post";
-import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth"
 import { notFound } from "next/navigation";
 
 export default async function PostPage({ params }: { params: Promise<{ id: number }> }) {
-  const session = await getServerSession(authOptions);
-
   const { id } = await params;
 
   if (!id) return notFound();

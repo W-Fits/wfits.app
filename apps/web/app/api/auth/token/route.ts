@@ -1,33 +1,6 @@
 // app/api/auth/token/route.ts
-import { env } from '@/lib/env';
+import { getAccessToken } from '@/lib/auth';
 import { NextResponse } from 'next/server';
-
-export async function getAccessToken(): Promise<string | null> {
-  const tokenURL = `${env.AUTH0_DOMAIN}/oauth/token`;
-  try {
-    const response = await fetch(tokenURL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        client_id: env.AUTH0_CLIENT_ID,
-        client_secret: env.AUTH0_CLIENT_SECRET,
-        audience: env.AUTH0_AUDIENCE,
-        grant_type: 'client_credentials'
-      })
-    });
-
-    if (!response.ok) {
-      console.error(`Error: ${response.status} ${response.statusText}`);
-      return null;
-    }
-
-    const data = await response.json();
-    return data.access_token;
-  } catch (error) {
-    console.error("Error fetching access token:", error);
-    return null;
-  }
-}
 
 export async function GET() {
   const accessToken = await getAccessToken();

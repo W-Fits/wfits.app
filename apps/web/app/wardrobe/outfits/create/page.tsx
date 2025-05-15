@@ -5,12 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Step, StepForm, StepFormRef } from "@/components/ui/step-form";
 import { NewOutfit } from "@/components/wardrobe/new-outfit";
-import { OutfitWithItems } from "@/components/wardrobe/outfit";
 import { CreatedOutfit, createOutfit } from "@/lib/actions/create-outfit";
 import { GeneratedOutfit, generateOutfit } from "@/lib/actions/generate-outfit";
 import { useUserLocation } from "@/lib/hooks/use-user-location";
 import { cn } from "@/lib/utils";
-import { EnvironmentEnum } from "@prisma/client";
 import { CheckCircle, MapPin, Pencil, Trash } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,16 +24,14 @@ function StartGeneration({
   generatedOutfit: GeneratedOutfit | null;
   setGeneratedOutfit: React.Dispatch<SetStateAction<GeneratedOutfit | null>>;
 }) {
-  const [colour, setColour] = useState<number | null>(null);
-  const [environment, setEnvironment] = useState<EnvironmentEnum | null>(null);
-  const { latitude, longitude, error, loading: locationLoading } = useUserLocation();
+  const { latitude, longitude, loading: locationLoading } = useUserLocation();
   const [generateLoading, setGenerateLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (generatedOutfit) {
       stepFormRef.current?.nextStep();
     }
-  }, [generatedOutfit]);
+  }, [generatedOutfit, stepFormRef]);
 
   const handleGenerateOutfit = async () => {
     setGenerateLoading(true);
@@ -65,14 +61,6 @@ function StartGeneration({
 
   return (
     <div className="flex flex-col gap-2 space-y-4">
-      {/* <ColourSelect
-        value={colour}
-        onChange={(value) => setColour(value)}
-      />
-      <EnvironmentSelect
-        value={environment}
-        onChange={(value) => setEnvironment(value)}
-      /> */}
       <div className="flex h-full flex-col gap-2 text-center">
         <div className="relative w-1/2 aspect-square rounded-full bg-muted p-8 mx-auto overflow-hidden">
           <MapPin className="w-full h-full stroke-primary/90" />
@@ -102,11 +90,9 @@ function StartGeneration({
 function OutfitItems({
   generatedOutfit,
   setGeneratedOutfit,
-  stepFormRef
 }: {
   generatedOutfit: GeneratedOutfit | null;
   setGeneratedOutfit: React.Dispatch<SetStateAction<GeneratedOutfit | null>>;
-  stepFormRef: React.RefObject<StepFormRef | null>;
 }) {
   return (
     <div className="flex w-full justify-center">
@@ -235,8 +221,6 @@ function Completed({
   stepFormRef: React.RefObject<StepFormRef | null>
   clear: () => void
 }) {
-  const [shareStatus, setShareStatus] = useState<string | null>(null);
-
   const newOutfit = () => {
     clear()
     if (stepFormRef.current) {
@@ -256,17 +240,12 @@ function Completed({
           text: "I created a new outfit. Take a look!",
           url: shareUrl,
         })
-        .then(() => setShareStatus("Shared successfully!"))
         .catch((error) => {
           console.error("Error sharing:", error)
-          setShareStatus("Error sharing")
         })
     } else {
       navigator.clipboard
         .writeText(shareUrl)
-        .then(() => {
-          setShareStatus("Link copied to clipboard!")
-        })
         .catch((error) => {
           console.error("Error copying to clipboard:", error)
           prompt("Copy this link to share your outfit:", shareUrl)
@@ -377,8 +356,7 @@ export default function CreateOutfitPage() {
 
   const outfitItemsProps = {
     generatedOutfit,
-    setGeneratedOutfit,
-    stepFormRef
+    setGeneratedOutfit
   }
 
   const outfitDetailsProps = {

@@ -1,7 +1,5 @@
 import { prisma } from "@/lib/prisma";
 import { ExtendedUser } from "@/app/profile/[username]/page";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import { notFound } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
@@ -35,9 +33,6 @@ export default async function ProfileFollowersPage({ params }: { params: Promise
 
   if (!profile) return notFound();
 
-  const session = await getServerSession(authOptions);
-  const isCurrentUser = session?.user?.id === profile.user_id;
-
   return (
     <div className="flex flex-col">
       <header className="flex items-center gap-2 p-4 border-b">
@@ -50,7 +45,7 @@ export default async function ProfileFollowersPage({ params }: { params: Promise
       </header>
       <main className="flex flex-col gap-2 p-4">
         {profile.followedBy.length > 0 ? profile.followedBy.map((user) => (
-          <Link className="flex items-center" href={`/profile/${user.username}`}>
+          <Link className="flex items-center" key={user.username} href={`/profile/${user.username}`}>
             <ProfilePhoto
               className="w-8 h-8"
               src={user.profile_photo}

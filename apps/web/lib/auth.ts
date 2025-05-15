@@ -6,6 +6,34 @@ import Auth0 from "next-auth/providers/auth0";
 import { compare } from "bcrypt-ts";
 import { env } from "@/lib/env";
 
+export async function getAccessToken(): Promise<string | null> {
+  const tokenURL = `${env.AUTH0_DOMAIN}/oauth/token`;
+  try {
+    const response = await fetch(tokenURL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        client_id: env.AUTH0_CLIENT_ID,
+        client_secret: env.AUTH0_CLIENT_SECRET,
+        audience: env.AUTH0_AUDIENCE,
+        grant_type: 'client_credentials'
+      })
+    });
+
+    if (!response.ok) {
+      console.error(`Error: ${response.status} ${response.statusText}`);
+      return null;
+    }
+
+    const data = await response.json();
+    return data.access_token;
+  } catch (error) {
+    console.error("Error fetching access token:", error);
+    return null;
+  }
+}
+
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -21,6 +49,7 @@ export const authOptions: NextAuthOptions = {
         username: { label: "username", type: "text" },
         password: { password: "email", type: "password" },
       },
+      // @ts-expect-error idk
       async authorize(credentials) {
         try {
           if (!credentials) throw new Error("Credentials not provided");
@@ -55,7 +84,7 @@ export const authOptions: NextAuthOptions = {
 
           if (!passwordsMatch) throw new Error("Incorrect password");
 
-          return user as any;
+          return user;
         } catch (error) {
           throw error;
         }

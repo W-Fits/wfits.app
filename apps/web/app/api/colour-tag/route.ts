@@ -5,10 +5,10 @@ export async function GET() {
   try {
     const colourTags = await prisma.colourTag.findMany();
     return NextResponse.json(colourTags, { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching colour tags:", error);
     return NextResponse.json(
-      { error: "Failed to fetch colour tags", details: error.message },
+      { error: "Failed to fetch colour tags", details: error },
       { status: 500 }
     );
   }
@@ -22,10 +22,10 @@ export async function POST(request: Request) {
       data: body,
     });
     return NextResponse.json(colourTag, { status: 201 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error creating colour tag:", error);
     return NextResponse.json(
-      { error: "Failed to create colour tag", details: error.message },
+      { error: "Failed to create colour tag", details: error },
       { status: 500 }
     );
   }

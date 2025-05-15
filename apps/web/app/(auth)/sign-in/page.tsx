@@ -60,7 +60,7 @@ export default function SignIn() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [identifier, password, loading]);
+  }, [identifier, password, loading, handleSubmit]);
 
   return (
     <section className="flex mt-[60%] w-screen items-center justify-center flex-col gap-2">

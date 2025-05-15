@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
-import { Calendar, Clock, Tag } from "lucide-react"
+import { Clock } from "lucide-react"
 import type { OutfitWithItems } from "@/components/wardrobe/outfit"
 
 interface OutfitItemProps {

@@ -22,7 +22,7 @@ export async function deleteOutfit(outfitId: number): Promise<DeleteOutfitResult
       }
     }
 
-    const repsone = await prisma.outfit.delete({
+    await prisma.outfit.delete({
       where: {
         user_id: session.user.id,
         outfit_id: outfitId

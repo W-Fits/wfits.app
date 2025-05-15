@@ -33,7 +33,7 @@ export function OutfitGrid({
 
       return true
     })
-  }, [outfits, searchQuery, selectedSeason, selectedOccasion, minItems])
+  }, [outfits, selectedSeason, selectedOccasion, minItems])
 
   // Count active filters
   const activeFilterCount = [

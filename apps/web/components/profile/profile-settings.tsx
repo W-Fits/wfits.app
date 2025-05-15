@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -73,6 +72,7 @@ export function ProfileSettings({ session }: ProfileSettingsProps) {
       }
       router.refresh()
     } catch (error) {
+      console.error(error);
       toast.warning("Failed to update profile. Please try again.")
     } finally {
       setIsLoading(false)
@@ -93,6 +93,7 @@ export function ProfileSettings({ session }: ProfileSettingsProps) {
 
       router.push("/sign-out");
     } catch (error) {
+      console.error(error);
     } finally {
       setIsLoading(false)
     }

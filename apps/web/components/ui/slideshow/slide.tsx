@@ -3,32 +3,41 @@
 import { type ReactNode, useEffect } from "react"
 import { useSlideshow } from "./slideshow"
 
-// Update the SlideProps type to include the required prop
-type SlideProps = {
+// Update the SlideProps type to be generic
+type SlideProps<T> = {
   children: ReactNode
   className?: string
-  initialData?: any
-  onDataChange?: (data: any) => void
-  required?: string[] // Array of required field names
+  initialData?: T // Use the generic type T for initialData
+  onDataChange?: (data: T) => void // Use the generic type T for onDataChange
+  required?: (keyof T)[] // Array of required field names, using keyof T
 }
 
-// Update the Slide component to handle required fields
-export function Slide({ children, className, initialData = {}, onDataChange, required = [] }: SlideProps) {
+// Update the Slide component to be generic
+export function Slide<T>({
+  children,
+  className,
+  initialData = {} as T, // Initialize with an empty object cast to T
+  onDataChange,
+  required = [],
+}: SlideProps<T>) {
   const { currentStep, updateSlideData, slideData, setCanProceed } = useSlideshow()
+
+  // Cast slideData to a record with the generic type for better type safety
+  const typedSlideData = slideData as Record<number, T>
 
   // Initialize slide data if not already set
   useEffect(() => {
-    if (!slideData[currentStep] && initialData) {
+    if (!typedSlideData[currentStep] && initialData) {
       updateSlideData(currentStep, initialData)
     }
-  }, [currentStep, initialData, slideData, updateSlideData])
+  }, [currentStep, initialData, typedSlideData, updateSlideData])
 
   // Call onDataChange when slide data changes
   useEffect(() => {
-    if (onDataChange && slideData[currentStep]) {
-      onDataChange(slideData[currentStep])
+    if (onDataChange && typedSlideData[currentStep]) {
+      onDataChange(typedSlideData[currentStep])
     }
-  }, [currentStep, onDataChange, slideData])
+  }, [currentStep, onDataChange, typedSlideData])
 
   // Check if all required fields are filled
   useEffect(() => {
@@ -37,15 +46,14 @@ export function Slide({ children, className, initialData = {}, onDataChange, req
       return
     }
 
-    const currentSlideData = slideData[currentStep] || {}
+    const currentSlideData = typedSlideData[currentStep] || ({} as T) // Initialize with an empty object cast to T
     const allRequiredFieldsFilled = required.every((field) => {
       const value = currentSlideData[field]
       return value !== undefined && value !== null && value !== ""
     })
 
     setCanProceed(allRequiredFieldsFilled)
-  }, [currentStep, required, setCanProceed, slideData])
+  }, [currentStep, required, setCanProceed, typedSlideData])
 
   return <div className={className}>{children}</div>
 }
-

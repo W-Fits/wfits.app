@@ -2,12 +2,12 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 interface Params {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 // GET /api/item/[id]
 export async function GET(request: Request, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
 
 
   try {
@@ -27,10 +27,10 @@ export async function GET(request: Request, { params }: Params) {
 
 
     return NextResponse.json(item, { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching item:", error);
     return NextResponse.json(
-      { error: "Failed to fetch item", details: error.message },
+      { error: "Failed to fetch item", details: error },
       { status: 500 }
     );
   }
@@ -39,7 +39,7 @@ export async function GET(request: Request, { params }: Params) {
 
 // PUT /api/item/[id] (Replaces the entire item)
 export async function PUT(request: Request, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
 
 
   try {
@@ -53,10 +53,10 @@ export async function PUT(request: Request, { params }: Params) {
 
 
     return NextResponse.json(item, { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error updating item:", error);
     return NextResponse.json(
-      { error: "Failed to update item", details: error.message },
+      { error: "Failed to update item", details: error },
       { status: 500 }
     );
   }
@@ -65,7 +65,7 @@ export async function PUT(request: Request, { params }: Params) {
 
 // PATCH /api/item/[id] (Updates parts of the item)
 export async function PATCH(request: Request, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
 
 
   try {
@@ -79,10 +79,10 @@ export async function PATCH(request: Request, { params }: Params) {
 
 
     return NextResponse.json(item, { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error patching item:", error);
     return NextResponse.json(
-      { error: "Failed to patch item", details: error.message },
+      { error: "Failed to patch item", details: error },
       { status: 500 }
     );
   }
@@ -91,7 +91,7 @@ export async function PATCH(request: Request, { params }: Params) {
 
 // DELETE /api/item/[id]
 export async function DELETE(request: Request, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
 
 
   try {
@@ -101,10 +101,10 @@ export async function DELETE(request: Request, { params }: Params) {
 
 
     return new NextResponse(null, { status: 204 }); // No content
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error deleting item:", error);
     return NextResponse.json(
-      { error: "Failed to delete item", details: error.message },
+      { error: "Failed to delete item", details: error },
       { status: 500 }
     );
   }

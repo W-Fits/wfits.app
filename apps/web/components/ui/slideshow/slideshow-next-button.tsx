@@ -26,7 +26,7 @@ export function SlideshowNextButton({
   showIcon = true,
   disabled = false
 }: SlideshowNextButtonProps) {
-  const { goToNextStep, canProceed, isLastStep, isLoading, setIsLoading } = useSlideshow()
+  const { goToNextStep, canProceed, isLastStep, isLoading } = useSlideshow()
   const [localLoading, setLocalLoading] = useState(false)
 
   const handleClick = async () => {

@@ -1,7 +1,5 @@
 import { prisma } from "@/lib/prisma";
 import { ExtendedUser } from "../page";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import { notFound } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
@@ -35,9 +33,6 @@ export default async function ProfileFollowingPage({ params }: { params: Promise
   }) as ExtendedUser | null;
 
   if (!profile) return notFound();
-
-  const session = await getServerSession(authOptions);
-  const isCurrentUser = session?.user?.id === profile.user_id;
 
   return (
     <div className="flex flex-col">

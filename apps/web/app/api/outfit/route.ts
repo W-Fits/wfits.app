@@ -33,10 +33,10 @@ export async function GET() {
     });
 
     return NextResponse.json(outfits, { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching outfits:", error);
     return NextResponse.json(
-      { error: "Failed to fetch outfits", details: error.message },
+      { error: "Failed to fetch outfits", details: error },
       { status: 500 }
     );
   }
@@ -59,15 +59,15 @@ export async function POST(request: Request) {
       },
     });
 
-    const items = await prisma.outfitItem.createMany({
+    await prisma.outfitItem.createMany({
       data: [...outfit_items.map((item: Item) => ({ outfit_id: outfit.outfit_id, item_id: item.item_id }))],
     });
 
     return NextResponse.json(outfit, { status: 201 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error creating outfit:", error);
     return NextResponse.json(
-      { error: "Failed to create outfit", details: error.message },
+      { error: "Failed to create outfit", details: error },
       { status: 500 }
     );
   }

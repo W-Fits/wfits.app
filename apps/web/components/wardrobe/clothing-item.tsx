@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
-import { Droplets, Palmtree, Mountain, MapIcon as City, Home, Sun, Snowflake } from "lucide-react"
+import { Droplets, Sun, Snowflake } from "lucide-react"
 import type { Size } from "@/components/shared/size-select"
 import type { Category } from "@/components/shared/category-select"
 import type { Colour } from "@/components/shared/colour-select"

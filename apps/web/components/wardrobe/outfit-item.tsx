@@ -19,8 +19,7 @@ export function OutfitItem({
   categoryName,
   onSelectItem,
   className,
-  edit = false,
-  isPending
+  edit = false
 }: {
   item: ExtendedItem;
   categoryName: string;
@@ -35,7 +34,7 @@ export function OutfitItem({
 
   useEffect(() => {
     fetchCategoryItems();
-  }, [item]);
+  });
 
   const fetchCategoryItems = async () => {
     if (categoryItems.length > 0) return // Don't fetch if we already have items

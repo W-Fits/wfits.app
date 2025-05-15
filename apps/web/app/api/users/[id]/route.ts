@@ -2,12 +2,12 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 interface Params {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 // GET /api/users/[id]
 export async function GET(request: Request, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
 
 
   try {
@@ -22,10 +22,10 @@ export async function GET(request: Request, { params }: Params) {
 
 
     return NextResponse.json(user, { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching user:", error);
     return NextResponse.json(
-      { error: "Failed to fetch user", details: error.message },
+      { error: "Failed to fetch user", details: error },
       { status: 500 }
     );
   }
@@ -34,7 +34,7 @@ export async function GET(request: Request, { params }: Params) {
 
 // PUT /api/users/[id] (Replaces the entire user)
 export async function PUT(request: Request, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
 
 
   try {
@@ -48,10 +48,10 @@ export async function PUT(request: Request, { params }: Params) {
 
 
     return NextResponse.json(user, { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error updating user:", error);
     return NextResponse.json(
-      { error: "Failed to update user", details: error.message },
+      { error: "Failed to update user", details: error },
       { status: 500 }
     );
   }
@@ -60,7 +60,7 @@ export async function PUT(request: Request, { params }: Params) {
 
 // PATCH /api/users/[id] (Updates parts of the user)
 export async function PATCH(request: Request, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
 
 
   try {
@@ -74,10 +74,10 @@ export async function PATCH(request: Request, { params }: Params) {
 
 
     return NextResponse.json(user, { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error patching user:", error);
     return NextResponse.json(
-      { error: "Failed to patch user", details: error.message },
+      { error: "Failed to patch user", details: error },
       { status: 500 }
     );
   }
@@ -86,7 +86,7 @@ export async function PATCH(request: Request, { params }: Params) {
 
 // DELETE /api/users/[id]
 export async function DELETE(request: Request, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
 
 
   try {
@@ -96,10 +96,10 @@ export async function DELETE(request: Request, { params }: Params) {
 
 
     return new NextResponse(null, { status: 204 }); // No content
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error deleting user:", error);
     return NextResponse.json(
-      { error: "Failed to delete user", details: error.message },
+      { error: "Failed to delete user", details: error },
       { status: 500 }
     );
   }

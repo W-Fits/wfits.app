@@ -1,8 +1,7 @@
 "use server";
 
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth";
-import { getAccessToken } from "@/app/api/auth/token/route";
+import { authOptions, getAccessToken } from "@/lib/auth";
 import { Category } from "@/components/shared/category-select";
 import { ExtendedItem } from "@/components/wardrobe/outfit";
 

@@ -22,7 +22,7 @@ export async function deleteItem(itemId: number): Promise<DeleteItemResult> {
       }
     }
 
-    const repsone = await prisma.item.delete({
+    await prisma.item.delete({
       where: {
         user_id: session.user.id,
         item_id: itemId

@@ -7,7 +7,7 @@ import { PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-type PhotoItem = File | string | 'placeholder';
+export type PhotoItem = File | string | 'placeholder';
 
 export function MultiImageUpload({
   photos,
@@ -37,7 +37,7 @@ export function MultiImageUpload({
   const handleAddPhoto = useCallback(() => {
     const currentValidPhotosCount = photos.filter(item => item !== 'placeholder').length;
     if (currentValidPhotosCount < maxPhotos) {
-      const newPhotos = [...photos, 'placeholder' as 'placeholder'];
+      const newPhotos = [...photos, 'placeholder'];
       onPhotosChange(newPhotos);
     }
   }, [photos, onPhotosChange, maxPhotos]);

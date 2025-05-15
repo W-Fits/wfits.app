@@ -8,7 +8,7 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { updateName } from "@/lib/actions/update-name";
-import { Home, PlusCircle, Search, Shirt, User, Check, Router } from "lucide-react";
+import { Home, PlusCircle, Search, Shirt, User } from "lucide-react";
 import { UploadItemQuickAction } from "../wardrobe/upload-item-quick-action";
 import { useRouter } from "next/navigation";
 

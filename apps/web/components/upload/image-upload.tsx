@@ -42,13 +42,6 @@ export function ImageUpload({
     })
   }
 
-  // Function to convert base64 string to File
-  const base64ToFile = async (base64String: string, filename: string, type: string): Promise<File> => {
-    const res = await fetch(base64String)
-    const buf = await res.arrayBuffer()
-    return new File([buf], filename, { type: type })
-  }
-
   // useEffect to initialize the preview when the component mounts
   useEffect(() => {
     if (typeof value === "string" && value) {
@@ -97,8 +90,8 @@ export function ImageUpload({
           setPreview(base64)
           onChange(compressedFile)
         })
-      } catch (error: any) {
-        setError(`Failed to compress image: ${error.message}`)
+      } catch (error) {
+        setError(`Failed to compress image: ${error}`)
       }
     },
     [onChange, maxSizeMB, quality],

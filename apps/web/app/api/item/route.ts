@@ -28,10 +28,10 @@ export async function GET(request: NextRequest) {
       }
     })
     return NextResponse.json(items, { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching items:", error);
     return NextResponse.json(
-      { error: "Failed to fetch items", details: error.message },
+      { error: "Failed to fetch items", details: error },
       { status: 500 }
     );
   }
@@ -52,10 +52,10 @@ export async function POST(request: Request) {
       }
     });
     return NextResponse.json(item, { status: 201 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error creating item:", error);
     return NextResponse.json(
-      { error: "Failed to create item", details: error.message },
+      { error: "Failed to create item", details: error },
       { status: 500 }
     );
   }

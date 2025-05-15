@@ -8,7 +8,6 @@ import Image from "next/image";
 import { LikeOutfitButton } from "./like-outfit-button";
 import { ExtendedOutfit } from "@/app/profile/[username]/page";
 import { ProfilePhoto } from "../shared/profile-photo";
-import { userAgent } from "next/server";
 
 export async function OutfitPost({
   outfit,

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 // GET a users
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const users = await prisma.user.findMany();
 
@@ -13,6 +13,6 @@ export async function GET(request: Request) {
 
     return NextResponse.json(users);
   } catch (error) {
-    return NextResponse.json({ error: "Error fetching user" }, { status: 500 });
+    return NextResponse.json({ error: "Error fetching user", details: error }, { status: 500 });
   }
 }
