@@ -1,14 +1,34 @@
 # Welcome to the wfits.app Documentation
 
-This site documents the core components and utilities powering the **wfits.app** — a modular system designed for processing clothing images, managing cloud storage, and making predictions.
+This documentation covers the main components and utilities of **wfits.app**, a smart clothing recognition and processing platform.
 
-## 📦 Modules Overview
+## Modules
 
-- **main**: Entry point to handle image uploads and coordination of processing.
-- **image**: Utilities for image preprocessing like array conversion, background removal, and color extraction.
-- **predictions**: Functions that load and apply machine learning models for classification.
-- **s3**: Handles interaction with AWS S3 for file uploads and downloads.
-- **files**: Manages local file saving, deletion, and transformations.
+### [Main](clothing_processor/main.md)
+Handles image upload and coordination between utilities.
+
+### [Image Utilities](clothing_processor/utils/image.md)
+Functions for:
+- Converting images to arrays
+- Removing backgrounds
+- Encoding images
+- Extracting RGB/HEX colors
+
+### [Predictions](clothing_processor/utils/predictions.md)
+Applies machine learning models to classify clothing types or detect features.
+
+### [S3 Storage](clothing_processor/utils/s3.md)
+Interacts with AWS S3 for:
+- Uploading processed images
+- Retrieving stored clothing data
+
+### [File Utilities](clothing_processor/utils/files.md)
+Manages local file operations:
+- Saving
+- Deleting
+- Transforming image files
+
+---
 
 ```{toctree}
 :maxdepth: 3
